@@ -1,0 +1,2295 @@
+:root {
+  --bg: #fbf3ea;
+  --fg: #2b1410;
+  --muted: #7e5f55;
+  --surface: #fffdf9;
+  --line: rgba(43, 20, 16, 0.16);
+  --accent: #d1462b;
+  --accent-ink: #fff4ee;
+  --font-display: "Hoefler Text", "Playfair Display", Georgia, serif;
+  --wipe-a: #3d130c;
+  --wipe-b: #d1462b;
+}
+
+/* =========================================================================
+   Saffron & Stone — an evening menu read by candlelight.
+   The page is the menu: leader-dot rows, italic dish lines with right-set
+   prices, sharp ink rectangles for actions, course rules between acts.
+   Shared-shell classes are scoped to body[data-slug="saffron"]; .sa-* and
+   .page-saffron are page-owned and stay unscoped.
+   ========================================================================= */
+
+/* --- browser surfaces ---------------------------------------------------- */
+
+html:has(body[data-slug="saffron"]) {
+  scrollbar-color: var(--fg) var(--bg);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fg);
+  border: 3px solid var(--bg);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
+
+body[data-slug="saffron"] {
+  caret-color: var(--accent);
+}
+
+body[data-slug="saffron"]::selection,
+body[data-slug="saffron"] ::selection {
+  background: color-mix(in srgb, var(--accent) 52%, var(--bg));
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] ::placeholder {
+  color: var(--muted);
+  opacity: 1;
+  font-style: italic;
+}
+
+body[data-slug="saffron"] :focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+body[data-slug="saffron"] .sa-band :focus-visible,
+body[data-slug="saffron"] .wander :focus-visible,
+body[data-slug="saffron"] .sub-cta__inner :focus-visible {
+  outline-color: var(--bg);
+}
+
+body[data-slug="saffron"] h1,
+body[data-slug="saffron"] h2,
+body[data-slug="saffron"] h3,
+body[data-slug="saffron"] h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+/* --- actions: ink rectangle + underlined text link ----------------------- */
+
+body[data-slug="saffron"] .btn {
+  border-radius: 0;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 1.6rem;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease,
+    text-underline-offset 0.16s ease;
+}
+
+body[data-slug="saffron"] .btn:hover {
+  transform: none;
+  box-shadow: none;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .btn:active {
+  transform: none;
+}
+
+body[data-slug="saffron"] .btn--accent {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .btn--accent:hover {
+  background: var(--bg);
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .btn--ghost,
+body[data-slug="saffron"] .btn--ghost:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .btn--ghost {
+  padding: 0.4rem 0;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--fg) 38%, transparent);
+  text-underline-offset: 0.34em;
+}
+
+body[data-slug="saffron"] .btn--ghost:hover {
+  text-decoration-color: var(--fg);
+  text-underline-offset: 0.52em;
+}
+
+body[data-slug="saffron"] .sub-cta__inner .btn--accent {
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-cta__inner .btn--accent:hover {
+  background: transparent;
+  border-color: var(--bg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .sub-cta__inner .btn--ghost {
+  background: transparent;
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .sub-cta__inner .btn--ghost:hover {
+  background: transparent;
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .hero__actions {
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.75rem;
+}
+
+body[data-slug="saffron"] .mini-actions {
+  gap: 1.4rem;
+  margin-top: 1.75rem;
+}
+
+/* --- the random button --------------------------------------------------- */
+
+body[data-slug="saffron"] .random {
+  border-radius: 0;
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  color: var(--bg);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+body[data-slug="saffron"] .random:hover,
+body[data-slug="saffron"] .random:active {
+  transform: none;
+  box-shadow: none;
+  background: var(--bg);
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .random--nav {
+  padding: 0.5rem 0.95rem;
+  font-size: 0.7rem;
+}
+
+body[data-slug="saffron"] .random--big {
+  padding: 1rem 1.7rem;
+  font-size: 0.88rem;
+  letter-spacing: 0.16em;
+}
+
+body[data-slug="saffron"] .random--fab {
+  padding: 0.85rem 1.2rem;
+  font-size: 0.74rem;
+  box-shadow: 0 18px 44px -20px rgba(43, 20, 16, 0.6);
+}
+
+body[data-slug="saffron"] .wander .random--big {
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .wander .random--big:hover {
+  background: transparent;
+  border-color: var(--bg);
+  color: var(--bg);
+}
+
+/* --- nav: the evening masthead ------------------------------------------- */
+
+body[data-slug="saffron"] .nav--saffron {
+  background: var(--bg);
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .nav--saffron::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 1px;
+  background: var(--accent);
+  pointer-events: none;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__inner {
+  min-height: 64px;
+  gap: 1.25rem;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__links {
+  margin-left: 0;
+  gap: 0.4rem clamp(0.9rem, 1.8vw, 1.75rem);
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__link {
+  font-size: 0.73rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.5em;
+  transition: color 0.16s ease, text-decoration-color 0.16s ease, text-underline-offset 0.16s ease;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__link:hover {
+  color: var(--fg);
+  text-decoration-color: var(--fg);
+  text-underline-offset: 0.62em;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__brand {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__brand::after {
+  content: "Dinner from 17:00";
+  font-family: var(--font-body);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+body[data-slug="saffron"] .nav--saffron .nav__tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  border-left: 1px solid var(--line);
+  padding-left: 1rem;
+}
+
+/* --- hero: the menu opened ----------------------------------------------- */
+
+.page-saffron {
+  overflow-x: clip;
+}
+
+.sa-hero {
+  position: relative;
+  text-align: center;
+  padding-top: clamp(3.5rem, 8vw, 6.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.sa-hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -4rem;
+  transform: translateX(-50%);
+  width: min(780px, 100%);
+  height: 32rem;
+  background: radial-gradient(closest-side, rgba(209, 70, 43, 0.13), rgba(209, 70, 43, 0) 74%);
+  pointer-events: none;
+}
+
+.sa-hero__title {
+  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  margin: 0 auto;
+}
+
+.sa-hero__title::after {
+  content: "";
+  display: block;
+  width: min(320px, 54%);
+  height: 1px;
+  background: var(--fg);
+  margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.sa-hero__lede {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--fg);
+  max-width: 44ch;
+  margin: 0 auto clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.sa-service {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto clamp(2.1rem, 4vw, 2.85rem);
+  display: grid;
+  gap: 0.75rem;
+  max-width: 30rem;
+  text-align: left;
+}
+
+.sa-service__row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.sa-service__label {
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sa-service__dots {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 40%, transparent);
+  transform: translateY(-0.3em);
+}
+
+.sa-service__value {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- hearth statement band ------------------------------------------------ */
+
+.sa-marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  padding: clamp(0.9rem, 1.6vw, 1.2rem) 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.sa-marquee__track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: sa-marquee 34s linear infinite;
+}
+
+.sa-marquee__track span {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-right: 1.75rem;
+}
+
+@keyframes sa-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- section rhythm ------------------------------------------------------- */
+
+body[data-slug="saffron"] .lp-block,
+.sa-section {
+  padding: clamp(3.75rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 4.5rem);
+}
+
+body[data-slug="saffron"] .section-head {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  padding-bottom: 1rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .section-head::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 72px;
+  height: 2px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .section-head::after {
+  content: "";
+  order: 2;
+  flex: 1 1 3rem;
+  min-width: 3rem;
+  align-self: baseline;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 40%, transparent);
+  transform: translateY(-0.32em);
+}
+
+body[data-slug="saffron"] .section-title {
+  order: 1;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  margin: 0;
+}
+
+body[data-slug="saffron"] .section-note {
+  order: 3;
+  flex: 0 1 auto;
+  margin-left: auto;
+  max-width: 46ch;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+/* --- the menu ------------------------------------------------------------- */
+
+body[data-slug="saffron"] #menu > .section-head,
+.sa-menu,
+body[data-slug="saffron"] #menu > .mini-actions {
+  width: min(100%, 41rem);
+  margin-inline: auto;
+}
+
+body[data-slug="saffron"] #menu > .mini-actions {
+  justify-content: center;
+  margin-top: 2.25rem;
+}
+
+.sa-menu {
+  display: grid;
+  gap: clamp(2.25rem, 5vw, 3.25rem);
+}
+
+.sa-menu__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 0 0 clamp(1.1rem, 2vw, 1.5rem);
+}
+
+.sa-menu__title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--fg);
+}
+
+.sa-menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.sa-dish {
+  margin: 0;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sa-dish:first-child {
+  padding-top: 0;
+}
+
+.sa-menu__list .sa-dish:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sa-dish__row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.sa-dish__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 2vw, 1.22rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sa-dish__dots {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 42%, transparent);
+  transform: translateY(-0.3em);
+}
+
+.sa-dish__price {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sa-dish__detail {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0.25rem 0 0;
+}
+
+/* --- hearth band: service in leader rows ---------------------------------- */
+
+.sa-band {
+  background: var(--fg);
+  color: var(--bg);
+  border-top: 1px solid var(--accent);
+}
+
+.sa-stats {
+  display: grid;
+  gap: 0;
+  max-width: 46rem;
+  margin-inline: auto;
+  border-top: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
+}
+
+.sa-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 1.1rem 0.15rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 22%, transparent);
+}
+
+.sa-stat__label {
+  order: 1;
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bg) 80%, transparent);
+}
+
+.sa-stat::after {
+  content: "";
+  order: 2;
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--bg) 45%, transparent);
+  transform: translateY(-0.3em);
+}
+
+.sa-stat__value {
+  order: 3;
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.sa-band__note {
+  text-align: center;
+  max-width: 52ch;
+  margin: clamp(2rem, 4vw, 2.75rem) auto 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: color-mix(in srgb, var(--bg) 82%, transparent);
+}
+
+/* --- signature: the table plan -------------------------------------------- */
+
+body[data-slug="saffron"] .sig {
+  padding: clamp(3.75rem, 7vw, 5.5rem) 0;
+}
+
+.sa-table {
+  position: relative;
+  width: min(100%, 46rem);
+  margin-inline: auto;
+  border: 1px solid var(--fg);
+  background: var(--surface);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.sa-table::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.sa-table__head {
+  text-align: center;
+  max-width: 58ch;
+  margin: 0 auto clamp(1.6rem, 3vw, 2.1rem);
+}
+
+.sa-table__head::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--fg);
+  margin: 1.15rem auto 0;
+}
+
+.sa-table__kicker {
+  margin: 0 0 0.9rem;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sa-table__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.55rem;
+}
+
+.sa-table__lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.sa-table__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.3rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+
+.sa-table__days {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.sa-table__legend {
+  padding: 0;
+  margin-bottom: 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sa-table__dayrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.sa-day {
+  position: relative;
+  cursor: pointer;
+}
+
+.sa-day input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.sa-day span {
+  display: inline-block;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.sa-day:hover span {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+.sa-day input:checked + span {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.sa-day input:focus-visible + span {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+.sa-table__party {
+  flex: 1 1 240px;
+  margin: 0;
+}
+
+.sa-table__party label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sa-table__party output {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.sa-table__party input[type="range"] {
+  width: 100%;
+  margin-top: 0.6rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.sa-table__party input[type="range"]:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+.sa-table__slots {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.sa-slot {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.95rem 0.3rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sa-slot::after {
+  content: "";
+  order: 2;
+  flex: 1 1 auto;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 40%, transparent);
+  transform: translateY(-0.3em);
+}
+
+.sa-slot:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.sa-slot:hover:not(:disabled)::after {
+  border-bottom-color: var(--accent);
+}
+
+.sa-slot:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
+
+.sa-slot__time {
+  order: 1;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sa-slot__state {
+  order: 3;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sa-slot--available .sa-slot__state {
+  color: var(--fg);
+}
+
+.sa-slot--waitlist {
+  border-bottom-style: dotted;
+}
+
+.sa-slot--full {
+  color: color-mix(in srgb, var(--fg) 65%, transparent);
+}
+
+.sa-slot:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sa-slot.is-picked {
+  background: var(--fg);
+  border-bottom-color: var(--fg);
+  color: var(--bg);
+}
+
+.sa-slot.is-picked::after {
+  border-bottom-color: color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+.sa-slot.is-picked .sa-slot__state {
+  color: color-mix(in srgb, var(--bg) 80%, transparent);
+}
+
+.sa-table__note {
+  margin: 1.3rem 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.02rem, 2.2vw, 1.18rem);
+  color: var(--fg);
+}
+
+.sa-table__chosen {
+  margin: 0.5rem 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sa-table__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.6rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--fg);
+}
+
+.sa-table__hint {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.sa-table__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 650;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.sa-table__cta:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.sa-table__cta:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+/* --- more pages / related: menu rows -------------------------------------- */
+
+body[data-slug="saffron"] .more-pages {
+  padding-top: clamp(3.25rem, 6vw, 4.75rem);
+}
+
+body[data-slug="saffron"] .more-pages > .section-head,
+body[data-slug="saffron"] .lp-block > .section-head,
+body[data-slug="saffron"] .lp-block > .faq,
+body[data-slug="saffron"] .lp-block > .lp-form,
+body[data-slug="saffron"] .lp-block > .related__grid,
+body[data-slug="saffron"] .more-pages > .more-pages__grid,
+body[data-slug="saffron"] .wrap > .mini-actions {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+}
+
+body[data-slug="saffron"] .more-pages__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+body[data-slug="saffron"] .more-pages__card {
+  display: grid;
+  grid-template-columns: max-content minmax(2rem, 1fr) max-content;
+  grid-template-areas:
+    "name leader cta"
+    "kick note note";
+  column-gap: 0.85rem;
+  row-gap: 0.4rem;
+  align-items: baseline;
+  padding: 1.4rem 0.2rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .more-pages__card::before {
+  content: "";
+  position: static;
+  inset: auto;
+  height: 0;
+  background: transparent;
+  border-radius: 0;
+  grid-area: leader;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 42%, transparent);
+}
+
+body[data-slug="saffron"] .more-pages__card:hover {
+  transform: none;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+body[data-slug="saffron"] .more-pages__name {
+  grid-area: name;
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .more-pages__card:hover .more-pages__name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  text-decoration-color: var(--accent);
+}
+
+body[data-slug="saffron"] .more-pages__cta {
+  grid-area: cta;
+  margin-top: 0;
+  padding-top: 0;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+body[data-slug="saffron"] .more-pages__card:hover .more-pages__cta {
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .more-pages__kicker {
+  grid-area: kick;
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .more-pages__note {
+  grid-area: note;
+  margin-top: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .more-pages__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 1.1rem 0.2rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .more-pages__link > span[aria-hidden="true"] {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+}
+
+body[data-slug="saffron"] .more-pages__link > span[aria-hidden="true"]::before {
+  content: "";
+  flex: 1 1 auto;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 42%, transparent);
+  transform: translateY(-0.3em);
+}
+
+body[data-slug="saffron"] .more-pages__link .more-pages__name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .more-pages__link:hover {
+  transform: none;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  border-color: var(--line);
+}
+
+body[data-slug="saffron"] .related__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+body[data-slug="saffron"] .related__card {
+  display: grid;
+  grid-template-columns: max-content minmax(2rem, 1fr) max-content;
+  grid-template-areas:
+    "name leader arrow"
+    "kick tag tag";
+  column-gap: 0.85rem;
+  row-gap: 0.4rem;
+  align-items: baseline;
+  padding: 1.4rem 0.2rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .related__card::before {
+  content: "";
+  grid-area: leader;
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 42%, transparent);
+}
+
+body[data-slug="saffron"] .related__card::after {
+  content: "\2192";
+  grid-area: arrow;
+  font-size: 1.05rem;
+  color: var(--muted);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="saffron"] .related__card:hover {
+  transform: none;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+body[data-slug="saffron"] .related__card:hover::after {
+  transform: translateX(4px);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .related__card:hover .related__name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  text-decoration-color: var(--accent);
+}
+
+body[data-slug="saffron"] .related__label {
+  grid-area: kick;
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .related__name {
+  grid-area: name;
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .related__tagline {
+  grid-area: tag;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* --- faq: menu annotations ------------------------------------------------ */
+
+body[data-slug="saffron"] .faq {
+  gap: 0;
+  max-width: 820px;
+  border-top: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .faq__item {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0;
+}
+
+body[data-slug="saffron"] .faq__q {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.08rem, 2.1vw, 1.28rem);
+  letter-spacing: 0;
+  line-height: 1.35;
+  padding: 1.2rem 2.75rem 1.2rem 0.15rem;
+}
+
+body[data-slug="saffron"] .faq__q::after {
+  content: "+";
+  position: absolute;
+  right: 0.15rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .faq__item[open] .faq__q::after {
+  content: "\2013";
+}
+
+body[data-slug="saffron"] .faq__item[open] .faq__q::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  bottom: 0;
+  width: 44px;
+  height: 2px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .faq__a {
+  color: var(--muted);
+  max-width: 68ch;
+  margin: 0;
+  padding: 0.9rem 2.75rem 1.4rem 0.15rem;
+  line-height: 1.62;
+}
+
+/* --- enquiry: the reservation ledger -------------------------------------- */
+
+body[data-slug="saffron"] .lp-form {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+body[data-slug="saffron"] .lp-form::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .lp-form__grid {
+  gap: 1.4rem 2rem;
+}
+
+body[data-slug="saffron"] .field {
+  gap: 0.4rem;
+}
+
+body[data-slug="saffron"] .field__label {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .field__req {
+  color: color-mix(in srgb, var(--accent) 74%, var(--fg));
+}
+
+body[data-slug="saffron"] .field__input {
+  font: inherit;
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 45%, transparent);
+  border-radius: 0;
+  padding: 0.45rem 0.1rem;
+  width: 100%;
+  caret-color: var(--accent);
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .field__input:hover {
+  border-bottom-color: var(--fg);
+}
+
+body[data-slug="saffron"] .field__input:focus {
+  outline: none;
+  border-color: transparent;
+  border-bottom-color: var(--fg);
+  box-shadow: none;
+}
+
+body[data-slug="saffron"] .field__input:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 4px;
+}
+
+body[data-slug="saffron"] select.field__input {
+  cursor: pointer;
+}
+
+body[data-slug="saffron"] textarea.field__input {
+  min-height: 110px;
+  resize: vertical;
+}
+
+body[data-slug="saffron"] .lp-form__foot {
+  align-items: center;
+  gap: 1.1rem 1.6rem;
+  margin-top: 1.75rem;
+}
+
+body[data-slug="saffron"] .lp-form__note {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-style: italic;
+  max-width: 54ch;
+}
+
+body[data-slug="saffron"] .lp-form__status {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  font-size: 0.95rem;
+}
+
+body[data-slug="saffron"] .lp-form__status.is-ok {
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .lp-form__status.is-error {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--fg));
+  color: color-mix(in srgb, var(--accent) 55%, var(--fg));
+}
+
+/* --- booking panel --------------------------------------------------------- */
+
+body[data-slug="saffron"] .bk {
+  border: 0;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  border-radius: 0;
+  background: transparent;
+  padding: clamp(1.3rem, 3vw, 1.75rem) 0;
+  margin: 0 0 1.85rem;
+}
+
+body[data-slug="saffron"] .bk__kicker {
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.55rem;
+}
+
+body[data-slug="saffron"] .bk__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 600;
+  margin: 0 0 0.45rem;
+}
+
+body[data-slug="saffron"] .bk__lede {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 62ch;
+}
+
+body[data-slug="saffron"] .bk__rail {
+  gap: 0.5rem 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .bk__rail-n {
+  display: inline-block;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.12rem 0.45rem;
+  margin-right: 0.55rem;
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+body[data-slug="saffron"] .bk-group__legend {
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .bk-opt {
+  border-radius: 0;
+  background: transparent;
+  border-color: color-mix(in srgb, var(--fg) 32%, transparent);
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="saffron"] .bk-opt__label {
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+body[data-slug="saffron"] .bk-opt:hover {
+  border-color: var(--fg);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+body[data-slug="saffron"] .bk-opt.is-on {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .bk-opt.is-on .bk-opt__note {
+  color: color-mix(in srgb, var(--bg) 80%, transparent);
+  opacity: 1;
+}
+
+body[data-slug="saffron"] .bk-day {
+  border-radius: 0;
+  min-height: 2.65rem;
+}
+
+body[data-slug="saffron"] .bk-day.is-open:hover {
+  border-color: var(--accent);
+}
+
+body[data-slug="saffron"] .bk-day.is-on {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .bk-cal__note {
+  font-style: italic;
+}
+
+body[data-slug="saffron"] .bk-cal__picked {
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .bk-step__ctrl {
+  border-radius: 0;
+}
+
+body[data-slug="saffron"] .bk-step__btn:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+body[data-slug="saffron"] .bk__summary {
+  border-top: 1px solid var(--line);
+  letter-spacing: 0.02em;
+}
+
+body[data-slug="saffron"] .bk__summary.is-empty {
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+body[data-slug="saffron"] .bk__foot {
+  font-style: italic;
+}
+
+body[data-slug="saffron"] .bk--table {
+  border-top-style: solid;
+  border-bottom-style: solid;
+}
+
+body[data-slug="saffron"] .bk--table .bk__title {
+  font-style: italic;
+}
+
+/* --- wander: the ink-stamped next service --------------------------------- */
+
+body[data-slug="saffron"] .wander {
+  background: var(--fg);
+  color: var(--bg);
+  border-top: 1px solid var(--accent);
+  border-bottom: 0;
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0;
+  text-align: center;
+}
+
+body[data-slug="saffron"] .wander__kicker {
+  display: none;
+}
+
+body[data-slug="saffron"] .wander__title {
+  color: var(--bg);
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  margin: 0 0 0.4em;
+}
+
+body[data-slug="saffron"] .wander__text {
+  color: color-mix(in srgb, var(--bg) 78%, transparent);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 54ch;
+  margin: 0 auto 2.1rem;
+}
+
+/* --- footer: the back page of the menu ------------------------------------ */
+
+body[data-slug="saffron"] .footer--saffron {
+  position: relative;
+  border-top: 1px solid var(--fg);
+  padding-top: clamp(2.75rem, 5vw, 3.75rem);
+}
+
+body[data-slug="saffron"] .footer--saffron::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 1px;
+  background: var(--accent);
+  pointer-events: none;
+}
+
+body[data-slug="saffron"] .footer__center {
+  gap: 0.7rem;
+  margin-bottom: 2.25rem;
+}
+
+body[data-slug="saffron"] .footer__mega-sm {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0.4rem 0 0.35rem;
+}
+
+body[data-slug="saffron"] .footer__inline--big {
+  gap: 0.6rem 1.75rem;
+  justify-content: center;
+}
+
+body[data-slug="saffron"] .footer__inline--big a {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--fg) 35%, transparent);
+  text-underline-offset: 0.45em;
+  transition: text-underline-offset 0.16s ease, text-decoration-color 0.16s ease;
+}
+
+body[data-slug="saffron"] .footer__inline--big a:hover {
+  text-underline-offset: 0.62em;
+  text-decoration-color: var(--fg);
+}
+
+body[data-slug="saffron"] .footer__service {
+  position: relative;
+  margin: 1rem 0 0;
+  padding-top: 0.95rem;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .footer__service::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 2px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .footer__addr {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+body[data-slug="saffron"] .footer__bar {
+  justify-content: center;
+  border-top: 1px solid var(--line);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .footer__inline a {
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+body[data-slug="saffron"] .footer__inline a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+/* --- modal ---------------------------------------------------------------- */
+
+body[data-slug="saffron"] .lp-modal {
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: 0 40px 90px -40px rgba(43, 20, 16, 0.7);
+}
+
+body[data-slug="saffron"] .lp-modal::backdrop {
+  background: rgba(43, 20, 16, 0.6);
+}
+
+body[data-slug="saffron"] .lp-modal__bar {
+  position: relative;
+  padding: 0.95rem 1rem 0.95rem 1.5rem;
+  border-bottom: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .lp-modal__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .lp-modal__brand {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .lp-modal__close {
+  border-radius: 0;
+  border-color: color-mix(in srgb, var(--fg) 35%, transparent);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .lp-modal__close:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .lp-modal__body {
+  padding: 1.65rem 1.6rem 1.9rem;
+}
+
+body[data-slug="saffron"] .lp-modal__body h1,
+body[data-slug="saffron"] .lp-modal__body h2,
+body[data-slug="saffron"] .lp-modal__body h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+body[data-slug="saffron"] .lp-modal__body p {
+  line-height: 1.6;
+}
+
+body[data-slug="saffron"] .lp-modal__body ul {
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+}
+
+body[data-slug="saffron"] .lp-modal__body ul li {
+  font-family: var(--font-display);
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+body[data-slug="saffron"] .lp-modal__body ul li::before {
+  content: "\2014";
+  color: var(--accent);
+}
+
+/* --- lightbox -------------------------------------------------------------- */
+
+body[data-slug="saffron"] .lightbox__backdrop {
+  background: rgba(43, 20, 16, 0.72);
+}
+
+body[data-slug="saffron"] .lightbox__dialog {
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  box-shadow: 0 50px 90px -50px rgba(43, 20, 16, 0.9);
+}
+
+body[data-slug="saffron"] .lightbox__close {
+  border-radius: 0;
+  border-color: color-mix(in srgb, var(--fg) 35%, transparent);
+}
+
+body[data-slug="saffron"] .lightbox__close:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .lightbox__art {
+  border-radius: 0;
+  background: var(--fg);
+  border-bottom: 3px solid var(--accent);
+  color: color-mix(in srgb, var(--bg) 85%, transparent);
+  letter-spacing: 0.2em;
+}
+
+body[data-slug="saffron"] .lightbox__tag {
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+body[data-slug="saffron"] .lightbox__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+body[data-slug="saffron"] .lightbox__text {
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+body[data-slug="saffron"] .lightbox__cta {
+  border-radius: 0;
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  color: var(--bg);
+  font-weight: 650;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+body[data-slug="saffron"] .lightbox__cta:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* --- toasts ---------------------------------------------------------------- */
+
+body[data-slug="saffron"] .toast {
+  border-radius: 0;
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  border-top: 3px solid var(--accent);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  box-shadow: 0 24px 45px -25px rgba(43, 20, 16, 0.75);
+}
+
+/* --- sub pages ------------------------------------------------------------- */
+
+body[data-slug="saffron"] .crumbs {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.9rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.4rem);
+}
+
+body[data-slug="saffron"] .crumbs a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .crumbs a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--fg);
+}
+
+body[data-slug="saffron"] .crumbs span[aria-hidden="true"] {
+  color: var(--accent);
+}
+
+body[data-slug="saffron"] .crumbs [aria-current="page"] {
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-hero {
+  position: relative;
+  border-bottom: 0;
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+body[data-slug="saffron"] .sub-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-hero__kicker {
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .sub-hero__title {
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  letter-spacing: -0.03em;
+  margin: 0.3em 0 0.35em;
+}
+
+body[data-slug="saffron"] .sub-hero__title::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 1px;
+  background: var(--fg);
+  margin-top: 1.15rem;
+}
+
+body[data-slug="saffron"] .sub--story .sub-hero__title::after {
+  margin-inline: auto;
+}
+
+body[data-slug="saffron"] .sub-hero__lede {
+  max-width: 58ch;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.06rem;
+  line-height: 1.6;
+}
+
+body[data-slug="saffron"] .sub-hero .hero__actions {
+  align-items: center;
+  gap: 1rem 1.75rem;
+}
+
+body[data-slug="saffron"] .sub-stats {
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--line);
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+  margin-top: 2.3rem;
+  gap: clamp(1.25rem, 4vw, 3rem);
+}
+
+body[data-slug="saffron"] .sub-stats__item dt {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="saffron"] .sub-stats__item dd {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="saffron"] .sub-body {
+  padding-top: clamp(3rem, 7vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+body[data-slug="saffron"] .sub--log .sub-stats,
+body[data-slug="saffron"] .sub--log .sub-stats__item dd {
+  font-family: var(--font-display);
+}
+
+body[data-slug="saffron"] .sub-p {
+  color: var(--muted);
+  max-width: 70ch;
+  line-height: 1.68;
+}
+
+body[data-slug="saffron"] .sub-sec__list li {
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-sec__list li::before {
+  content: "\2014";
+  color: var(--accent);
+}
+
+body[data-slug="saffron"] .sub-steps__item {
+  border-radius: 0;
+  border-color: var(--line);
+  background: transparent;
+}
+
+body[data-slug="saffron"] .sub-steps__n {
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+body[data-slug="saffron"] .sub-table-wrap {
+  border-radius: 0;
+  border-color: var(--fg);
+  background: var(--surface);
+}
+
+body[data-slug="saffron"] .sub-table {
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="saffron"] .sub-table th {
+  color: var(--fg);
+  border-bottom: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .sub-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+body[data-slug="saffron"] .sub-quote {
+  border-left: 0;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  padding: 1.2rem 0;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+body[data-slug="saffron"] .sub-quote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-note {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-toc {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--fg);
+  background: var(--surface);
+}
+
+body[data-slug="saffron"] .sub-toc__title {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.7rem;
+}
+
+body[data-slug="saffron"] .sub-toc__list a {
+  border-left: 0;
+  padding-left: 0;
+  margin-left: 0;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+}
+
+body[data-slug="saffron"] .sub-toc__list a::before {
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+body[data-slug="saffron"] .sub-toc__list a:hover,
+body[data-slug="saffron"] .sub-toc__back:hover {
+  color: var(--fg);
+  border-left-color: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+body[data-slug="saffron"] .sub-sec {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--fg);
+  background: var(--surface);
+}
+
+body[data-slug="saffron"] .sub-sec__num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 85%, transparent);
+}
+
+body[data-slug="saffron"] .sub-sec h2,
+body[data-slug="saffron"] .sub-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+body[data-slug="saffron"] .ledger {
+  border-top: 1px solid var(--fg);
+}
+
+body[data-slug="saffron"] .ledger__row {
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-slug="saffron"] .ledger__num {
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+body[data-slug="saffron"] .ledger__title {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+body[data-slug="saffron"] .story-sec {
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-slug="saffron"] .story-sec__kicker {
+  display: inline-block;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+body[data-slug="saffron"] .story-sec__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+body[data-slug="saffron"] .sub--story .sub-hero__lede::first-letter {
+  color: var(--accent);
+}
+
+body[data-slug="saffron"] .sub-card {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--fg);
+  background: var(--surface);
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="saffron"] .sub-card:hover {
+  transform: none;
+  border-color: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-card__num {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--fg);
+  font-weight: 750;
+}
+
+body[data-slug="saffron"] .sub-cta {
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+body[data-slug="saffron"] .sub-cta__inner {
+  position: relative;
+  border-radius: 0;
+  background: var(--fg);
+}
+
+body[data-slug="saffron"] .sub-cta__inner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+body[data-slug="saffron"] .sub-cta__inner .section-title {
+  color: var(--bg);
+}
+
+body[data-slug="saffron"] .sub-cta__inner .section-note {
+  color: color-mix(in srgb, var(--bg) 76%, transparent);
+  font-style: italic;
+}
+
+/* --- responsive ------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+  body[data-slug="saffron"] .nav--saffron .nav__brand {
+    margin-left: 0;
+    margin-right: auto;
+    align-items: flex-start;
+  }
+
+  body[data-slug="saffron"] .nav--saffron .nav__tag {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  body[data-slug="saffron"] .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  body[data-slug="saffron"] .section-head::after {
+    display: none;
+  }
+
+  body[data-slug="saffron"] .section-note {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  body[data-slug="saffron"] .footer__bar {
+    justify-content: center;
+  }
+
+  .sa-service {
+    max-width: 100%;
+  }
+
+  .sa-stat {
+    gap: 0.6rem;
+  }
+
+  .sa-stat::after {
+    min-width: 1rem;
+  }
+}
+
+@media (max-width: 680px) {
+  body[data-slug="saffron"] .more-pages__card {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas:
+      "name cta"
+      "kick kick"
+      "note note";
+  }
+
+  body[data-slug="saffron"] .more-pages__card::before {
+    display: none;
+  }
+
+  body[data-slug="saffron"] .related__card {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas:
+      "name arrow"
+      "kick kick"
+      "tag tag";
+  }
+
+  body[data-slug="saffron"] .related__card::before {
+    display: none;
+  }
+
+  body[data-slug="saffron"] .faq__q,
+  body[data-slug="saffron"] .faq__a {
+    padding-right: 2.1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sa-table__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sa-table__foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sa-table__party {
+    flex-basis: auto;
+  }
+
+  .sa-slot {
+    padding-inline: 0.1rem;
+  }
+
+  .sa-dish__row {
+    gap: 0.5rem;
+  }
+}

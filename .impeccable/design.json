@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T16:45:00+03:30",
+  "title": "Design System: Ten Landings",
+  "extensions": {
+    "colorMeta": {
+      "shell-paper": {
+        "role": "neutral",
+        "displayName": "Studio Warm Paper",
+        "canonical": "oklch(98.5% 0.003 85)",
+        "tonalRamp": ["#0b0b0b", "#252524", "#434240", "#62615f", "#838280", "#a6a5a3", "#c9c9c8", "#eeeeee"]
+      },
+      "shell-ink": {
+        "role": "primary",
+        "displayName": "Studio Ink Black",
+        "canonical": "oklch(20.6% 0.006 286)",
+        "tonalRamp": ["#0b0b0c", "#252527", "#424245", "#616164", "#828286", "#a5a5a8", "#c9c9cb", "#eeeeef"]
+      },
+      "signal-lime": {
+        "role": "secondary",
+        "displayName": "Signal Lime",
+        "canonical": "oklch(90% 0.191 123)",
+        "tonalRamp": ["#080e00", "#1f2a00", "#394900", "#546c00", "#719000", "#93b439", "#bcd48c", "#eaf2dc"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(23, 23, 26, 0.12)"
+      },
+      "roastery-accent": {
+        "role": "primary",
+        "displayName": "Roastery Ember",
+        "canonical": "oklch(55% 0.14 45)",
+        "tonalRamp": ["#2a1a10", "#5c3116", "#8a4319", "#b4551f", "#c9743d", "#dba268", "#ecd0a6", "#f8f2e9"]
+      },
+      "forge-accent": {
+        "role": "primary",
+        "displayName": "Forge Lime",
+        "canonical": "oklch(90% 0.191 123)",
+        "tonalRamp": ["#101208", "#2c3308", "#4f5c10", "#719000", "#c6f24e", "#d5f577", "#e6f9a8", "#f2fce0"]
+      },
+      "haven-accent": {
+        "role": "primary",
+        "displayName": "Haven Forest",
+        "canonical": "oklch(42% 0.09 160)",
+        "tonalRamp": ["#12241c", "#173a2c", "#1b4b38", "#1f5c46", "#3d7a62", "#6a9a86", "#a3c1b1", "#e8f2ec"]
+      },
+      "brightside-accent": {
+        "role": "primary",
+        "displayName": "Brightside Teal",
+        "canonical": "oklch(58% 0.1 195)",
+        "tonalRamp": ["#0b4b50", "#0c6169", "#0d7880", "#0e8f96", "#3aa8ad", "#72c2c6", "#a5d9db", "#e0f2f3"]
+      },
+      "verity-accent": {
+        "role": "primary",
+        "displayName": "Verity Gold",
+        "canonical": "oklch(70% 0.12 95)",
+        "tonalRamp": ["#14130c", "#3d3413", "#6b5a1a", "#c9a227", "#d4b452", "#e0c67d", "#ebd8a8", "#f7f0d8"]
+      },
+      "saffron-accent": {
+        "role": "primary",
+        "displayName": "Saffron Ember",
+        "canonical": "oklch(58% 0.17 35)",
+        "tonalRamp": ["#3d130c", "#6b2315", "#9c3420", "#d1462b", "#dd6a4f", "#e89377", "#f2bc9f", "#fbf3ea"]
+      },
+      "wanderly-accent": {
+        "role": "primary",
+        "displayName": "Wanderly Route Blue",
+        "canonical": "oklch(50% 0.17 255)",
+        "tonalRamp": ["#0a2f66", "#0e448f", "#1257b3", "#1667d8", "#4589e2", "#78abeb", "#a8c9f2", "#e0ecfb"]
+      },
+      "loop-accent": {
+        "role": "primary",
+        "displayName": "Loop Violet",
+        "canonical": "oklch(55% 0.2 285)",
+        "tonalRamp": ["#241a55", "#3d2f8a", "#5540c0", "#6d4df6", "#8a70f8", "#a993fa", "#c7b6fc", "#ece6ff"]
+      },
+      "lumen-accent": {
+        "role": "primary",
+        "displayName": "Lumen Carbon",
+        "canonical": "oklch(20% 0 0)",
+        "tonalRamp": ["#111113", "#232326", "#3a3a3e", "#55555a", "#77777d", "#9b9ba1", "#c5c5ca", "#fafafa"]
+      },
+      "atelier-accent": {
+        "role": "primary",
+        "displayName": "Atelier Rose",
+        "canonical": "oklch(78% 0.05 10)",
+        "tonalRamp": ["#1c1416", "#4a3438", "#7a6a6e", "#a98f94", "#d8a7b0", "#e4bfc6", "#eed4d8", "#faf6f5"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and mega-footer scale; the family is per-world via --font-display." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (clamp 1.7–2.45rem)." },
+      "title": { "displayName": "Title", "purpose": "Card names and sub-headings in the display face." },
+      "body": { "displayName": "Body", "purpose": "All running text; 17px desktop, 16px at ≤760px." },
+      "label": { "displayName": "Label", "purpose": "Form labels: uppercase, muted, accent required-mark." },
+      "kicker": { "displayName": "Kicker", "purpose": "Tracked small-caps eyebrows, card labels, world captions." },
+      "caption": { "displayName": "Caption", "purpose": "Micro-labels, coordinate stamps, rebate text." },
+      "fine": { "displayName": "Fine", "purpose": "The smallest legal label: units, tick captions, stub links." },
+      "mono": { "displayName": "Mono", "purpose": "Genuine readings and units only." }
+    },
+    "shadows": [
+      { "name": "shell-button-lift", "value": "0 14px 34px -16px rgba(0, 0, 0, 0.7)", "purpose": "Studio-shell accent button hover (index/404)." },
+      { "name": "shell-fab-float", "value": "0 18px 44px -18px rgba(0, 0, 0, 0.65)", "purpose": "The fixed prev/next FAB pair at rest in the studio shell." },
+      { "name": "shell-card-lift", "value": "0 26px 50px -34px rgba(0, 0, 0, 0.75)", "purpose": "Studio-shell card hover." },
+      { "name": "dialog", "value": "0 40px 90px -40px rgba(0, 0, 0, 0.6)", "purpose": "Modals; lightbox dialogs use 0 50px 90px -50px rgba(0, 0, 0, 0.9)." },
+      { "name": "focus-ring", "value": "0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent)", "purpose": "Input focus ring in the studio shell; worlds theme their own." }
+    ],
+    "motion": [
+      { "name": "shell-state", "value": "0.15s ease", "purpose": "Studio-shell color and border transitions." },
+      { "name": "shell-lift", "value": "0.16s ease", "purpose": "Studio-shell button transform + shadow; cards 0.18s; prev/next arrows do not spin." },
+      { "name": "wipe-grow", "value": "480ms cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Circle wipe clip-path growth from the click point to 150vmax." },
+      { "name": "wipe-fade", "value": "220ms ease", "purpose": "Circle wipe opacity reveal of the next page." },
+      { "name": "reduced-motion", "value": "0.001ms !important", "purpose": "Global prefers-reduced-motion override." }
+    ],
+    "breakpoints": [
+      { "name": "lg", "value": "860px" },
+      { "name": "md", "value": "760px" },
+      { "name": "sm", "value": "620px" },
+      { "name": "xs", "value": "480px" }
+    ],
+    "worlds": [
+      { "slug": "roastery", "page": "Ember & Oak", "material": "Batch docket: dotted leaders, rotated stamps, clip-path corner cuts", "radius": "4px dockets", "physics": "letterpress press-down" },
+      { "slug": "forge", "page": "Ironclad Strength", "material": "Scoresheet: lime board, cell dividers, 0px everywhere", "radius": "0px", "physics": "snap, no lift" },
+      { "slug": "haven", "page": "Haven & Vale", "material": "Survey report: corner ticks, leader lines, outline-fill hover", "radius": "2–4px plates", "physics": "outline fill" },
+      { "slug": "brightside", "page": "Brightside Dental", "material": "Porcelain sample card: sweep-up fill, swatch dots", "radius": "10px", "physics": "sweep-up fill" },
+      { "slug": "verity", "page": "Verity & Hale", "material": "Closing binder: gold double rules, engraved plates", "radius": "0–2px", "physics": "flat fill, no lift" },
+      { "slug": "saffron", "page": "Saffron & Stone", "material": "Evening menu: leader dots, ink-rect invert, ticker", "radius": "0px", "physics": "ink invert" },
+      { "slug": "wanderly", "page": "Wanderly Travel Co.", "material": "Route dossier: dashes, stamps, notched ticket stubs", "radius": "3–6px", "physics": "shift along route + rotate" },
+      { "slug": "loop", "page": "Loopmetric", "material": "Calibration sheet: graph paper, tick rulers, arrow buttons", "radius": "6px", "physics": "arrow slide" },
+      { "slug": "lumen", "page": "Lumen Studio", "material": "Contact sheet: carbon rebate strips, EV scale, monochrome", "radius": "0px", "physics": "invert, no shadow" },
+      { "slug": "atelier", "page": "Atelier Noir", "material": "Spec sheet: dimension callouts, ruled text buttons", "radius": "0–2px", "physics": "underline/tone only" }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "The Type Foundry Doors",
+    "overview": "Behind one studio door, ten rooms — each built for the business that lives in it. The binding craft is that every room is a committed world with its own material, geometry, and physics, while the machinery underneath (routing, forms, dialogs, the circle wipe) keeps working untouched. Shared machinery stays quiet: Warm Paper under Ink Black, one system sans body stack, hairline structure, the 1120px container, and exactly one theatrical moment — the 480ms circle wipe. Each business page re-skins every shared surface inside its own page stylesheet, scoped under body[data-slug]. Identity lives in geometry and motion as much as in color.",
+    "keyCharacteristics": [
+      "Ten page worlds + one studio shell; each world owns palette, display face, radii, hover physics, and component skins",
+      "One active page stylesheet per route, loaded by swapping a single <link data-page-css>; sub pages inherit their parent world",
+      "Shell-class overrides are scoped body[data-slug=\"…\"]; shared component markup and JS hooks never change",
+      "System font stacks only; the per-world display face is the personality knob",
+      "One theatrical moment: the circle wipe; each world gets one authored motion moment of its own"
+    ],
+    "rules": [
+      { "name": "The World-Scoped Rule", "body": "A world restyles shared surfaces only through rules scoped body[data-slug=\"…\"] in its own page stylesheet. The shared shell and component JS never change to serve a world.", "section": "colors" },
+      { "name": "The Wipe-Pair Rule", "body": "Every world ships a --wipe-a / --wipe-b pair — dark pole and accent pole of the circle wipe. Frozen in :root, byte-identical to the original set.", "section": "colors" },
+      { "name": "The Display-Swap Rule", "body": "--font-display is the per-world personality knob; --font-body is never overridden. One body, many faces.", "section": "typography" },
+      { "name": "The 1120 Rule", "body": "Content lives inside min(100% - 2.5rem, 1120px); full-bleed is for bands and dividers.", "section": "layout" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Depth appears only as response — in the physics the world has chosen.", "section": "elevation" },
+      { "name": "The Owned-Geometry Rule", "body": "Radius and border language belong to the world. Do not import another world's silhouette.", "section": "shapes" },
+      { "name": "The One Circle, One Play Rule", "body": "The circle wipe is the page transition. Never add a second spectacle beside it.", "section": "components" },
+      { "name": "The Hooks-Fixed Rule", "body": "Worlds re-skin; they never rename DOM hooks or edit shared JS.", "section": "components" }
+    ],
+    "dos": [
+      "**Do** express a world through its page stylesheet scoped body[data-slug=\"…\"], keeping the :root token block byte-identical.",
+      "**Do** re-skin every shared surface a page actually renders — nav, buttons, cards, FAQ, form, footer, more-pages, modal, lightbox, toasts, booking.",
+      "**Do** keep content inside min(100% - 2.5rem, 1120px) and honor prefers-reduced-motion.",
+      "**Do** theme browser surfaces per world: ::selection, focus-visible, ::placeholder, caret-color, scrollbar.",
+      "**Do** keep one authored motion moment per world and make the rest utilitarian.",
+      "**Do** give every literal in a world a home in the DESIGN.md colors, type ramp, or radius scale — or record it as content."
+    ],
+    "donts": [
+      "**Don't** edit app.css, src/components/**, or public/assets/js/** to serve a world.",
+      "**Don't** let one world's motif leak into another (dotted leaders, corner ticks, gold double rules, dashes/stamps, tick rulers, rebate strips, dimension lines each belong to exactly one world).",
+      "**Don't** add webfonts or a font CDN; the system runs on local/system families only.",
+      "**Don't** add a second page-transition spectacle — one circle, one play.",
+      "**Don't** use bounce or elastic easing; real objects decelerate smoothly.",
+      "**Don't** drop body text contrast below 4.5:1 or use accents as small text on their own paper."
+    ]
+  }
+}

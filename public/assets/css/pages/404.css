@@ -1,0 +1,44 @@
+:root {
+  --bg: #101014;
+  --fg: #f2f1ee;
+  --muted: #9b9ba5;
+  --surface: #17171d;
+  --line: rgba(242, 241, 238, 0.16);
+  --accent: #c6f24e;
+  --accent-ink: #101014;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --wipe-a: #101014;
+  --wipe-b: #c6f24e;
+}
+
+.lost {
+  padding: clamp(4rem, 12vw, 8rem) 0 clamp(3rem, 8vw, 5rem);
+  text-align: center;
+}
+
+.lost__code {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(5rem, 20vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  margin: 0 0 0.2em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--fg);
+}
+
+.lost__title {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  max-width: 20ch;
+  margin: 0 auto 0.5em;
+}
+
+.lost__text {
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 0 auto 2rem;
+}
+
+.lost .hero__actions {
+  justify-content: center;
+}

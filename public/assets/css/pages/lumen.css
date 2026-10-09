@@ -1,0 +1,2403 @@
+:root {
+  --bg: #fafafa;
+  --fg: #111113;
+  --muted: #77777d;
+  --surface: #ffffff;
+  --line: rgba(17, 17, 19, 0.14);
+  --accent: #111113;
+  --accent-ink: #fafafa;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --wipe-a: #111113;
+  --wipe-b: #d4d4d8;
+}
+
+/* ==========================================================================
+   Lumen Studio — a contact sheet with light-meter readings.
+
+   Pure monochrome: gallery white against carbon. Black rebate strips carry
+   frame numbers and notch marks, EV scales draw the measuring instrument,
+   every corner is 0px and every frame is a hairline. Hover never lifts —
+   it inverts.
+
+   Shell classes are always scoped to body[data-slug="lumen"]; .lu-* are
+   owned by src/pages/landings/Lumen.tsx and need no scoping.
+   ========================================================================== */
+
+/* --- page tokens + browser surfaces ------------------------------------ */
+
+body[data-slug="lumen"] {
+  /* the pinned :root stays byte-identical; muted is re-mixed one step
+     darker so secondary copy clears 4.5:1 on gallery white */
+  --muted: color-mix(in srgb, var(--fg) 68%, var(--bg));
+  --lu-hair: color-mix(in srgb, var(--fg) 16%, transparent);
+  --lu-rule: color-mix(in srgb, var(--fg) 42%, transparent);
+  --lu-lede: color-mix(in srgb, var(--fg) 74%, var(--bg));
+  --lu-oncarbon: color-mix(in srgb, var(--bg) 76%, transparent);
+  --lu-edge: var(--fg);
+  font-family: var(--font-display);
+  caret-color: var(--fg);
+  scrollbar-color: var(--fg) color-mix(in srgb, var(--fg) 9%, var(--bg));
+  scrollbar-width: thin;
+}
+
+html:has(body[data-slug="lumen"]) {
+  scrollbar-color: var(--fg) color-mix(in srgb, var(--fg) 9%, var(--bg));
+  scrollbar-width: thin;
+}
+
+body[data-slug="lumen"]::-webkit-scrollbar,
+html:has(body[data-slug="lumen"])::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+body[data-slug="lumen"]::-webkit-scrollbar-track,
+html:has(body[data-slug="lumen"])::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--fg) 7%, var(--bg));
+}
+
+body[data-slug="lumen"]::-webkit-scrollbar-thumb,
+html:has(body[data-slug="lumen"])::-webkit-scrollbar-thumb {
+  background: var(--fg);
+  border: 3px solid color-mix(in srgb, var(--fg) 7%, var(--bg));
+}
+
+body[data-slug="lumen"] ::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] ::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+body[data-slug="lumen"] :focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+body[data-slug="lumen"] .field__input:focus-visible {
+  outline: none;
+}
+
+/* --- buttons: flat carbon rectangles that invert ------------------------ */
+
+body[data-slug="lumen"] .btn {
+  border-radius: 0;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.82rem 1.4rem;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transform: none;
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .btn:hover {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--fg);
+  transform: none;
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .btn:active {
+  transform: none;
+}
+
+body[data-slug="lumen"] .btn--accent {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+body[data-slug="lumen"] .btn--accent:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+body[data-slug="lumen"] .btn--ghost:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .btn--on-dark {
+  background: transparent;
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
+body[data-slug="lumen"] .btn--on-dark:hover {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--bg);
+}
+
+body[data-slug="lumen"] .hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+/* --- the random button -------------------------------------------------- */
+
+body[data-slug="lumen"] .random {
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  border: 1px solid var(--fg);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transform: none;
+  box-shadow: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .random:hover {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--fg);
+  transform: none;
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .random:active {
+  transform: none;
+}
+
+/* hover physics on this page is one thing only: the fill inverts */
+body[data-slug="lumen"] .random__icon {
+  transition: none;
+}
+
+body[data-slug="lumen"] .random:hover .random__icon {
+  transform: none;
+}
+
+body[data-slug="lumen"] .random--nav {
+  padding: 0.5rem 0.95rem;
+  font-size: 0.7rem;
+}
+
+body[data-slug="lumen"] .random--big {
+  padding: 1.05rem 1.5rem;
+  font-size: 0.92rem;
+}
+
+body[data-slug="lumen"] .random--fab {
+  padding: 0.85rem 1.2rem;
+  font-size: 0.74rem;
+  box-shadow: none;
+}
+
+/* --- nav: the darkroom bar ---------------------------------------------- */
+
+body[data-slug="lumen"] .nav--lumen {
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(1) blur(12px);
+  border-bottom: 1px solid var(--lu-rule);
+  transition: border-color 0.2s ease;
+}
+
+body[data-slug="lumen"] .nav--lumen:hover {
+  border-bottom-color: var(--fg);
+}
+
+body[data-slug="lumen"] .nav__inner {
+  min-height: 70px;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+body[data-slug="lumen"] .nav__brand {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+  column-gap: 0.6rem;
+  row-gap: 0;
+  font-weight: 800;
+  font-size: 1.08rem;
+  letter-spacing: -0.03em;
+}
+
+/* a frame counter: one printed frame inside a black rebate block */
+body[data-slug="lumen"] .nav__brand::before {
+  content: "";
+  width: 1.85em;
+  height: 1.05em;
+  background-image:
+    linear-gradient(var(--bg), var(--bg)),
+    linear-gradient(var(--bg), var(--bg)),
+    linear-gradient(var(--fg), var(--fg));
+  background-position:
+    45% 50%,
+    right 0.16em top 0.16em,
+    center;
+  background-size:
+    0.5em 0.46em,
+    0.18em 0.16em,
+    100% 100%;
+  background-repeat: no-repeat;
+}
+
+body[data-slug="lumen"] .nav__sub {
+  grid-column: 1 / -1;
+  font-size: 0.56rem;
+  font-weight: 650;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+body[data-slug="lumen"] .nav__link {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--fg) 62%, var(--bg));
+  padding: 0.35rem 0.15rem;
+}
+
+body[data-slug="lumen"] .nav__link:hover {
+  color: var(--fg);
+}
+
+/* the booking link is the action, held right as a filled frame */
+body[data-slug="lumen"] .nav__link:last-child {
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  color: var(--bg);
+  padding: 0.45rem 1rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .nav__link:last-child:hover {
+  background: transparent;
+  color: var(--fg);
+}
+
+/* --- section rhythm ------------------------------------------------------ */
+
+body[data-slug="lumen"] .lp-hero {
+  padding: clamp(3.75rem, 8.5vw, 6.25rem) 0 clamp(2.75rem, 5.5vw, 4.25rem);
+}
+
+body[data-slug="lumen"] .lp-block,
+.lu-section {
+  padding: clamp(4.25rem, 9vw, 6.5rem) 0 clamp(3rem, 6vw, 4.25rem);
+}
+
+body[data-slug="lumen"] .section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.75rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--fg);
+}
+
+body[data-slug="lumen"] .section-title {
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  letter-spacing: -0.03em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+body[data-slug="lumen"] .section-note {
+  max-width: 46ch;
+  font-size: 0.97rem;
+}
+
+body[data-slug="lumen"] .section-head--light {
+  border-bottom-color: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+
+body[data-slug="lumen"] .section-head--light .section-note {
+  color: color-mix(in srgb, currentColor 82%, transparent);
+}
+
+body[data-slug="lumen"] .mini-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--lu-hair);
+}
+
+/* --- hero: the darkroom -------------------------------------------------- */
+
+.lu-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.75rem, 5vw, 4rem);
+  align-items: stretch;
+  text-align: left;
+}
+
+.lu-hero__col {
+  min-width: 0;
+  align-self: start;
+}
+
+.lu-hero__title {
+  font-size: clamp(3rem, 9.6vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  margin: 0 0 0.32em;
+}
+
+.lu-hero__lede {
+  color: var(--lu-lede);
+  font-size: clamp(1.02rem, 1.5vw, 1.14rem);
+  line-height: 1.55;
+  max-width: 44ch;
+  margin: 0;
+}
+
+/* the rule under the lede is a rebate strip: carbon, notched, edge-printed */
+.lu-hero__rule {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background: var(--fg);
+  margin: clamp(1.75rem, 3.4vw, 2.5rem) 0 clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.lu-hero__rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 4px,
+    transparent 4px 15px
+  );
+}
+
+/* --- the EV scale: vertical light-meter strip ---------------------------- */
+
+.lu-ev {
+  display: grid;
+  grid-template-rows: auto minmax(11rem, 1fr);
+  align-self: stretch;
+  width: clamp(6.5rem, 9vw, 8.75rem);
+}
+
+.lu-ev__cap {
+  margin: 0 0 0.7rem;
+  padding-left: 1.2rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lu-ev__rail {
+  display: grid;
+  align-content: space-between;
+  gap: 0.35rem;
+  height: 100%;
+  padding-left: 1.2rem;
+  border-left: 1px solid var(--fg);
+  animation: lu-ev-draw 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.lu-ev__t {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 0.7rem;
+}
+
+.lu-ev__t::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 1px;
+  background: var(--lu-rule);
+}
+
+.lu-ev__t--major::before {
+  width: 20px;
+  background: var(--fg);
+}
+
+.lu-ev__val {
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+
+/* the meter index: the zero stop reads as a filled chip on the scale */
+.lu-ev__t--zero .lu-ev__val {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.1rem 0.38rem;
+  margin-left: -0.3rem;
+  animation: lu-ev-index 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
+}
+
+@keyframes lu-ev-draw {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes lu-ev-index {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- section rhythm: the contact sheet ----------------------------------- */
+
+.page-lumen {
+  font-weight: 400;
+}
+
+.lu-wall {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.6vw, 1.3rem);
+}
+
+.lu-shot {
+  margin: 0;
+  min-width: 0;
+}
+
+.lu-shot__frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding: 0 0 1.95rem;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+  background: linear-gradient(155deg, #f1f1f2, #dcdce0);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.lu-shot--1 .lu-shot__frame {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(155deg, #f2f1ee, #dedbd4);
+}
+
+.lu-shot--2 .lu-shot__frame {
+  aspect-ratio: 1;
+  background: linear-gradient(155deg, #eceef0, #d3d7dc);
+}
+
+.lu-shot__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg) 34%, transparent);
+  transition: -webkit-text-stroke-color 0.15s ease, color 0.15s ease;
+}
+
+/* the grease-pencil select: hairline thickens, the frame id inverts */
+.lu-shot:hover .lu-shot__frame,
+.lu-shot__frame:focus-visible {
+  border-color: var(--fg);
+  border-width: 2px;
+}
+
+.lu-shot:hover .lu-shot__num,
+.lu-shot__frame:focus-visible .lu-shot__num {
+  color: color-mix(in srgb, var(--fg) 82%, transparent);
+  -webkit-text-stroke-color: transparent;
+}
+
+.lu-shot__rebate {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0.6rem;
+  background: var(--fg);
+}
+
+.lu-shot__rebate::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 13px
+  );
+}
+
+.lu-shot__id,
+.lu-shot__edge {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lu-shot__id {
+  color: var(--bg);
+  padding: 0.1rem 0.4rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lu-shot__edge {
+  color: color-mix(in srgb, var(--bg) 62%, transparent);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lu-shot:hover .lu-shot__id {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.lu-shot__hint {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  font-size: 0.6rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
+  padding: 0.24rem 0.5rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.lu-shot:hover .lu-shot__hint,
+.lu-shot__frame:focus-visible .lu-shot__hint {
+  opacity: 1;
+}
+
+.lu-shot figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-top: 0.7rem;
+  font-size: 0.88rem;
+}
+
+.lu-shot__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.lu-shot__kind {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- band: the strip of packages ------------------------------------------ */
+
+.lu-band {
+  position: relative;
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.lu-band::before {
+  content: "";
+  display: block;
+  height: 7px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 4px,
+    transparent 4px 17px
+  );
+}
+
+.lu-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+.lu-plan {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--bg) 34%, transparent);
+  border-radius: 0;
+  padding: 2.2rem 1.6rem 1.7rem;
+}
+
+.lu-plan::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 14px
+  );
+}
+
+.lu-plan--featured {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--bg);
+}
+
+.lu-plan--featured::before {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 14px
+  );
+}
+
+.lu-plan__name {
+  margin: 0 0 1.1rem;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lu-oncarbon);
+}
+
+.lu-plan--featured .lu-plan__name {
+  color: var(--muted);
+}
+
+.lu-plan__price {
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 0.45rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.lu-plan__detail {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--lu-oncarbon);
+}
+
+.lu-plan--featured .lu-plan__detail {
+  color: var(--muted);
+}
+
+.lu-plan__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bg);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--bg) 55%, transparent);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.lu-plan__cta:hover {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--bg);
+}
+
+.lu-plan--featured .lu-plan__cta {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.lu-plan--featured .lu-plan__cta:hover {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+/* --- studio: the exposure notes -------------------------------------------- */
+
+.lu-about {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.lu-about .section-title {
+  margin-bottom: 0.6rem;
+}
+
+.lu-stats {
+  position: relative;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--fg);
+  background: var(--surface);
+}
+
+.lu-stats::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 14px
+  );
+}
+
+.lu-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  padding: 1.1rem clamp(1rem, 2.4vw, 1.5rem) 1rem;
+}
+
+.lu-stat + .lu-stat {
+  border-top: 1px solid var(--lu-hair);
+}
+
+.lu-stat:first-child {
+  padding-top: 1.55rem;
+}
+
+.lu-stat__value {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.lu-stat__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--muted);
+}
+
+/* --- signature: set the shot ---------------------------------------------- */
+
+body[data-slug="lumen"] .sig {
+  padding: clamp(3.25rem, 7vw, 5rem) 0;
+}
+
+body[data-slug="lumen"] .sig__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 0 0 0.75rem;
+}
+
+body[data-slug="lumen"] .sig__eyebrow::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  background: var(--fg);
+}
+
+body[data-slug="lumen"] .sig__title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+.sig--lumen {
+  --lu-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.lu-exposure {
+  --lu-silver: #d4d4d8;
+  --lu-hair-dk: rgba(250, 250, 250, 0.26);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "head"
+    "body";
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  background: var(--fg);
+  color: var(--bg);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+  box-shadow: none;
+}
+
+.lu-exposure__head {
+  grid-area: head;
+  border-bottom: 1px solid var(--lu-hair-dk);
+  padding-bottom: 1.4rem;
+}
+
+/* scoped so these beat body[data-slug] .sig__eyebrow — the panel is carbon */
+body[data-slug="lumen"] .lu-exposure .sig__eyebrow {
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .lu-exposure .sig__eyebrow::before {
+  background: var(--bg);
+}
+
+.lu-exposure .sig__title {
+  color: var(--bg);
+}
+
+.lu-exposure__lede {
+  margin: -0.35rem 0 0;
+  max-width: 58ch;
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--bg) 74%, transparent);
+}
+
+.lu-exposure__body {
+  grid-area: body;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  align-items: start;
+}
+
+.lu-plate {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+  border: 1px solid var(--lu-hair-dk);
+  border-radius: 0;
+  padding: clamp(1.2rem, 2.6vw, 1.6rem);
+}
+
+.lu-scale__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--bg) 66%, transparent);
+}
+
+.lu-scale__value {
+  font-family: var(--lu-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--lu-silver);
+}
+
+.lu-scale__range {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0 0.25rem;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  height: 18px;
+  cursor: pointer;
+}
+
+.lu-scale__range::-webkit-slider-runnable-track {
+  height: 1px;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+.lu-scale__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  margin-top: -6px;
+  border: 0;
+  border-radius: 0;
+  background: var(--bg);
+}
+
+.lu-scale__range::-moz-range-track {
+  height: 1px;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+.lu-scale__range::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 0;
+  background: var(--bg);
+}
+
+.lu-scale__range:focus {
+  outline: none;
+}
+
+.lu-scale__range:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 4px;
+}
+
+.lu-scale__ticks {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  font-family: var(--lu-mono);
+  font-size: 0.6rem;
+  color: color-mix(in srgb, var(--bg) 52%, transparent);
+}
+
+.lu-scale__ticks span {
+  text-align: center;
+}
+
+.lu-scale__ticks span:first-child {
+  text-align: left;
+}
+
+.lu-scale__ticks span:last-child {
+  text-align: right;
+}
+
+.lu-readout {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.lu-readout__settings {
+  margin: 0;
+  font-family: var(--lu-mono);
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--bg) 78%, transparent);
+}
+
+.lu-readout__ev {
+  margin: 0;
+  font-family: var(--lu-mono);
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--bg);
+}
+
+.lu-readout__frame {
+  position: relative;
+  border: 1px solid var(--lu-hair-dk);
+  border-radius: 0;
+  padding: 1.2rem 1.2rem 1.15rem;
+  overflow: hidden;
+}
+
+/* the meter window is edged like film: notches along its top */
+.lu-readout__frame::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 13px
+  );
+}
+
+.lu-readout__scene {
+  display: inline-block;
+  margin: 0 0 0.55rem;
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.lu-readout__tip {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+/* --- faq: frame index rows -------------------------------------------------- */
+
+body[data-slug="lumen"] .faq {
+  counter-reset: lu-frame;
+  gap: 0;
+  max-width: 860px;
+  border-top: 1px solid var(--fg);
+}
+
+body[data-slug="lumen"] .faq__item {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--lu-hair);
+  border-radius: 0;
+  padding: 0;
+}
+
+body[data-slug="lumen"] .faq__q {
+  counter-increment: lu-frame;
+  display: grid;
+  grid-template-columns: 3.1rem minmax(0, 1fr) auto;
+  column-gap: 1.1rem;
+  align-items: center;
+  min-height: 3.5rem;
+  font-weight: 650;
+  font-size: clamp(1rem, 1.8vw, 1.16rem);
+  letter-spacing: -0.01em;
+  padding: 0;
+}
+
+body[data-slug="lumen"] .faq__q::before {
+  content: counter(lu-frame, decimal-leading-zero);
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .faq__item[open] .faq__q::before {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .faq__q::after {
+  position: static;
+  transform: none;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid var(--lu-hair);
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--fg);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .faq__q:hover::after {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .faq__item[open] .faq__q::after {
+  border-color: var(--fg);
+}
+
+body[data-slug="lumen"] .faq__a {
+  color: var(--muted);
+  max-width: 70ch;
+  margin: 0 0 1.3rem;
+  padding: 0.15rem 2.8rem 0 calc(3.1rem + 1.1rem);
+  line-height: 1.6;
+}
+
+/* --- enquiry form: the booking slip ---------------------------------------- */
+
+body[data-slug="lumen"] .lp-form {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(2.1rem, 4vw, 2.9rem) clamp(1.4rem, 3.4vw, 2.4rem)
+    clamp(1.6rem, 3.4vw, 2.4rem);
+}
+
+body[data-slug="lumen"] .lp-form::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 15px
+  );
+  pointer-events: none;
+}
+
+body[data-slug="lumen"] .lp-form__grid {
+  gap: 1.35rem 1.6rem;
+}
+
+body[data-slug="lumen"] .field {
+  gap: 0.35rem;
+}
+
+body[data-slug="lumen"] .field__label {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body[data-slug="lumen"] .field__input {
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--lu-rule);
+  border-radius: 0;
+  padding: 0.6rem 0.1rem;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .field__input:hover {
+  border-bottom-color: var(--fg);
+}
+
+body[data-slug="lumen"] .field__input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: calc(0.6rem - 1px);
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] select.field__input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.1rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--fg) 50%),
+    linear-gradient(135deg, var(--fg) 50%, transparent 50%);
+  background-position:
+    right 0.9rem center,
+    right 0.55rem center;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+}
+
+body[data-slug="lumen"] textarea.field__input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+body[data-slug="lumen"] .lp-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+  margin-top: 1.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .lp-form__note {
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+}
+
+body[data-slug="lumen"] .lp-form__status {
+  margin: 1.35rem 0 0;
+  padding: 0.95rem 1.15rem;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  font-weight: 640;
+  font-size: 0.94rem;
+}
+
+body[data-slug="lumen"] .lp-form__status[hidden] {
+  display: none;
+}
+
+body[data-slug="lumen"] .lp-form__status.is-ok {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .lp-form__status.is-error {
+  background: var(--surface);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .lp-form.is-sent .lp-form__grid {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* --- booking: the date board ------------------------------------------------ */
+
+body[data-slug="lumen"] .bk {
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: none;
+  margin: 0 0 1.75rem;
+}
+
+body[data-slug="lumen"] .bk__head {
+  padding-bottom: 0.95rem;
+  border-bottom: 1px solid var(--lu-hair);
+  margin-bottom: 1rem;
+}
+
+body[data-slug="lumen"] .bk__kicker {
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  font-weight: 750;
+}
+
+body[data-slug="lumen"] .bk__title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+body[data-slug="lumen"] .bk__lede {
+  font-size: 0.95rem;
+}
+
+body[data-slug="lumen"] .bk__rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.35rem;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .bk__rail-item {
+  padding: 0 1.1rem 0.85rem;
+  border-left: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .bk__rail-item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+body[data-slug="lumen"] .bk__rail-n {
+  color: var(--fg);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="lumen"] .bk-group__legend {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+}
+
+body[data-slug="lumen"] .bk-opt {
+  position: relative;
+  border-radius: 0;
+  border: 1px solid var(--lu-rule);
+  background: var(--surface);
+  color: var(--fg);
+  padding: 0.6rem 0.95rem;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .bk-group--cards .bk-opt,
+body[data-slug="lumen"] .bk-group--times .bk-opt {
+  border-radius: 0;
+}
+
+body[data-slug="lumen"] .bk-opt:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .bk-opt:hover .bk-opt__note {
+  color: currentColor;
+  opacity: 0.8;
+}
+
+body[data-slug="lumen"] .bk-opt.is-on {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+/* the chosen option carries a printed notch in its corner */
+body[data-slug="lumen"] .bk-opt.is-on::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+}
+
+body[data-slug="lumen"] .bk-opt:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+body[data-slug="lumen"] .bk-cal__dows {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+}
+
+body[data-slug="lumen"] .bk-cal__title {
+  font-weight: 750;
+}
+
+body[data-slug="lumen"] .bk-day {
+  border-radius: 0;
+  border-color: var(--lu-hair);
+  background: var(--surface);
+}
+
+body[data-slug="lumen"] .bk-day.is-open:hover {
+  border-color: var(--fg);
+}
+
+body[data-slug="lumen"] .bk-day.is-on {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .bk-day:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+body[data-slug="lumen"] .bk-cal__picked {
+  color: var(--fg);
+  font-weight: 650;
+}
+
+body[data-slug="lumen"] .bk-step__ctrl {
+  border-radius: 0;
+  border-color: var(--lu-rule);
+}
+
+body[data-slug="lumen"] .bk-step__btn {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .bk-step__btn:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .bk-step__btn:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+body[data-slug="lumen"] .bk-step__label {
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body[data-slug="lumen"] .bk__summary {
+  border-top: 1px solid var(--lu-hair);
+  border-radius: 0;
+}
+
+/* --- related: contact frames -------------------------------------------------- */
+
+body[data-slug="lumen"] .related__grid {
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+body[data-slug="lumen"] .related__card {
+  position: relative;
+  gap: 0.3rem;
+  padding: 1.5rem 1.55rem 2.65rem;
+  background: var(--surface);
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+  text-decoration: none;
+  transition: border-color 0.15s ease, border-width 0.15s ease;
+}
+
+body[data-slug="lumen"] .related__card::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  height: 1.95rem;
+  background-color: var(--fg);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 14px
+  );
+  background-position: left top;
+  background-repeat: repeat-x;
+  background-size: auto 4px;
+}
+
+body[data-slug="lumen"] .related__card:hover {
+  transform: none;
+  border-color: var(--fg);
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .related__label {
+  position: absolute;
+  left: 1.55rem;
+  bottom: 0.5rem;
+  z-index: 1;
+  font-size: 0.58rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  padding: 0.1rem 0.4rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .related__card:hover .related__label {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .related__name {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+body[data-slug="lumen"] .related__tagline {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* --- more pages: the keep-reading contact frames ------------------------------ */
+
+body[data-slug="lumen"] .more-pages {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+body[data-slug="lumen"] .more-pages__grid {
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+body[data-slug="lumen"] .more-pages__card {
+  position: relative;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+  padding: 1.5rem 1.5rem 2.65rem;
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .more-pages__card::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  top: auto;
+  height: 1.95rem;
+  border-radius: 0;
+  background-color: var(--fg);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 14px
+  );
+  background-position: left top;
+  background-repeat: repeat-x;
+  background-size: auto 4px;
+}
+
+body[data-slug="lumen"] .more-pages__card:hover {
+  transform: none;
+  border-color: var(--fg);
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .more-pages__kicker {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 0.5rem;
+  z-index: 1;
+  font-size: 0.58rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  padding: 0.1rem 0.4rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .more-pages__card:hover .more-pages__kicker {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .more-pages__name {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+body[data-slug="lumen"] .more-pages__note {
+  line-height: 1.5;
+}
+
+body[data-slug="lumen"] .more-pages__cta {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lu-hair);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .more-pages__link {
+  background: var(--surface);
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+  padding: 1.15rem 1.4rem;
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .more-pages__link:hover {
+  border-color: var(--fg);
+  transform: none;
+}
+
+body[data-slug="lumen"] .more-pages__link .more-pages__name {
+  font-weight: 750;
+}
+
+/* --- wander: the next frame bar ---------------------------------------------- */
+
+body[data-slug="lumen"] .wander {
+  border-top: 1px solid var(--lu-hair);
+  text-align: left;
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(4rem, 8vw, 6rem);
+}
+
+body[data-slug="lumen"] .wander__kicker {
+  display: none;
+}
+
+body[data-slug="lumen"] .wander__inner {
+  position: relative;
+  border: 1px solid var(--fg);
+  padding: clamp(2rem, 5vw, 3.25rem);
+}
+
+body[data-slug="lumen"] .wander__inner::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 15px
+  );
+}
+
+body[data-slug="lumen"] .wander__title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+
+body[data-slug="lumen"] .wander__text {
+  color: var(--lu-lede);
+  max-width: 54ch;
+  margin: 0 0 1.9rem;
+}
+
+body[data-slug="lumen"] .wander .random--big {
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2.5rem;
+  min-width: min(100%, 22rem);
+  padding: 1.15rem 1.5rem;
+  font-size: 0.86rem;
+}
+
+/* --- footer: the film edge ------------------------------------------------- */
+
+body[data-slug="lumen"] .footer--lumen {
+  border-top: 1px solid var(--fg);
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0 7rem;
+  margin-top: 0;
+}
+
+body[data-slug="lumen"] .footer__row {
+  align-items: flex-start;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .footer__brand {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+body[data-slug="lumen"] .footer__inline {
+  gap: 0.35rem 1.4rem;
+}
+
+body[data-slug="lumen"] .footer__inline a {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+
+body[data-slug="lumen"] .footer__inline a:hover {
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .footer__credit {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+body[data-slug="lumen"] .footer__bar {
+  position: relative;
+  justify-content: center;
+  gap: 0.6rem 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1.35rem 1.25rem;
+  border-top: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+}
+
+body[data-slug="lumen"] .footer__bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 15px
+  );
+}
+
+body[data-slug="lumen"] .footer__bar .footer__inline a {
+  color: color-mix(in srgb, var(--bg) 76%, transparent);
+  padding: 0.15rem 0.4rem;
+}
+
+body[data-slug="lumen"] .footer__bar .footer__inline a:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* --- modal ------------------------------------------------------------------ */
+
+body[data-slug="lumen"] .lp-modal {
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .lp-modal::backdrop {
+  background: color-mix(in srgb, var(--fg) 78%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+body[data-slug="lumen"] .lp-modal__bar {
+  position: relative;
+  background: var(--fg);
+  border-bottom: 0;
+  padding: 0.85rem 1rem 0.85rem 1.5rem;
+}
+
+body[data-slug="lumen"] .lp-modal__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 15px
+  );
+}
+
+body[data-slug="lumen"] .lp-modal__brand {
+  color: var(--bg);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+}
+
+body[data-slug="lumen"] .lp-modal__close {
+  position: relative;
+  z-index: 1;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--bg) 55%, transparent);
+  color: var(--bg);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .lp-modal__close:hover {
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .lp-modal__body {
+  padding: 1.6rem 1.6rem 1.9rem;
+}
+
+body[data-slug="lumen"] .lp-modal__body h1,
+body[data-slug="lumen"] .lp-modal__body h2,
+body[data-slug="lumen"] .lp-modal__body h3 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+body[data-slug="lumen"] .lp-modal__body .modal__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .lp-modal__body .modal__kicker::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  background: var(--fg);
+}
+
+body[data-slug="lumen"] .lp-modal__body ul li::before {
+  content: "";
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+}
+
+body[data-slug="lumen"] .lp-modal__body dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+/* --- lightbox: the darkroom -------------------------------------------------- */
+
+body[data-slug="lumen"] .lightbox__backdrop {
+  background: color-mix(in srgb, var(--fg) 88%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+body[data-slug="lumen"] .lightbox__dialog {
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--surface);
+  padding: 1.4rem 1.6rem 1.7rem;
+  box-shadow: none;
+}
+
+body[data-slug="lumen"] .lightbox__art {
+  position: relative;
+  height: 200px;
+  border-radius: 0;
+  border: 0;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0;
+  color: var(--bg);
+  font-weight: 750;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+  background: linear-gradient(150deg, #1c1c20, var(--fg));
+}
+
+body[data-slug="lumen"] .lightbox__art::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 15px
+  );
+}
+
+body[data-slug="lumen"] .lightbox__close {
+  z-index: 2;
+  top: 2rem;
+  right: 2.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--bg) 60%, transparent);
+  background: transparent;
+  color: var(--bg);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .lightbox__close:hover {
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--fg);
+}
+
+/* the caption strip under the frame: rebate, edge-printed with the tag */
+body[data-slug="lumen"] .lightbox__tag {
+  position: relative;
+  margin: 0 -1.6rem 1.2rem;
+  padding: 0.6rem 1.6rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+body[data-slug="lumen"] .lightbox__tag::after {
+  content: "";
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateY(-50%);
+  background: var(--bg);
+}
+
+body[data-slug="lumen"] .lightbox__title {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+body[data-slug="lumen"] .lightbox__text {
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 1.3rem;
+}
+
+body[data-slug="lumen"] .lightbox__cta {
+  display: inline-flex;
+  padding: 0.72rem 1.2rem;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+body[data-slug="lumen"] .lightbox__cta:hover {
+  background: var(--surface);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .lightbox__cta[hidden] {
+  display: none;
+}
+
+/* --- toasts ------------------------------------------------------------------- */
+
+body[data-slug="lumen"] .toast {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 1.1rem 1.05rem 0.85rem;
+  box-shadow: none;
+  font-size: 0.88rem;
+}
+
+body[data-slug="lumen"] .toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 15px
+  );
+}
+
+/* --- sub pages ------------------------------------------------------------------ */
+
+body[data-slug="lumen"] .crumbs {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+body[data-slug="lumen"] .crumbs [aria-current="page"] {
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .sub-hero {
+  border-bottom: 1px solid var(--fg);
+  padding-top: clamp(3rem, 7vw, 5rem);
+}
+
+/* the crumbs already carry brand and page — no eyebrow above the title */
+body[data-slug="lumen"] .sub-hero__kicker {
+  display: none;
+}
+
+body[data-slug="lumen"] .sub-hero__title {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+body[data-slug="lumen"] .sub-hero__lede {
+  color: var(--lu-lede);
+}
+
+body[data-slug="lumen"] .sub-stats {
+  border-top: 0;
+  gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+body[data-slug="lumen"] .sub-stats__item {
+  position: relative;
+  padding-top: 0.9rem;
+}
+
+body[data-slug="lumen"] .sub-stats__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  max-width: 4.5rem;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 14px
+  );
+}
+
+body[data-slug="lumen"] .sub-stats__item dt {
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+}
+
+body[data-slug="lumen"] .sub-stats__item dd {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="lumen"] .sub-p {
+  max-width: 68ch;
+  line-height: 1.62;
+}
+
+body[data-slug="lumen"] .sub-sec,
+body[data-slug="lumen"] .sub-card,
+body[data-slug="lumen"] .sub-toc,
+body[data-slug="lumen"] .sub-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+}
+
+body[data-slug="lumen"] .sub-sec,
+body[data-slug="lumen"] .sub-card {
+  transition: border-color 0.15s ease;
+}
+
+body[data-slug="lumen"] .sub-sec:hover,
+body[data-slug="lumen"] .sub-card:hover {
+  transform: none;
+  border-color: var(--fg);
+}
+
+body[data-slug="lumen"] .sub-sec__num,
+body[data-slug="lumen"] .sub-card__num {
+  color: var(--fg);
+  background: var(--fg);
+  -webkit-text-stroke: 0;
+  border-radius: 0;
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="lumen"] .sub-sec__num {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--bg);
+  background: var(--fg);
+}
+
+body[data-slug="lumen"] .sub-card__num {
+  color: var(--bg);
+  padding: 0.2rem 0.5rem;
+}
+
+body[data-slug="lumen"] .sub-sec h2,
+body[data-slug="lumen"] .sub-card__title {
+  font-weight: 800;
+}
+
+body[data-slug="lumen"] .sub-sec__list li::before {
+  content: "";
+  top: 0.6em;
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+}
+
+body[data-slug="lumen"] .sub-steps__item {
+  background: var(--surface);
+  border: 1px solid var(--lu-hair);
+  border-radius: 0;
+}
+
+body[data-slug="lumen"] .sub-steps__n {
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="lumen"] .sub-table th {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  border-bottom: 2px solid var(--fg);
+}
+
+body[data-slug="lumen"] .sub-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="lumen"] .sub-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+
+body[data-slug="lumen"] .sub-quote {
+  border-left: 1px solid var(--fg);
+  padding-left: 1.4rem;
+}
+
+body[data-slug="lumen"] .sub-note {
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+}
+
+body[data-slug="lumen"] .sub-toc__title {
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .sub-toc__list a {
+  border-left: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .sub-toc__list a::before {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 750;
+  color: var(--muted);
+}
+
+body[data-slug="lumen"] .sub-toc__list a:hover {
+  border-left-color: var(--fg);
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .sub-toc__list a:hover::before {
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .ledger {
+  border-top: 2px solid var(--fg);
+}
+
+body[data-slug="lumen"] .ledger__num {
+  border-radius: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+body[data-slug="lumen"] .ledger__title {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+body[data-slug="lumen"] .story-sec {
+  border-bottom: 1px solid var(--lu-hair);
+}
+
+body[data-slug="lumen"] .story-sec__kicker {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--fg);
+}
+
+body[data-slug="lumen"] .story-sec__title {
+  font-weight: 800;
+}
+
+body[data-slug="lumen"] .sub-cta {
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+body[data-slug="lumen"] .sub-cta__inner {
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  padding: clamp(1.9rem, 4.5vw, 2.9rem);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .section-title {
+  color: var(--bg);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .section-note {
+  color: color-mix(in srgb, var(--bg) 76%, transparent);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .section-head {
+  border-bottom-color: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .btn--accent {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--bg);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .btn--accent:hover {
+  background: transparent;
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .btn--ghost {
+  background: transparent;
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
+body[data-slug="lumen"] .sub-cta__inner .btn--ghost:hover {
+  background: var(--bg);
+  color: var(--fg);
+  border-color: var(--bg);
+}
+
+/* --- responsive ----------------------------------------------------------------- */
+
+@media (max-width: 940px) {
+  .lu-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .lu-ev {
+    justify-self: start;
+    width: min(100%, 20rem);
+    grid-template-rows: auto minmax(8.5rem, 1fr);
+  }
+
+  .lu-about {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .lu-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-slug="lumen"] .faq__a {
+    padding-right: 0.5rem;
+  }
+
+  body[data-slug="lumen"] .lp-form__foot {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .lu-wall {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-ev {
+    width: min(100%, 16rem);
+  }
+
+  body[data-slug="lumen"] .faq__q {
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    column-gap: 0.85rem;
+  }
+
+  body[data-slug="lumen"] .faq__a {
+    padding-left: 3.35rem;
+  }
+
+  body[data-slug="lumen"] .bk__rail-item {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  body[data-slug="lumen"] .wander .random--big {
+    width: 100%;
+    min-width: 0;
+    gap: 1rem;
+  }
+
+  body[data-slug="lumen"] .footer__row {
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+}
+
+/* --- motion --------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .lu-ev__rail,
+  .lu-ev__t--zero .lu-ev__val {
+    animation: none;
+  }
+}
+
+/* --- sub pages: shell floats the story lede's first letter; lumen's centred
+       lede can't wrap a float, so it renders as a broken word. Disable it. --- */
+body[data-slug="lumen"] .sub--story .sub-hero__lede::first-letter {
+  float: none;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+}

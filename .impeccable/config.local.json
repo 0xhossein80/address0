@@ -1,0 +1,110 @@
+{
+  "hook": {
+    "consent": "accepted"
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/roastery.css"
+        ],
+        "createdAt": "2026-10-09T13:23:01.128Z",
+        "reason": "Square docket sheets (radius 0) with heavier letterpress top rules — deliberate cap, not a rounded-card clash"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/wanderly.css"
+        ],
+        "createdAt": "2026-10-09T13:23:01.137Z",
+        "reason": "Dashed route strip along postcard top edges — core dossier motif"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/*.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.853Z",
+        "reason": "Per-world optical type: each page sizes labels/captions/readouts to its own material; a single discrete ramp would falsify ten committed worlds"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/*.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.873Z",
+        "reason": "Owned-geometry rule: each world owns its radius language (forge 0px, brightside 10px, wanderly 3-6px, etc); documented per-world in DESIGN.md Shapes"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/*.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.889Z",
+        "reason": "World palettes + content swatch hexes; core accents documented in DESIGN.md colors and sidecar tonal ramps"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "src/pages/landings/*.tsx"
+        ],
+        "createdAt": "2026-10-09T13:33:22.902Z",
+        "reason": "Hero/inline type authored per world in TSX composition"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "src/pages/landings/*.tsx"
+        ],
+        "createdAt": "2026-10-09T13:33:22.913Z",
+        "reason": "Product swatch/content hexes live in TSX data, not the token system"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/forge.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.925Z",
+        "reason": "Explicit radius:0 — letterpress/scoreboard caps, not a rounded-card clash"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/saffron.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.941Z",
+        "reason": "Explicit radius:0 — menu-ink caps, not a rounded-card clash"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/loop.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.962Z",
+        "reason": "CSS triangle caret (border technique) for the FAQ readout, not a side tab"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "public/assets/css/pages/index.css"
+        ],
+        "createdAt": "2026-10-09T13:33:22.978Z",
+        "reason": "Studio index card crown strip — pre-existing shell motif, out of redesign scope"
+      }
+    ]
+  }
+}

@@ -1,0 +1,2056 @@
+:root {
+  --bg: #f3f8ff;
+  --fg: #0e2246;
+  --muted: #5a7196;
+  --surface: #ffffff;
+  --line: rgba(14, 34, 70, 0.14);
+  --accent: #1667d8;
+  --accent-ink: #eef5ff;
+  --font-display: "Verdana", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --wipe-a: #0a2f66;
+  --wipe-b: #1667d8;
+}
+
+/* ==========================================================================
+   Wanderly Travel Co. — an expedition outfitter's route dossier, torn out of
+   a field notebook. Long-dash frames, rotated double-ring stamps, ticket-stub
+   buttons with punched notches, coordinate captions and elevation-profile
+   divider rules. One authored moment: stamps straighten and everything else
+   shifts along the route on hover.
+
+   Shell classes are always scoped to body[data-slug="wanderly"]; .wa-* are
+   owned by src/pages/landings/Wanderly.tsx and need no scoping.
+   ========================================================================== */
+
+/* --- dossier tokens + browser surfaces ------------------------------------ */
+
+body[data-slug="wanderly"] {
+  --wa-dash: color-mix(in srgb, var(--fg) 62%, var(--bg));
+  --wa-dash-soft: color-mix(in srgb, var(--fg) 30%, var(--bg));
+  --wa-hair: color-mix(in srgb, var(--fg) 40%, transparent);
+  --wa-light-dash: color-mix(in srgb, var(--accent-ink) 46%, transparent);
+  --wa-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* paper behind the element a punched notch or hole is cut into */
+  --wa-under: var(--bg);
+  caret-color: var(--accent);
+  scrollbar-color: var(--accent) color-mix(in srgb, var(--fg) 9%, var(--bg));
+  scrollbar-width: thin;
+}
+
+html:has(body[data-slug="wanderly"]) {
+  scrollbar-color: var(--accent) color-mix(in srgb, var(--fg) 9%, var(--bg));
+  scrollbar-width: thin;
+}
+
+body[data-slug="wanderly"]::-webkit-scrollbar,
+html:has(body[data-slug="wanderly"])::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+body[data-slug="wanderly"]::-webkit-scrollbar-track,
+html:has(body[data-slug="wanderly"])::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--fg) 8%, var(--bg));
+}
+
+body[data-slug="wanderly"]::-webkit-scrollbar-thumb,
+html:has(body[data-slug="wanderly"])::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 3px solid color-mix(in srgb, var(--fg) 8%, var(--bg));
+}
+
+body[data-slug="wanderly"]::-webkit-scrollbar-thumb:hover,
+html:has(body[data-slug="wanderly"])::-webkit-scrollbar-thumb:hover {
+  background: var(--fg);
+}
+
+body[data-slug="wanderly"] ::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] ::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+body[data-slug="wanderly"] :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+body[data-slug="wanderly"] .wa-band :focus-visible,
+body[data-slug="wanderly"] .sub-cta__inner :focus-visible {
+  outline-color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] h1,
+body[data-slug="wanderly"] h2,
+body[data-slug="wanderly"] h3,
+body[data-slug="wanderly"] h4 {
+  text-wrap: balance;
+}
+
+/* --- elevation-profile divider rules --------------------------------------
+   A shallow dashed ridge line closed at both ends so it repeats seamlessly
+   across the column. More air sits above each heading than below it. */
+
+body[data-slug="wanderly"] .wa-section::before,
+body[data-slug="wanderly"] .lp-block::before,
+body[data-slug="wanderly"] .sig::before,
+body[data-slug="wanderly"] .wander::before,
+body[data-slug="wanderly"] .more-pages::before,
+body[data-slug="wanderly"] .sub-body::before,
+body[data-slug="wanderly"] .sub-cta::before,
+body[data-slug="wanderly"] .footer .wrap::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 16px;
+  margin-bottom: clamp(1.8rem, 3.6vw, 2.8rem);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='16'%20viewBox='0%200%20160%2016'%3E%3Cpolyline%20points='0,12%2020,12%2032,5%2046,13%2060,7%2076,12%2096,12%20108,4%20122,13%20136,8%20148,12%20160,12'%20fill='none'%20stroke='%230e2246'%20stroke-opacity='0.42'%20stroke-width='1.5'%20stroke-dasharray='7%205'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 160px 16px;
+  pointer-events: none;
+}
+
+body[data-slug="wanderly"] .wa-band .wa-section::before {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='16'%20viewBox='0%200%20160%2016'%3E%3Cpolyline%20points='0,12%2020,12%2032,5%2046,13%2060,7%2076,12%2096,12%20108,4%20122,13%20136,8%20148,12%20160,12'%20fill='none'%20stroke='%23eef5ff'%20stroke-opacity='0.55'%20stroke-width='1.5'%20stroke-dasharray='7%205'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* --- section rhythm -------------------------------------------------------- */
+
+body[data-slug="wanderly"] .lp-hero {
+  padding: clamp(3.4rem, 7.5vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+body[data-slug="wanderly"] .wa-section {
+  padding: clamp(1.6rem, 3vw, 2.4rem) 0 clamp(3rem, 6vw, 4.5rem);
+}
+
+body[data-slug="wanderly"] .lp-block {
+  padding: clamp(1.6rem, 3vw, 2.4rem) 0 clamp(3rem, 6vw, 4.5rem);
+}
+
+body[data-slug="wanderly"] .section-head {
+  align-items: flex-end;
+  gap: 0.5rem 1.75rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2rem);
+}
+
+body[data-slug="wanderly"] .section-title {
+  letter-spacing: -0.03em;
+}
+
+body[data-slug="wanderly"] .section-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 46ch;
+}
+
+body[data-slug="wanderly"] .section-head--light .section-note {
+  color: color-mix(in srgb, var(--accent-ink) 86%, var(--wipe-a));
+}
+
+body[data-slug="wanderly"] .stat__value {
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .stat__label {
+  font-size: 0.88rem;
+}
+
+/* --- nav: the route bar ---------------------------------------------------- */
+
+body[data-slug="wanderly"] .nav {
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(1.35) blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 44%, transparent);
+}
+
+body[data-slug="wanderly"] .nav__brand {
+  font-size: 1.03rem;
+  letter-spacing: -0.02em;
+}
+
+body[data-slug="wanderly"] .nav__link {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+body[data-slug="wanderly"] .nav__link:hover {
+  color: var(--fg);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 6px;
+}
+
+body[data-slug="wanderly"] .nav__tag {
+  font-family: var(--wa-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-left: 2px dashed var(--wa-dash);
+  padding-left: 0.65rem;
+}
+
+/* --- buttons: ticket stub + dashed outline --------------------------------- */
+
+body[data-slug="wanderly"] .btn {
+  position: relative;
+  border-radius: 4px;
+  font-weight: 720;
+  transition: transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.24s ease,
+    background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+/* hover physics: travel along the route, never a plain vertical lift */
+body[data-slug="wanderly"] .btn:hover {
+  transform: translateX(2px) rotate(-1.1deg);
+}
+
+body[data-slug="wanderly"] .btn:active {
+  transform: translateX(1px) rotate(0deg);
+}
+
+body[data-slug="wanderly"] .btn--accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1px solid color-mix(in srgb, var(--fg) 24%, var(--accent));
+  border-radius: 4px;
+  font-weight: 780;
+}
+
+body[data-slug="wanderly"] .btn--accent:hover {
+  background: color-mix(in srgb, var(--accent) 90%, var(--fg));
+  box-shadow: 0 16px 30px -20px rgba(14, 34, 70, 0.85);
+}
+
+/* punched ticket notches on both edges */
+body[data-slug="wanderly"] .btn--accent::before,
+body[data-slug="wanderly"] .btn--accent::after,
+body[data-slug="wanderly"] .random::before,
+body[data-slug="wanderly"] .random::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--wa-under);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+body[data-slug="wanderly"] .btn--accent::before,
+body[data-slug="wanderly"] .random::before {
+  left: -7px;
+}
+
+body[data-slug="wanderly"] .btn--accent::after,
+body[data-slug="wanderly"] .random::after {
+  right: -7px;
+}
+
+body[data-slug="wanderly"] .btn--ghost {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--fg);
+}
+
+body[data-slug="wanderly"] .btn--ghost:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 14px 28px -22px rgba(14, 34, 70, 0.8);
+}
+
+body[data-slug="wanderly"] .btn--on-dark {
+  border: 2px dashed var(--wa-light-dash);
+  border-radius: 3px;
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] .btn--on-dark:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] .sub-cta__inner .btn--accent {
+  border-color: color-mix(in srgb, var(--accent-ink) 35%, var(--accent));
+}
+
+body[data-slug="wanderly"] .sub-cta__inner .btn--ghost {
+  border: 2px dashed color-mix(in srgb, var(--accent-ink) 55%, transparent);
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] .sub-cta__inner .btn--ghost:hover {
+  border-style: solid;
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+/* --- the random button: a stub of the same ticket -------------------------- */
+
+body[data-slug="wanderly"] .random {
+  position: relative;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1px solid color-mix(in srgb, var(--fg) 24%, var(--accent));
+  font-weight: 780;
+  transition: transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.24s ease;
+}
+
+body[data-slug="wanderly"] .random:hover {
+  transform: translateX(2px) rotate(-1.4deg);
+  box-shadow: 0 16px 32px -20px rgba(14, 34, 70, 0.85);
+}
+
+body[data-slug="wanderly"] .random:active {
+  transform: translateX(1px) rotate(0deg);
+}
+
+body[data-slug="wanderly"] .random--nav {
+  padding: 0.46rem 0.9rem;
+  font-size: 0.84rem;
+}
+
+body[data-slug="wanderly"] .random--big {
+  padding: 1rem 1.6rem;
+  font-size: 1.02rem;
+  letter-spacing: 0;
+}
+
+body[data-slug="wanderly"] .random--fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 60;
+  padding: 0.85rem 1.2rem;
+}
+
+/* --- dossier hero ---------------------------------------------------------- */
+
+.wa-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2.2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.wa-hero__title {
+  font-size: clamp(2.35rem, 5.4vw, 4.25rem);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin-bottom: 0.35em;
+}
+
+.wa-hero__lede {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 46ch;
+  margin-bottom: 1.5rem;
+}
+
+/* the dashed route runs out of the headline block and into the CTA pair */
+.wa-hero__route {
+  margin-bottom: 1.7rem;
+}
+
+.wa-hero__line {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--accent);
+}
+
+.wa-hero__note {
+  margin: 0.55rem 0 0;
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.wa-hero__art {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+/* the ROUTE STAMP: double ring, tilted, straightens on hover */
+.wa-stamp {
+  position: relative;
+  width: min(100%, 380px);
+  padding: 1.4rem 1.6rem 1.5rem;
+  border: 3px solid var(--accent);
+  border-radius: 10px;
+  transform: rotate(-3deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+  animation: wa-stamp-set 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
+}
+
+.wa-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.wa-stamp:hover {
+  transform: rotate(0deg) scale(1.015);
+}
+
+@keyframes wa-stamp-set {
+  from {
+    opacity: 0;
+    transform: rotate(-15deg) scale(1.07);
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-3deg) scale(1);
+  }
+}
+
+.wa-stamp__title {
+  margin: 0 0 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  font-family: var(--wa-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+}
+
+.wa-stamp__data {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.wa-stamp__row {
+  display: grid;
+  grid-template-columns: 6.6rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: baseline;
+}
+
+.wa-stamp__row dt {
+  font-family: var(--wa-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wa-stamp__row dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* --- trips as postcards ---------------------------------------------------- */
+
+.wa-trips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1.4rem;
+}
+
+.wa-trip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  padding: 1.6rem 1.5rem 1.5rem;
+  transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.2s ease,
+    border-style 0.2s ease, box-shadow 0.26s ease;
+}
+
+.wa-trip:hover {
+  transform: translate(4px, -3px) rotate(-1deg);
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 26px 48px -36px rgba(14, 34, 70, 0.75);
+}
+
+/* corner postmark: double ring + cancellation dot, straightens on hover */
+.wa-trip::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  right: -10px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--accent) 78%, transparent);
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--accent) 65%, transparent) 0 3.5px,
+    var(--surface) 4px
+  );
+  box-shadow: inset 0 0 0 3px var(--surface),
+    inset 0 0 0 4.5px color-mix(in srgb, var(--accent) 48%, transparent);
+  transform: rotate(-7deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+  pointer-events: none;
+}
+
+.wa-trip:hover::after {
+  transform: rotate(0deg);
+}
+
+.wa-trip__top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.9rem;
+}
+
+.wa-trip__region {
+  color: var(--accent);
+}
+
+.wa-trip__days {
+  color: var(--muted);
+}
+
+.wa-trip__days::before {
+  content: "\00b7";
+  margin-right: 0.6rem;
+  color: var(--wa-dash-soft);
+}
+
+.wa-trip__name {
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.wa-trip__blurb {
+  color: var(--muted);
+  font-size: 0.94rem;
+  margin-bottom: 1.4rem;
+}
+
+.wa-trip__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--wa-dash-soft);
+}
+
+.wa-trip__price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.wa-trip__hint {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.wa-trip__more {
+  margin-top: 1.1rem;
+}
+
+.wa-trip__more summary {
+  list-style: none;
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 750;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1.5px;
+}
+
+.wa-trip__more summary::-webkit-details-marker {
+  display: none;
+}
+
+.wa-trip__more summary:hover {
+  color: var(--fg);
+}
+
+.wa-trip__route {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0;
+  padding: 1rem 1.1rem;
+  background: var(--bg);
+  border: 2px dashed var(--wa-dash);
+  border-radius: 4px;
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+.wa-trip__route li::before {
+  content: "\2192 ";
+  color: var(--accent);
+}
+
+.wa-trip__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  padding: 0.55rem 1rem;
+  border: 2px dashed var(--accent);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 780;
+  text-decoration: none;
+  transition: transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1), background-color 0.18s ease,
+    color 0.18s ease, border-color 0.18s ease;
+}
+
+.wa-trip__cta:hover {
+  transform: translateX(2px) rotate(-1.1deg);
+  background: var(--accent);
+  border-style: solid;
+  color: var(--accent-ink);
+}
+
+/* --- band: the ink block --------------------------------------------------- */
+
+.wa-band {
+  position: relative;
+  background: var(--wipe-a);
+  color: var(--accent-ink);
+  border-top: 3px dashed var(--wa-light-dash);
+  border-bottom: 3px dashed var(--wa-light-dash);
+}
+
+.wa-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.wa-steps li {
+  background: color-mix(in srgb, var(--accent-ink) 6%, var(--wipe-a));
+  border: 2px dashed var(--wa-light-dash);
+  border-radius: 5px;
+  padding: 1.5rem 1.4rem;
+  font-size: 0.96rem;
+}
+
+.wa-steps span {
+  display: block;
+  font-family: var(--wa-mono);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--accent-ink) 82%, var(--wipe-a));
+  margin-bottom: 0.7rem;
+}
+
+.wa-steps strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.wa-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding-top: 1.6rem;
+  border-top: 2px dashed color-mix(in srgb, var(--accent-ink) 38%, transparent);
+}
+
+.wa-stat__value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-ink);
+  margin-bottom: 0.3rem;
+}
+
+.wa-stat__label {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--accent-ink) 84%, var(--wipe-a));
+}
+
+/* --- quote: a field note --------------------------------------------------- */
+
+.wa-quote {
+  position: relative;
+  margin: 0;
+  max-width: 62ch;
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: clamp(1.6rem, 4vw, 2.3rem);
+}
+
+.wa-quote::after {
+  content: "Field note";
+  position: absolute;
+  top: -14px;
+  left: 26px;
+  padding: 0.32rem 0.75rem;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  box-shadow: inset 0 0 0 2px var(--bg), inset 0 0 0 3.5px color-mix(in srgb, var(--accent) 50%, transparent);
+  border-radius: 3px;
+  font-family: var(--wa-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transform: rotate(-4deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+  pointer-events: none;
+}
+
+.wa-quote:hover::after {
+  transform: rotate(0deg);
+}
+
+.wa-quote p {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+
+.wa-quote cite {
+  display: block;
+  font-family: var(--wa-mono);
+  font-style: normal;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- signature: pre-departure card ---------------------------------------- */
+
+.wa-check {
+  position: relative;
+  background: var(--surface);
+  border: 3px dashed var(--wa-dash);
+  border-radius: 8px;
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  box-shadow: 0 34px 70px -55px rgba(14, 34, 70, 0.7);
+}
+
+.wa-check__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 2px dashed var(--wa-dash);
+  margin-bottom: 1.3rem;
+}
+
+.wa-check__code {
+  margin: 0 0 0.55rem;
+  font-family: var(--wa-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.wa-check__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.8vw, 2.5rem);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.wa-check__stamp {
+  margin: 0.2rem 0 0;
+  padding: 0.45rem 0.85rem;
+  border: 2.5px solid var(--accent);
+  border-radius: 5px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2px var(--surface),
+    inset 0 0 0 3.5px color-mix(in srgb, var(--accent) 48%, transparent);
+  color: var(--accent);
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+.wa-check:hover .wa-check__stamp {
+  transform: rotate(0deg);
+}
+
+.wa-check__lede {
+  flex-basis: 100%;
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.wa-check__progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 1rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 2px dashed var(--wa-dash-soft);
+  margin-bottom: 1.5rem;
+}
+
+.wa-check__count {
+  font-family: var(--wa-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.wa-check__track {
+  flex: 1 1 160px;
+  height: 12px;
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.wa-check__bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: width 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.wa-check__reset {
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 780;
+  padding: 0.5rem 0.9rem;
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.wa-check__reset:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateX(2px) rotate(-1deg);
+}
+
+.wa-check__reset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.wa-check__next {
+  margin: 0.7rem 0 0;
+  font-family: var(--wa-mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  border-top: 2px dashed var(--wa-dash-soft);
+  padding-top: 0.7rem;
+}
+
+.wa-check__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.3rem;
+}
+
+.wa-check__group {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 5px;
+  background: var(--bg);
+  padding: 1rem 1.15rem 1.15rem;
+  margin: 0;
+}
+
+.wa-check__legend {
+  padding: 0 0.55rem;
+  background: var(--bg);
+  font-family: var(--wa-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.wa-check__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--wa-dash-soft);
+  cursor: pointer;
+}
+
+.wa-check__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.wa-check__item input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.wa-check__mark {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.15rem;
+  border: 2px dashed var(--wa-dash);
+  border-radius: 2px;
+  background: var(--surface);
+  transition: background-color 0.15s ease, border-color 0.15s ease, border-style 0.15s ease;
+}
+
+.wa-check__item:hover .wa-check__mark {
+  border-color: var(--accent);
+}
+
+.wa-check__item input:focus-visible + .wa-check__mark {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.wa-check__item input:checked + .wa-check__mark {
+  background: var(--accent);
+  border-style: solid;
+  border-color: var(--accent);
+}
+
+.wa-check__item input:checked + .wa-check__mark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 11px;
+  border: solid var(--accent-ink);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(42deg);
+}
+
+.wa-check__text {
+  font-size: 0.94rem;
+  color: var(--fg);
+  transition: color 0.15s ease;
+}
+
+.wa-check__item input:checked ~ .wa-check__text {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--accent);
+}
+
+.wa-check__link {
+  margin: 1.6rem 0 0;
+  padding-top: 1.3rem;
+  border-top: 3px dashed var(--wa-dash);
+}
+
+.wa-check__link a {
+  font-family: var(--wa-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px dashed transparent;
+  transition: border-color 0.15s ease;
+}
+
+.wa-check__link a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.wa-check__link a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* --- FAQ as day-numbered itinerary rows ------------------------------------ */
+
+body[data-slug="wanderly"] .faq {
+  counter-reset: wa-day;
+  gap: 0;
+  max-width: 880px;
+  border-top: 2px dashed var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .faq__item {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px dashed var(--wa-dash);
+  border-radius: 0;
+  padding: 0;
+}
+
+body[data-slug="wanderly"] .faq__q {
+  counter-increment: wa-day;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1.15rem 2.6rem 1.15rem 0;
+  font-weight: 720;
+  font-size: 1rem;
+  transition: color 0.16s ease;
+}
+
+body[data-slug="wanderly"] .faq__q::before {
+  content: "DAY " counter(wa-day, decimal-leading-zero);
+  justify-self: start;
+  padding: 0.3rem 0.55rem;
+  border: 2px solid var(--fg);
+  border-radius: 3px;
+  font-family: var(--wa-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--fg);
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transform: rotate(-2deg);
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.3s ease;
+}
+
+body[data-slug="wanderly"] .faq__item:hover .faq__q::before {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(0deg);
+}
+
+body[data-slug="wanderly"] .faq__q::after {
+  font-size: 1.3rem;
+  color: var(--accent);
+  right: 0.2rem;
+}
+
+body[data-slug="wanderly"] .faq__item[open] .faq__q::after {
+  content: "\2013";
+}
+
+body[data-slug="wanderly"] .faq__a {
+  color: var(--muted);
+  max-width: 70ch;
+  margin: 0 0 1.35rem;
+  padding: 0 2.6rem 0 5.6rem;
+}
+
+/* --- booking panel: a ruled docket section --------------------------------- */
+
+body[data-slug="wanderly"] .bk {
+  --wa-under: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--bg) 55%, var(--surface));
+  padding: clamp(1.2rem, 3vw, 1.9rem);
+  margin: 0 0 1.7rem;
+}
+
+body[data-slug="wanderly"] .bk__kicker {
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .bk__title {
+  letter-spacing: -0.025em;
+}
+
+body[data-slug="wanderly"] .bk__lede {
+  font-size: 0.95rem;
+}
+
+body[data-slug="wanderly"] .bk-group + .bk-group {
+  border-top: 2px dashed var(--wa-dash-soft);
+  padding-top: 1.2rem;
+}
+
+body[data-slug="wanderly"] .bk-group__legend {
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--fg);
+}
+
+body[data-slug="wanderly"] .bk-opt {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  transition: border-color 0.16s ease, border-style 0.16s ease, background 0.16s ease,
+    color 0.16s ease, transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+body[data-slug="wanderly"] .bk-group--cards .bk-opt {
+  border-radius: 4px;
+  padding: 0.7rem 1rem;
+}
+
+body[data-slug="wanderly"] .bk-group--times .bk-opt {
+  border-radius: 3px;
+}
+
+body[data-slug="wanderly"] .bk-opt:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  transform: translateX(2px);
+}
+
+body[data-slug="wanderly"] .bk-opt.is-on {
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] .bk-opt__label {
+  font-weight: 700;
+}
+
+body[data-slug="wanderly"] .bk-step__label {
+  font-family: var(--wa-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body[data-slug="wanderly"] .bk-step__ctrl {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+}
+
+body[data-slug="wanderly"] .bk-step__btn:hover {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+body[data-slug="wanderly"] .bk__summary {
+  border-top: 2px dashed var(--wa-dash);
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .bk__summary.is-empty {
+  color: var(--muted);
+}
+
+body[data-slug="wanderly"] .bk-cal__picked {
+  font-family: var(--wa-mono);
+}
+
+/* --- enquiry: the travel docket ------------------------------------------- */
+
+body[data-slug="wanderly"] .lp-form {
+  --wa-under: var(--surface);
+  position: relative;
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  padding: clamp(1.5rem, 3.6vw, 2.6rem);
+}
+
+body[data-slug="wanderly"] .lp-form::after {
+  content: "Received";
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  padding: 0.34rem 0.8rem;
+  background: var(--bg);
+  border: 2.5px solid var(--accent);
+  box-shadow: inset 0 0 0 2px var(--bg), inset 0 0 0 3.5px color-mix(in srgb, var(--accent) 50%, transparent);
+  border-radius: 4px;
+  font-family: var(--wa-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transform: rotate(-5deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+body[data-slug="wanderly"] .lp-form.is-sent::after {
+  opacity: 1;
+  transform: rotate(-3deg);
+}
+
+body[data-slug="wanderly"] .lp-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.3rem 1.5rem;
+  border-top: 2px dashed var(--wa-dash-soft);
+  padding-top: 1.5rem;
+}
+
+body[data-slug="wanderly"] .field__label {
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+body[data-slug="wanderly"] .field__req {
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .field__input {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid color-mix(in srgb, var(--fg) 42%, transparent);
+  border-radius: 0;
+  padding: 0.62rem 0.1rem;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+body[data-slug="wanderly"] .field__input:hover {
+  border-bottom-color: color-mix(in srgb, var(--fg) 68%, transparent);
+}
+
+body[data-slug="wanderly"] .field__input:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+  box-shadow: none;
+}
+
+body[data-slug="wanderly"] .field__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+body[data-slug="wanderly"] select.field__input {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='14'%20height='9'%20viewBox='0%200%2014%209'%3E%3Cpolyline%20points='1,1%207,7%2013,1'%20fill='none'%20stroke='%231667d8'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.15rem center;
+  padding-right: 1.7rem;
+  cursor: pointer;
+}
+
+body[data-slug="wanderly"] textarea.field__input {
+  min-height: 120px;
+}
+
+body[data-slug="wanderly"] .lp-form__foot {
+  border-top: 2px dashed var(--wa-dash);
+  margin-top: 1.7rem;
+  padding-top: 1.5rem;
+}
+
+body[data-slug="wanderly"] .lp-form__note {
+  font-size: 0.86rem;
+}
+
+body[data-slug="wanderly"] .lp-form__status {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 4px;
+  background: transparent;
+}
+
+body[data-slug="wanderly"] .lp-form__status.is-ok {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+body[data-slug="wanderly"] .lp-form__status.is-error {
+  background: rgba(178, 38, 30, 0.1);
+  border-color: #b2261e;
+  color: #8c1d18;
+}
+
+/* --- related landings + sub pages: postcards -------------------------------- */
+
+body[data-slug="wanderly"] .related__grid {
+  gap: 1.4rem;
+}
+
+body[data-slug="wanderly"] .related__card {
+  position: relative;
+  gap: 0.35rem;
+  padding: 1.6rem 1.55rem 1.5rem;
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.2s ease,
+    border-style 0.2s ease, box-shadow 0.26s ease;
+}
+
+body[data-slug="wanderly"] .related__card::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  right: -9px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--accent) 78%, transparent);
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--accent) 65%, transparent) 0 3px,
+    var(--surface) 3.5px
+  );
+  box-shadow: inset 0 0 0 3px var(--surface),
+    inset 0 0 0 4.5px color-mix(in srgb, var(--accent) 48%, transparent);
+  transform: rotate(-7deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+  pointer-events: none;
+}
+
+body[data-slug="wanderly"] .related__card:hover {
+  transform: translate(4px, -3px) rotate(-1deg);
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 26px 50px -36px rgba(14, 34, 70, 0.75);
+}
+
+body[data-slug="wanderly"] .related__card:hover::after {
+  transform: rotate(0deg);
+}
+
+body[data-slug="wanderly"] .related__label {
+  font-family: var(--wa-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .related__name {
+  letter-spacing: -0.03em;
+}
+
+body[data-slug="wanderly"] .related__tagline {
+  font-size: 0.92rem;
+}
+
+body[data-slug="wanderly"] .more-pages__grid {
+  gap: 1.3rem;
+}
+
+body[data-slug="wanderly"] .more-pages__card {
+  position: relative;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  padding: 1.6rem 1.5rem 1.5rem;
+  transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.2s ease,
+    border-style 0.2s ease, box-shadow 0.26s ease;
+}
+
+/* the accent cap becomes a dashed route strip along the top edge */
+body[data-slug="wanderly"] .more-pages__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  border-radius: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 11px,
+    transparent 11px 19px
+  );
+}
+
+body[data-slug="wanderly"] .more-pages__card:hover {
+  transform: translate(4px, -3px) rotate(-1deg);
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 26px 50px -36px rgba(14, 34, 70, 0.75);
+}
+
+body[data-slug="wanderly"] .more-pages__kicker {
+  font-family: var(--wa-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+}
+
+body[data-slug="wanderly"] .more-pages__name {
+  letter-spacing: -0.02em;
+}
+
+body[data-slug="wanderly"] .more-pages__cta {
+  font-family: var(--wa-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .more-pages__link {
+  background: var(--surface);
+  border: 2px dashed var(--wa-dash);
+  border-radius: 4px;
+  transition: border-color 0.18s ease, border-style 0.18s ease, transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+body[data-slug="wanderly"] .more-pages__link:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  transform: translateX(3px) rotate(-0.5deg);
+}
+
+/* --- wander: the stamped NEXT DESTINATION ticket ---------------------------- */
+
+body[data-slug="wanderly"] .wander {
+  border-top: 0;
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  text-align: center;
+}
+
+body[data-slug="wanderly"] .wander__kicker {
+  display: none;
+}
+
+body[data-slug="wanderly"] .wander__inner {
+  position: relative;
+  border: 3px dashed var(--wa-dash);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: clamp(2.2rem, 5vw, 3.4rem) clamp(1.4rem, 4vw, 3rem);
+}
+
+body[data-slug="wanderly"] .wander__inner::after {
+  content: "Next destination";
+  position: absolute;
+  top: -15px;
+  right: clamp(1rem, 5vw, 2.5rem);
+  padding: 0.35rem 0.85rem;
+  background: var(--bg);
+  border: 2.5px solid var(--accent);
+  box-shadow: inset 0 0 0 2px var(--bg), inset 0 0 0 3.5px color-mix(in srgb, var(--accent) 50%, transparent);
+  border-radius: 4px;
+  font-family: var(--wa-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transform: rotate(-5deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+body[data-slug="wanderly"] .wander__inner:hover::after {
+  transform: rotate(0deg);
+}
+
+body[data-slug="wanderly"] .wander__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: -0.035em;
+  margin: 0 0 0.3em;
+}
+
+body[data-slug="wanderly"] .wander__text {
+  color: var(--muted);
+  max-width: 54ch;
+  margin: 0 auto 1.9rem;
+}
+
+/* --- modal, lightbox, toasts ----------------------------------------------- */
+
+body[data-slug="wanderly"] .lp-modal {
+  --wa-under: var(--surface);
+  border: 3px dashed var(--wa-dash);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+body[data-slug="wanderly"] .lp-modal__bar {
+  border-bottom: 2px dashed var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .lp-modal__brand {
+  font-family: var(--wa-mono);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .lp-modal__close {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  background: transparent;
+}
+
+body[data-slug="wanderly"] .lp-modal__close:hover {
+  background: transparent;
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .lp-modal__body h1,
+body[data-slug="wanderly"] .lp-modal__body h2,
+body[data-slug="wanderly"] .lp-modal__body h3 {
+  letter-spacing: -0.03em;
+}
+
+body[data-slug="wanderly"] .lp-modal__body ul li::before {
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .lp-modal__body dt {
+  font-family: var(--wa-mono);
+  letter-spacing: 0.14em;
+}
+
+body[data-slug="wanderly"] .lightbox__dialog {
+  --wa-under: var(--surface);
+  border: 3px dashed var(--wa-dash);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+body[data-slug="wanderly"] .lightbox__close {
+  border: 2px dashed var(--wa-dash);
+  border-radius: 3px;
+  background: var(--bg);
+}
+
+body[data-slug="wanderly"] .lightbox__art {
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent-ink) 60%, transparent);
+}
+
+body[data-slug="wanderly"] .lightbox__tag {
+  font-family: var(--wa-mono);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .lightbox__cta {
+  position: relative;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1px solid color-mix(in srgb, var(--fg) 24%, var(--accent));
+  font-weight: 780;
+  transition: transform 0.24s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+body[data-slug="wanderly"] .lightbox__cta:hover {
+  transform: translateX(2px) rotate(-1.1deg);
+}
+
+body[data-slug="wanderly"] .lightbox__cta::before,
+body[data-slug="wanderly"] .lightbox__cta::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--wa-under);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+body[data-slug="wanderly"] .lightbox__cta::before {
+  left: -7px;
+}
+
+body[data-slug="wanderly"] .lightbox__cta::after {
+  right: -7px;
+}
+
+body[data-slug="wanderly"] .toast {
+  background: var(--fg);
+  color: var(--accent-ink);
+  border: 2px dashed color-mix(in srgb, var(--accent-ink) 48%, transparent);
+  border-radius: 4px;
+  font-size: 0.88rem;
+}
+
+/* --- footer: the ticket ----------------------------------------------------- */
+
+body[data-slug="wanderly"] .footer {
+  border-top: 0;
+  margin-top: 0;
+  padding: clamp(2.5rem, 6vw, 4rem) 0 7rem;
+}
+
+body[data-slug="wanderly"] .footer__ticket {
+  --wa-under: var(--bg);
+  position: relative;
+  border: 3px dashed var(--wa-dash);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+  margin-bottom: 1.7rem;
+}
+
+body[data-slug="wanderly"] .footer__ticket-main {
+  padding: clamp(1.5rem, 3.5vw, 2.3rem);
+}
+
+body[data-slug="wanderly"] .footer__brand {
+  letter-spacing: -0.03em;
+}
+
+body[data-slug="wanderly"] .footer__note {
+  max-width: 44ch;
+}
+
+body[data-slug="wanderly"] .footer__inline a {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .footer__inline a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--accent);
+}
+
+body[data-slug="wanderly"] .footer__ticket-stub {
+  position: relative;
+  border-left: 2px dashed var(--wa-dash);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  gap: 0.6rem;
+}
+
+/* punched holes where the perforation meets the ticket edge */
+body[data-slug="wanderly"] .footer__ticket-stub::before,
+body[data-slug="wanderly"] .footer__ticket-stub::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+body[data-slug="wanderly"] .footer__ticket-stub::before {
+  top: 6px;
+}
+
+body[data-slug="wanderly"] .footer__ticket-stub::after {
+  bottom: 6px;
+}
+
+body[data-slug="wanderly"] .footer__ticket-stub a {
+  font-family: var(--wa-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+  text-decoration-color: transparent;
+}
+
+body[data-slug="wanderly"] .footer__ticket-stub a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--accent);
+}
+
+body[data-slug="wanderly"] .footer__stub-next {
+  color: var(--accent) !important;
+  font-weight: 800;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.1em !important;
+  text-decoration: none !important;
+}
+
+body[data-slug="wanderly"] .footer__stub-next:hover {
+  color: var(--fg) !important;
+}
+
+body[data-slug="wanderly"] .footer__bar {
+  border-top: 2px dashed var(--wa-dash-soft);
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+/* --- sub pages: the same dossier -------------------------------------------- */
+
+body[data-slug="wanderly"] .crumbs {
+  font-family: var(--wa-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+}
+
+body[data-slug="wanderly"] .crumbs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 4px;
+}
+
+body[data-slug="wanderly"] .sub-hero {
+  border-bottom: 2px dashed var(--wa-dash-soft);
+}
+
+body[data-slug="wanderly"] .sub-hero__kicker {
+  font-family: var(--wa-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .sub-hero__title {
+  letter-spacing: -0.035em;
+}
+
+body[data-slug="wanderly"] .sub-stats {
+  border-top: 2px dashed var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .sub-stats__item dd {
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .sub-p {
+  max-width: 70ch;
+}
+
+body[data-slug="wanderly"] .sub-sec {
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  padding: 1.7rem 1.7rem 1.4rem;
+}
+
+body[data-slug="wanderly"] .sub-sec__num {
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 85%, transparent);
+}
+
+body[data-slug="wanderly"] .sub-sec__list li::before {
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .sub-note {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 2px dashed color-mix(in srgb, var(--accent) 55%, var(--line));
+  border-radius: 4px;
+}
+
+body[data-slug="wanderly"] .sub-quote {
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 4px;
+  padding: 1.1rem 1.3rem;
+}
+
+body[data-slug="wanderly"] .story-sec {
+  border-bottom: 2px dashed var(--wa-dash-soft);
+}
+
+body[data-slug="wanderly"] .story-sec__kicker {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+body[data-slug="wanderly"] .story-sec__prose .sub-quote {
+  margin: 2rem 0;
+  padding: 1.1rem 1.3rem;
+  border: 2.5px dashed var(--wa-dash);
+  text-align: left;
+}
+
+body[data-slug="wanderly"] .ledger {
+  border-top: 3px dashed var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .ledger__row {
+  border-bottom: 2px dashed var(--wa-dash-soft);
+}
+
+body[data-slug="wanderly"] .ledger__num {
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 3px;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .sub-table-wrap {
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 5px;
+}
+
+body[data-slug="wanderly"] .sub-table th {
+  font-family: var(--wa-mono);
+  letter-spacing: 0.12em;
+  border-bottom: 2px dashed var(--wa-dash);
+}
+
+body[data-slug="wanderly"] .sub-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-slug="wanderly"] .sub-toc {
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 5px;
+  background: var(--surface);
+}
+
+body[data-slug="wanderly"] .sub-toc__title {
+  font-family: var(--wa-mono);
+}
+
+body[data-slug="wanderly"] .sub-toc__list a {
+  border-left: 2px dashed transparent;
+}
+
+body[data-slug="wanderly"] .sub-toc__list a:hover {
+  color: var(--accent);
+  border-left: 2px dashed var(--accent);
+}
+
+body[data-slug="wanderly"] .sub-card {
+  background: var(--surface);
+  border: 2.5px dashed var(--wa-dash);
+  border-radius: 6px;
+  transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.2s ease,
+    border-style 0.2s ease, box-shadow 0.26s ease;
+}
+
+body[data-slug="wanderly"] .sub-card:hover {
+  transform: translate(4px, -3px) rotate(-1deg);
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 26px 50px -36px rgba(14, 34, 70, 0.75);
+}
+
+body[data-slug="wanderly"] .sub-card__num {
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 3px;
+  color: var(--accent);
+  transform: rotate(-4deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+body[data-slug="wanderly"] .sub-card:hover .sub-card__num {
+  transform: rotate(0deg);
+}
+
+body[data-slug="wanderly"] .sub-cta__inner {
+  --wa-under: var(--fg);
+  background: var(--fg);
+  border: 3px dashed color-mix(in srgb, var(--accent-ink) 42%, transparent);
+  border-radius: 8px;
+  padding: 2.1rem 2.2rem;
+}
+
+body[data-slug="wanderly"] .sub-cta__inner .section-title {
+  color: var(--accent-ink);
+}
+
+body[data-slug="wanderly"] .sub-cta__inner .section-note {
+  color: color-mix(in srgb, var(--accent-ink) 84%, var(--fg));
+}
+
+/* --- responsive -------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .wa-hero {
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 6vw, 3rem);
+  }
+
+  .wa-hero__art {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-slug="wanderly"] .nav__tag {
+    display: none;
+  }
+
+  body[data-slug="wanderly"] .faq__a {
+    padding-left: 5.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .wa-hero__art {
+    justify-items: center;
+  }
+
+  .wa-stamp {
+    transform: rotate(-2deg);
+    padding: 1.3rem 1.3rem 1.4rem;
+  }
+
+  @keyframes wa-stamp-set {
+    from {
+      opacity: 0;
+      transform: rotate(-12deg) scale(1.05);
+    }
+    55% {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+      transform: rotate(-2deg) scale(1);
+    }
+  }
+
+  .wa-stamp__row {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  body[data-slug="wanderly"] .faq__a {
+    padding: 0 0 1.3rem;
+  }
+
+  body[data-slug="wanderly"] .footer__ticket {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-slug="wanderly"] .footer__ticket-stub {
+    border-left: 0;
+    border-top: 2px dashed var(--wa-dash);
+    padding-top: 1.6rem;
+  }
+
+  body[data-slug="wanderly"] .footer__ticket-stub::before {
+    top: -9px;
+    bottom: auto;
+    left: 10px;
+  }
+
+  body[data-slug="wanderly"] .footer__ticket-stub::after {
+    top: -9px;
+    bottom: auto;
+    left: auto;
+    right: 10px;
+  }
+
+  body[data-slug="wanderly"] .lp-form__grid {
+    gap: 1.1rem;
+  }
+
+  body[data-slug="wanderly"] .sub-cta__inner {
+    padding: 1.7rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wa-hero__title {
+    font-size: clamp(2.1rem, 9vw, 2.4rem);
+  }
+
+  .wa-hero__note {
+    font-size: 0.64rem;
+    letter-spacing: 0.13em;
+  }
+
+  .wa-trip::after {
+    width: 46px;
+    height: 46px;
+    right: -6px;
+  }
+
+  .wa-stamp__row dd {
+    font-size: 0.94rem;
+  }
+
+  body[data-slug="wanderly"] .faq__q {
+    gap: 0.75rem;
+    padding-right: 2.1rem;
+    font-size: 0.96rem;
+  }
+
+  body[data-slug="wanderly"] .faq__q::before {
+    font-size: 0.6rem;
+    padding: 0.26rem 0.45rem;
+  }
+
+  body[data-slug="wanderly"] .lp-modal__body {
+    padding: 1.3rem 1.2rem 1.5rem;
+  }
+
+  body[data-slug="wanderly"] .wander__inner::after {
+    right: 0.6rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+}
