@@ -1,14 +1,17 @@
-import type { CSSProperties } from 'react';
+// million-ignore — cart-driven text swaps crash Million's Text optimizer
+import { useEffect, useSyncExternalStore, type CSSProperties } from 'react';
 import { Page } from '../../components/Page';
 import { Faq } from '../../components/Faq';
 import { Subs } from '../../components/Subs';
-import { EnquiryForm } from '../../components/EnquiryForm';
 import { atelier } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
 import { LANDING_NAV } from './meta';
+import { AtelierCart } from './AtelierCart';
+import * as cart from '../../lib/cart';
 
 const SLUG = 'atelier';
 const BRAND = 'Atelier Noir';
+const OG_IMAGE = '/assets/img/atelier/field-coat.jpg';
 
 const TEMPLATE_1 = `
   <p class="modal__kicker">Atelier Noir · reservations</p>
@@ -63,6 +66,26 @@ const TEMPLATE_3 = `
 
 export default function Atelier() {
   const content = contentForSlug(SLUG);
+  const lines = useSyncExternalStore(cart.subscribe, cart.getLines, cart.getLines);
+  const bagCount = lines.reduce((n, l) => n + l.qty, 0);
+
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      const target = e.target as Element | null;
+      const link = target?.closest<HTMLElement>('a[data-at-bag], button[data-at-bag]');
+      if (!link) return;
+      e.preventDefault();
+      e.stopPropagation();
+      // AtelierCart listens for this; hash also opens via #bag
+      window.dispatchEvent(new CustomEvent('atelier:open-bag'));
+      if (window.location.hash !== '#bag') {
+        history.replaceState(null, '', '#bag');
+      }
+    }
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, []);
+
   if (!content) return null;
 
   return (
@@ -72,6 +95,7 @@ export default function Atelier() {
       title={content.title}
       description={content.description}
       seoPath="/p/atelier"
+      image={OG_IMAGE}
       navItems={LANDING_NAV[SLUG]}
     >
       <main className="page-atelier">
@@ -96,14 +120,14 @@ export default function Atelier() {
           </div>
           <p className="at-hero__lede">
             Cut from deadstock cotton and traceable wool in a workshop we can name on the label.
-            When a piece sells out, it is gone until next season.
+            Ten pieces a capsule. Twice a year. When one sells out, it is gone until next season.
           </p>
           <div className="hero__actions">
             <a className="btn btn--accent" href="#capsule">
-              Shop the capsule
+              Shop Capsule 07
             </a>
-            <a className="btn btn--ghost" href="#story">
-              Our story
+            <a className="btn btn--ghost" href="#bag" data-at-bag>
+              Open bag{bagCount > 0 ? ` (${bagCount})` : ''}
             </a>
             <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-1">
               How reservations work
@@ -113,45 +137,67 @@ export default function Atelier() {
 
         <section className="wrap at-section" id="capsule">
           <div className="section-head">
-            <h2 className="section-title">The capsule</h2>
-            <p className="section-note">Six of the ten, in stock today.</p>
+            <h2 className="section-title">Capsule 07 — in stock</h2>
+            <p className="section-note">
+              Six of the ten pieces on the rail today. Add to bag — nothing is charged until it
+              ships. Orders over $120 ship free.
+            </p>
           </div>
           <div className="at-products">
-            {atelier.products.map((product, i) => (
-              <article
-                key={product.name}
-                className="at-product"
-                style={{ '--swatch': product.swatch } as CSSProperties}
-              >
-                <div className="at-product__meta">
-                  <span className="at-product__piece">
-                    Piece {String(i + 1).padStart(2, '0')} / 10
-                  </span>
-                </div>
-                <div
-                  className="at-product__visual"
+            {atelier.products.map((product, i) => {
+              const id = product.name
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+              const qty = cart.qtyOf(id);
+              return (
+                <article
+                  key={product.name}
+                  className={`at-product${qty > 0 ? ' at-product--inbag' : ''}`}
                   style={{ '--swatch': product.swatch } as CSSProperties}
-                  aria-hidden="true"
                 >
-                  <span className="at-product__tag">{product.kind}</span>
-                </div>
-                <div className="at-product__row">
-                  <h3 className="at-product__name">{product.name}</h3>
-                  <span className="at-product__price">{product.price}</span>
-                </div>
-                <a
-                  className="at-product__cta"
-                  href="#enquire"
-                  data-prefill={`piece=${product.name}`}
-                >
-                  Reserve <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            ))}
+                  <div className="at-product__meta">
+                    <span className="at-product__piece">
+                      Piece {String(i + 1).padStart(2, '0')} / 10
+                    </span>
+                  </div>
+                  <div
+                    className="at-product__visual"
+                    style={{ '--swatch': product.swatch } as CSSProperties}
+                    aria-hidden="true"
+                  >
+                    <span className="at-product__tag">{product.kind}</span>
+                  </div>
+                  <div className="at-product__row">
+                    <h3 className="at-product__name">{product.name}</h3>
+                    <span className="at-product__price">{product.price}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="at-product__cta"
+                    onClick={() => cart.add(product)}
+                    aria-label={
+                      qty > 0
+                        ? `Add another ${product.name} to bag (${qty} in bag)`
+                        : `Add ${product.name} to bag`
+                    }
+                  >
+                    {/* stable span — only className/text change, never remount */}
+                    <span className={qty > 0 ? 'at-product__cta-done' : 'at-product__cta-add'}>
+                      {qty > 0 ? `In bag · ${qty} — add more` : 'Add to bag'}
+                    </span>
+                    <span aria-hidden="true">+</span>
+                  </button>
+                </article>
+              );
+            })}
           </div>
           <div className="mini-actions">
             <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-2">
               Shipping and delivery
+            </button>
+            <button type="button" className="btn btn--ghost" data-at-bag>
+              Open bag{bagCount > 0 ? ` (${bagCount})` : ''}
             </button>
           </div>
         </section>
@@ -180,10 +226,10 @@ export default function Atelier() {
                 <span>LOOK 07</span>
               </button>
               <div className="at-look__copy">
-                <h2 className="section-title">Lookbook — winter</h2>
+                <h2 className="section-title">Winter lookbook</h2>
                 <p className="section-note">
                   Shot in the workshop against unfinished plaster. Styled with the pieces as they
-                  actually fall.
+                  actually fall — nothing pressed twice, nothing borrowed from a rail.
                 </p>
                 <details className="at-look__more">
                   <summary className="btn btn--ghost btn--on-dark">View all looks</summary>
@@ -211,6 +257,45 @@ export default function Atelier() {
           </div>
         </section>
 
+        <section className="wrap at-section at-cloth" id="cloth" aria-labelledby="at-cloth-title">
+          <div className="at-cloth__media">
+            <img
+              src="/assets/img/atelier/wool-cloth.jpg"
+              alt=""
+              width={1200}
+              height={1200}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="at-cloth__cap">Wool · Portugal · Capsule 07</span>
+          </div>
+          <div className="at-cloth__copy">
+            <p className="at-cloth__kicker">The cloth</p>
+            <h2 className="at-cloth__title" id="at-cloth-title">
+              No sale.
+              <br />
+              <em>Ever.</em>
+            </h2>
+            <p className="at-cloth__lede">
+              Deadstock cloth is bought once — the length a capsule needs, at the price the mill
+              asked that week. The ticket follows the cloth.
+            </p>
+            <p className="at-cloth__body">
+              A Field Coat costs the same in December as it did in April. Two years of repairs sit
+              inside every price. Pieces that do not sell through retire with the capsule instead
+              of being cut cheaper to clear. Nothing is marked up for scarcity either.
+            </p>
+            <div className="at-cloth__actions">
+              <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-3">
+                Why nothing goes on sale
+              </button>
+              <a className="at-cloth__link" href="#capsule">
+                Shop the capsule <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section className="wrap at-section" id="story">
           <div className="at-stats">
             {atelier.stats.map((stat) => (
@@ -222,13 +307,19 @@ export default function Atelier() {
           </div>
           <div className="at-cta">
             <div>
-              <h2 className="section-title">Two emails a year</h2>
+              <h2 className="section-title">
+                {bagCount > 0
+                  ? `${bagCount} piece${bagCount === 1 ? '' : 's'} in the bag`
+                  : 'Ready when you are'}
+              </h2>
               <p className="section-note">
-                We write when a capsule drops, not every Thursday. Unsubscribe in one click.
+                {bagCount > 0
+                  ? 'Review the bag, add a delivery note, and we pack within two working days. Payment runs when the piece is packed.'
+                  : 'Add Capsule 07 pieces to the bag. Free shipping over $120, two years of repairs, 30-day returns. Nothing is charged until it ships.'}
               </p>
             </div>
-            <a className="btn btn--accent" href="#enquire">
-              Join the list
+            <a className="btn btn--accent" href="#bag" data-at-bag>
+              {bagCount > 0 ? `Review bag · ${cart.money(cart.subtotal())}` : 'Open bag'}
             </a>
           </div>
           <div className="mini-actions">
@@ -400,7 +491,7 @@ export default function Atelier() {
         <Subs slug={SLUG} />
         <Faq slug={SLUG} />
 
-        <EnquiryForm slug={SLUG} />
+        <AtelierCart />
       </main>
 
       <template id="tpl-atelier-1" dangerouslySetInnerHTML={{ __html: TEMPLATE_1 }} />

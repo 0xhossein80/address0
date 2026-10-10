@@ -13,14 +13,31 @@ interface PageProps {
   /** Public path for canonical/OG/JSON-LD. */
   seoPath: string;
   navItems: [string, string][];
+  /** Optional social share image path (site-relative). */
+  image?: string;
   children: ReactNode;
 }
 
 /** Shared document shell: head management, header, content, dialog, footer. */
-export function Page({ slug, brand, title, description, seoPath, navItems, children }: PageProps) {
+export function Page({
+  slug,
+  brand,
+  title,
+  description,
+  seoPath,
+  navItems,
+  image,
+  children,
+}: PageProps) {
   return (
     <>
-      <Seo slug={slug} title={title} description={description} seoPath={seoPath} />
+      <Seo
+        slug={slug}
+        title={title}
+        description={description}
+        seoPath={seoPath}
+        {...(image ? { image } : {})}
+      />
       <Nav slug={slug} brand={brand} items={navItems} />
       {children}
       <Modal brand={brand} />

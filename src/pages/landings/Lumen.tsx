@@ -1,22 +1,24 @@
 import { Page } from '../../components/Page';
 import { Faq } from '../../components/Faq';
 import { Subs } from '../../components/Subs';
-import { EnquiryForm } from '../../components/EnquiryForm';
+import { LumenBooking } from './LumenBooking';
+import { LumenGuide } from './LumenGuide';
 import { lumen } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'lumen';
 const BRAND = 'Lumen Studio';
+const OG_IMAGE = '/assets/img/lumen/harbour-portrait.jpg';
 
 const TEMPLATE_1 = `
   <p class="modal__kicker">Lumen Studio · booking</p>
   <h2>How to hold a date</h2>
   <p>A shoot starts with a rough note, not a contract. Tell us roughly when and what, and you get two or three dates, one fixed price and a straight answer on availability the same working day.</p>
   <ul>
-    <li>Weekdays, 09:00 to 18:00, with Saturday mornings held for portrait and headshot series</li>
+    <li>Tuesday to Saturday, 09:00 to 18:00, with Saturday mornings held for portrait and headshot series</li>
     <li>Two weeks' notice is comfortable; if the date is tighter, ask anyway — gaps get filled from the waiting list</li>
-    <li>A 25% deposit takes the date off the calendar, balance due on the shoot day</li>
+    <li>A 30% deposit takes the date off the board, refundable up to 48 hours before the shoot; balance due on the day</li>
     <li>Invoices go to your business, PO numbers accepted, bank transfer available if finance prefers it</li>
     <li>Two days held across the same fortnight are billed with a half-day on the second — worth knowing for campaign work</li>
   </ul>
@@ -59,6 +61,45 @@ const TEMPLATE_3 = `
   </div>
 `;
 
+const HERO_FACTS = [
+  'Previews in 48h',
+  'Selects in 5 days',
+  'Unlimited usage',
+  'From $340',
+];
+
+const HOLD_TERMS: { term: string; detail: string }[] = [
+  { term: 'Deposit', detail: '30% — refundable to 48h' },
+  { term: 'Answer', detail: 'Same working day' },
+  { term: 'Hours', detail: 'Tue–Sat · 09:00–18:00' },
+  { term: 'Previews', detail: '48 hours' },
+  { term: 'Selects', detail: 'Five working days' },
+  { term: 'Usage', detail: 'Unlimited on delivered frames' },
+];
+
+const STEPS = [
+  {
+    n: '01',
+    title: 'Send the brief',
+    copy: 'A rough date and a rough subject is enough. You get two or three dates, one fixed price, and an answer the same working day.',
+  },
+  {
+    n: '02',
+    title: 'Hold the date',
+    copy: 'A 30% deposit takes the day off the board, refundable up to 48 hours before. The balance is due on the shoot day.',
+  },
+  {
+    n: '03',
+    title: 'Shoot day',
+    copy: 'Come ten minutes early. The light is set once, tethering puts every frame on your screen as it lands, and there is a private corner to change in.',
+  },
+  {
+    n: '04',
+    title: 'Delivery',
+    copy: 'Preview gallery within 48 hours, retouched selects within five working days. Rush delivery by the next morning when a deadline will not move.',
+  },
+];
+
 export default function Lumen() {
   const content = contentForSlug(SLUG);
   if (!content) return null;
@@ -70,6 +111,7 @@ export default function Lumen() {
       title={content.title}
       description={content.description}
       seoPath="/p/lumen"
+      image={OG_IMAGE}
       navItems={LANDING_NAV[SLUG]}
     >
       <main className="page-lumen">
@@ -81,58 +123,71 @@ export default function Lumen() {
               arranged.
             </h1>
             <p className="lu-hero__lede">
-              People and products, photographed in north-facing daylight with a lot of patience and
-              very little fuss.
+              Portraits, products and interiors for brands, teams and editors — shot in five-metre
+              north-facing daylight, with a lot of patience and very little fuss.
             </p>
+            <ul className="lu-hero__facts">
+              {HERO_FACTS.map((fact) => (
+                <li key={fact}>{fact}</li>
+              ))}
+            </ul>
             <div className="lu-hero__rule" aria-hidden="true" />
             <div className="hero__actions">
               <a className="btn btn--accent" href="#enquire">
                 Book a shoot
               </a>
-              <a className="btn btn--ghost" href="#work">
-                See the work
+              <a className="btn btn--ghost" href="#guide">
+                Get the prep sheet
               </a>
-              <button type="button" className="btn btn--ghost" data-modal-open="tpl-lumen-1">
-                Booking the studio
-              </button>
+              <a className="lu-hero__link" href="#work">
+                See the work <span aria-hidden="true">&#8594;</span>
+              </a>
             </div>
           </div>
-          <div className="lu-ev" aria-hidden="true">
-            <p className="lu-ev__cap">EV</p>
-            <div className="lu-ev__rail">
-              <span className="lu-ev__t lu-ev__t--major">
-                <span className="lu-ev__val">+2</span>
-              </span>
-              <span className="lu-ev__t" />
-              <span className="lu-ev__t lu-ev__t--major">
-                <span className="lu-ev__val">+1</span>
-              </span>
-              <span className="lu-ev__t" />
-              <span className="lu-ev__t lu-ev__t--major lu-ev__t--zero">
-                <span className="lu-ev__val">0</span>
-              </span>
-              <span className="lu-ev__t" />
-              <span className="lu-ev__t lu-ev__t--major">
-                <span className="lu-ev__val">&#8722;1</span>
-              </span>
-              <span className="lu-ev__t" />
-              <span className="lu-ev__t lu-ev__t--major">
-                <span className="lu-ev__val">&#8722;2</span>
-              </span>
+          <div className="lu-hero__meter">
+            <div className="lu-ev" aria-hidden="true">
+              <p className="lu-ev__cap">EV</p>
+              <div className="lu-ev__rail">
+                <span className="lu-ev__t lu-ev__t--major">
+                  <span className="lu-ev__val">+2</span>
+                </span>
+                <span className="lu-ev__t" />
+                <span className="lu-ev__t lu-ev__t--major">
+                  <span className="lu-ev__val">+1</span>
+                </span>
+                <span className="lu-ev__t" />
+                <span className="lu-ev__t lu-ev__t--major lu-ev__t--zero">
+                  <span className="lu-ev__val">0</span>
+                </span>
+                <span className="lu-ev__t" />
+                <span className="lu-ev__t lu-ev__t--major">
+                  <span className="lu-ev__val">&#8722;1</span>
+                </span>
+                <span className="lu-ev__t" />
+                <span className="lu-ev__t lu-ev__t--major">
+                  <span className="lu-ev__val">&#8722;2</span>
+                </span>
+              </div>
             </div>
+            <p className="lu-ev__note">
+              North glass, no direct sun — even light from the first frame to the last.
+            </p>
           </div>
         </section>
 
         <section className="wrap lu-section" id="work">
           <div className="section-head">
-            <h2 className="section-title">Selected frames</h2>
-            <p className="section-note">A rotating wall from the last two seasons.</p>
+            <h2 className="section-title">Portrait, product &amp; interior photography</h2>
+            <p className="section-note">
+              Six frames from two seasons of work — people, product, interiors and editorial, all
+              shot in this room.
+            </p>
           </div>
           <div className="lu-wall">
             {lumen.shots.map((shot, i) => {
               const frame = String(i + 1).padStart(2, '0');
               return (
-                <figure key={shot.title} className={`lu-shot lu-shot--${i % 3}`}>
+                <figure key={shot.title} className={`lu-shot lu-shot--${i}`}>
                   <button
                     className="lu-shot__frame"
                     type="button"
@@ -141,10 +196,19 @@ export default function Lumen() {
                     data-lightbox-title={shot.title}
                     data-lightbox-tag={shot.kind}
                     data-lightbox-text={shot.note}
+                    {...(shot.image ? { 'data-lightbox-image': shot.image } : {})}
                   >
-                    <span className="lu-shot__num" aria-hidden="true">
-                      {frame}
-                    </span>
+                    {shot.image ? (
+                      <img
+                        className="lu-shot__img"
+                        src={shot.image}
+                        alt=""
+                        width={1400}
+                        height={1050}
+                        loading="eager"
+                        decoding="async"
+                      />
+                    ) : null}
                     <span className="lu-shot__hint">View</span>
                     <span className="lu-shot__rebate" aria-hidden="true">
                       <span className="lu-shot__id">Frame {frame}A</span>
@@ -159,17 +223,40 @@ export default function Lumen() {
               );
             })}
           </div>
-          <div className="mini-actions">
-            <button type="button" className="btn btn--ghost" data-modal-open="tpl-lumen-2">
-              Directing, not posing
-            </button>
+        </section>
+
+        <section className="wrap lu-section" id="sessions">
+          <div className="section-head">
+            <h2 className="section-title">What you can book</h2>
+            <p className="section-note">
+              One room, four kinds of job — pick the closest and the brief sets the rest.
+            </p>
+          </div>
+          <div className="lu-sessions">
+            {lumen.sessions.map((session) => (
+              <a
+                key={session.kind}
+                className="lu-session"
+                href="#enquire"
+                data-prefill={session.prefill}
+              >
+                <span className="lu-session__id">
+                  <span className="lu-session__kind">{session.kind}</span>
+                  <span className="lu-session__frames">{session.frames}</span>
+                </span>
+                <span className="lu-session__copy">{session.copy}</span>
+                <span className="lu-session__cta">
+                  {session.cta} <span aria-hidden="true">&#8594;</span>
+                </span>
+              </a>
+            ))}
           </div>
         </section>
 
         <section className="lu-band" id="packages">
           <div className="wrap lu-section">
             <div className="section-head section-head--light">
-              <h2 className="section-title">Packages</h2>
+              <h2 className="section-title">Packages from $340</h2>
               <p className="section-note">Half-day rates available on request.</p>
             </div>
             <div className="lu-plans">
@@ -191,6 +278,76 @@ export default function Lumen() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="wrap lu-section lu-hold" id="hold" aria-labelledby="lu-hold-title">
+          <div className="lu-hold__main">
+            <p className="lu-hold__kicker">Booking</p>
+            <h2 className="lu-hold__title" id="lu-hold-title">
+              You are booking
+              <br />
+              the light.
+            </h2>
+            <p className="lu-hold__lede">
+              North glass from nine to six. One room, held still, so a team set reads as one wall —
+              not fourteen offices. The package is almost secondary.
+            </p>
+            <p className="lu-hold__body">
+              Tell us roughly when and what. You get two or three dates, one fixed price, and an
+              answer the same working day. A 30% deposit puts your name on the board; refundable up
+              to 48 hours before the shutter.
+            </p>
+            <div className="lu-hold__actions">
+              <a className="btn btn--accent" href="#enquire">
+                Request a date
+              </a>
+              <a className="lu-hold__link" href="#packages">
+                Back to packages
+              </a>
+              <a className="lu-hold__link" href="#guide">
+                Prep sheet first
+              </a>
+            </div>
+          </div>
+
+          <aside className="lu-hold__stub" aria-label="Booking terms">
+            <p className="lu-hold__stub-cap">Day sheet · terms</p>
+            <dl className="lu-hold__terms">
+              {HOLD_TERMS.map((row) => (
+                <div key={row.term} className="lu-hold__row">
+                  <dt className="lu-hold__term">{row.term}</dt>
+                  <dd className="lu-hold__detail">{row.detail}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="lu-hold__stub-foot">Lumen · north-facing · by appointment</p>
+          </aside>
+        </section>
+
+        <section className="wrap lu-section" id="process">
+          <div className="section-head">
+            <h2 className="section-title">How a shoot runs</h2>
+            <p className="section-note">
+              From first note to final files — most jobs finish inside a week.
+            </p>
+          </div>
+          <ol className="lu-steps">
+            {STEPS.map((step) => (
+              <li key={step.n} className="lu-step">
+                <span className="lu-step__n">{step.n}</span>
+                <h3 className="lu-step__t">{step.title}</h3>
+                <p className="lu-step__c">{step.copy}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mini-actions">
+            <button type="button" className="btn btn--ghost" data-modal-open="tpl-lumen-1">
+              How to hold a date
+            </button>
+            <button type="button" className="btn btn--ghost" data-modal-open="tpl-lumen-2">
+              Directing, not posing
+            </button>
           </div>
         </section>
 
@@ -331,10 +488,10 @@ export default function Lumen() {
                 </p>
                 <div className="lu-readout__frame">
                   <p className="lu-readout__scene" data-out="scene">
-                    Dim interior
+                    Bright room, open shade
                   </p>
                   <p className="lu-readout__tip" data-out="tip">
-                    Open the aperture a stop or push ISO to 1600 before you slow down.
+                    This is portrait weather — f/4, ISO 100, watch the window light.
                   </p>
                 </div>
               </div>
@@ -345,7 +502,9 @@ export default function Lumen() {
         <Subs slug={SLUG} />
         <Faq slug={SLUG} />
 
-        <EnquiryForm slug={SLUG} />
+        <LumenGuide />
+
+        <LumenBooking />
       </main>
 
       <template id="tpl-lumen-1" dangerouslySetInnerHTML={{ __html: TEMPLATE_1 }} />

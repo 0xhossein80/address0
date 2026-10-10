@@ -6,28 +6,16 @@ import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 
 // Each landing is its own chunk: only the page you visit (or the index)
-// ships, instead of all ten designs in the entry bundle.
+// ships, instead of every design in the entry bundle.
 const SubPage = lazy(() => import('./pages/SubPage'));
-const Roastery = lazy(() => import('./pages/landings/Roastery'));
-const Forge = lazy(() => import('./pages/landings/Forge'));
-const Haven = lazy(() => import('./pages/landings/Haven'));
-const Brightside = lazy(() => import('./pages/landings/Brightside'));
-const Verity = lazy(() => import('./pages/landings/Verity'));
 const Saffron = lazy(() => import('./pages/landings/Saffron'));
 const Wanderly = lazy(() => import('./pages/landings/Wanderly'));
-const Loop = lazy(() => import('./pages/landings/Loop'));
 const Lumen = lazy(() => import('./pages/landings/Lumen'));
 const Atelier = lazy(() => import('./pages/landings/Atelier'));
 
 const LANDINGS: Record<string, ComponentType> = {
-  roastery: Roastery,
-  forge: Forge,
-  haven: Haven,
-  brightside: Brightside,
-  verity: Verity,
   saffron: Saffron,
   wanderly: Wanderly,
-  loop: Loop,
   lumen: Lumen,
   atelier: Atelier,
 };
@@ -37,7 +25,7 @@ function LandingRoute({ slug }: { slug: string }) {
   return Landing ? <Landing /> : <NotFound />;
 }
 
-/** `/p/{slug}/{sub}` — resolved inside SubPage, so the 40 sub-page
+/** `/p/{slug}/{sub}` — resolved inside SubPage, so the sub-page
  *  records (and their text) only load when one is actually visited. */
 function SubPageRoute() {
   const { slug, sub } = useParams();

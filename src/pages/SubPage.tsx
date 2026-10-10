@@ -41,7 +41,7 @@ export default function SubPage({ parent, sub }: SubPageProps) {
       <main className={`page-sub sub--${page.variant}`}>
         <section className="wrap sub-hero">
           <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="/">Ten Landings</a>
+            <a href="/">Four Landings</a>
             <span aria-hidden="true">/</span>
             <a href={parentPath}>{brand}</a>
             <span aria-hidden="true">/</span>

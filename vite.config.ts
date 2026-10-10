@@ -31,7 +31,29 @@ function seoPlugin(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [million.vite({ auto: true }), react(), seoPlugin()],
+  plugins: [
+    million.vite({
+      // Million's Text/block optimizer steals product-button text nodes;
+      // when the bag empties React then throws removeChild NotFoundError.
+      // Skip Atelier + shared shell that mounts the bag UI.
+      filter: {
+        exclude: [
+          /Atelier/i,
+          /atelier/i,
+          /landings\/Atelier/,
+          /components\/Page\./,
+          /components\/Nav\./,
+          /components\/Footer\./,
+          /components\/Modal\./,
+        ],
+      },
+      auto: {
+        skip: [/Atelier/i, /atelier/i, /Page\./, /Nav\./, /Footer\./, /Modal\./],
+      },
+    }),
+    react(),
+    seoPlugin(),
+  ],
   build: {
     rollupOptions: {
       output: {

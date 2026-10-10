@@ -11,273 +11,7 @@ export interface Stat {
 }
 
 // ---------------------------------------------------------------------------
-// 1. Coffee roastery
-// ---------------------------------------------------------------------------
-
-export interface Roast {
-  name: string;
-  origin: string;
-  notes: string;
-  price: string;
-}
-
-export const roastery: { roasts: Roast[]; plans: Plan[] } = {
-  roasts: [
-    {
-      name: "Slow Sunday",
-      origin: "Huila, Colombia",
-      notes: "Cocoa, red apple, brown sugar",
-      price: "$19",
-    },
-    {
-      name: "Night Porter",
-      origin: "Sidamo, Ethiopia",
-      notes: "Blackcurrant, jasmine, cane sugar",
-      price: "$22",
-    },
-    {
-      name: "Harbour Blend",
-      origin: "Brazil + Guatemala",
-      notes: "Praline, dark cherry, malt",
-      price: "$17",
-    },
-  ],
-  plans: [
-    {
-      name: "The Drifter",
-      price: "$16/mo",
-      detail: "One 250g bag, ground to order",
-      featured: false,
-    },
-    {
-      name: "The Regular",
-      price: "$29/mo",
-      detail: "Two 250g bags + brew notes card",
-      featured: true,
-    },
-    {
-      name: "The Counter",
-      price: "$54/mo",
-      detail: "Four bags for offices and hosts",
-      featured: false,
-    },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 2. Gym
-// ---------------------------------------------------------------------------
-
-export interface ClassSlot {
-  day: string;
-  name: string;
-  time: string;
-}
-
-export interface Coach {
-  name: string;
-  focus: string;
-}
-
-export const forge: { classes: ClassSlot[]; coaches: Coach[]; plans: Plan[] } = {
-  classes: [
-    {
-      day: "Mon",
-      name: "Squat Mechanics",
-      time: "06:00",
-    },
-    {
-      day: "Tue",
-      name: "Conditioning Circuit",
-      time: "18:30",
-    },
-    {
-      day: "Wed",
-      name: "Bench & Press",
-      time: "06:00",
-    },
-    {
-      day: "Thu",
-      name: "Olympic Lifting",
-      time: "19:00",
-    },
-    {
-      day: "Sat",
-      name: "Long Session",
-      time: "09:00",
-    },
-  ],
-  coaches: [
-    {
-      name: "Mara Okonjo",
-      focus: "Strength & powerlifting",
-    },
-    {
-      name: "Deniz Aydın",
-      focus: "Olympic lifting",
-    },
-    {
-      name: "Ruth Callahan",
-      focus: "Return-to-lift rehab",
-    },
-  ],
-  plans: [
-    {
-      name: "Open Floor",
-      price: "$49/mo",
-      detail: "24/7 access, no contract",
-      featured: false,
-    },
-    {
-      name: "Coached",
-      price: "$119/mo",
-      detail: "Unlimited classes + programming",
-      featured: true,
-    },
-    {
-      name: "Drop-in",
-      price: "$18",
-      detail: "Single session, any class",
-      featured: false,
-    },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 3. Real estate
-// ---------------------------------------------------------------------------
-
-export interface Listing {
-  kind: string;
-  address: string;
-  area: string;
-  price: string;
-  beds: string;
-  baths: string;
-  size: string;
-}
-
-export const haven: { listings: Listing[]; stats: Stat[] } = {
-  listings: [
-    {
-      kind: "Townhouse",
-      address: "14 Cooper Row",
-      area: "Old Dock",
-      price: "$845,000",
-      beds: "3",
-      baths: "2",
-      size: "1,940 sqft",
-    },
-    {
-      kind: "Loft",
-      address: "8a Mill Lane, Unit 3",
-      area: "Warehouse District",
-      price: "$610,000",
-      beds: "2",
-      baths: "1",
-      size: "1,320 sqft",
-    },
-    {
-      kind: "Coastal",
-      address: "2 Tidewater Close",
-      area: "North Point",
-      price: "$1,240,000",
-      beds: "4",
-      baths: "3",
-      size: "2,780 sqft",
-    },
-    {
-      kind: "Garden flat",
-      address: "7 Fern Court",
-      area: "Ashgrove",
-      price: "$472,000",
-      beds: "2",
-      baths: "1",
-      size: "980 sqft",
-    },
-  ],
-  stats: [
-    { value: "21 days", label: "Median time to offer" },
-    { value: "98.4%", label: "Of asking price achieved" },
-    { value: "142", label: "Homes placed last year" },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 4. Dental clinic
-// ---------------------------------------------------------------------------
-
-export interface Service {
-  name: string;
-  detail: string;
-  price: string;
-}
-
-export const brightside: { services: Service[]; stats: Stat[] } = {
-  services: [
-    {
-      name: "Check-up & clean",
-      detail: "Exam, scale, fluoride and X-rays if needed",
-      price: "$95",
-    },
-    {
-      name: "Whitening",
-      detail: "Take-home trays, dentist supervised",
-      price: "$260",
-    },
-    {
-      name: "Clear aligners",
-      detail: "Full course, retainers included",
-      price: "$2,900",
-    },
-    {
-      name: "Same-day crown",
-      detail: "Milled in-house, one visit",
-      price: "$1,150",
-    },
-  ],
-  stats: [
-    { value: "4.9★", label: "From 610 patient reviews" },
-    { value: "0", label: "Surprise bills, ever" },
-    { value: "Sat", label: "Open most Saturdays" },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 5. Law firm
-// ---------------------------------------------------------------------------
-
-export interface Area {
-  name: string;
-  detail: string;
-}
-
-export interface Partner {
-  name: string;
-  role: string;
-}
-
-export const verity: { areas: Area[]; partners: Partner[]; stats: Stat[] } = {
-  areas: [
-    { name: "Commercial disputes", detail: "Contracts, supply chains, joint ventures" },
-    { name: "Shareholder matters", detail: "Exit rows, dilution, governance" },
-    { name: "Employment", detail: "Restrictive coves, exits, investigations" },
-    { name: "Private wealth", detail: "Trusts, succession, cross-border families" },
-  ],
-  partners: [
-    { name: "Alice Verity KC", role: "Founding partner — disputes" },
-    { name: "Marcus Hale", role: "Corporate & shareholders" },
-    { name: "Priya Raman", role: "Private wealth" },
-  ],
-  stats: [
-    { value: "87%", label: "Matters resolved pre-trial" },
-    { value: "31 yrs", label: "Combined partner tenure here" },
-    { value: "2 hrs", label: "First response, guaranteed" },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 6. Restaurant
+// Restaurant
 // ---------------------------------------------------------------------------
 
 export interface Dish {
@@ -325,7 +59,7 @@ export const saffron: { menu: MenuGroup[]; stats: Stat[] } = {
 };
 
 // ---------------------------------------------------------------------------
-// 7. Travel agency
+// Travel agency
 // ---------------------------------------------------------------------------
 
 export interface Trip {
@@ -396,109 +130,96 @@ export const wanderly: { trips: Trip[]; stats: Stat[] } = {
 };
 
 // ---------------------------------------------------------------------------
-// 8. SaaS
-// ---------------------------------------------------------------------------
-
-export interface Feature {
-  title: string;
-  body: string;
-}
-
-export const loop: { features: Feature[]; plans: Plan[]; stats: Stat[] } = {
-  features: [
-    {
-      title: "Ask, don't query",
-      body: "Type a question in plain English and get the chart, the cohort and the SQL behind it.",
-    },
-    {
-      title: "Funnels that survive edits",
-      body: "Retroactively re-run every funnel when you rename or reorder an event.",
-    },
-    {
-      title: "Session replay, in context",
-      body: "Jump from a dip in a metric straight to the recordings that explain it.",
-    },
-    {
-      title: "Warehouse native",
-      body: "Sync to Snowflake or BigQuery on day one. Your data never gets locked up.",
-    },
-    {
-      title: "Alerts with opinions",
-      body: "Anomalies ranked by revenue impact, not by volume noise.",
-    },
-    {
-      title: "Privacy by default",
-      body: "Auto-redaction, EU hosting and a cookieless mode out of the box.",
-    },
-  ],
-  plans: [
-    {
-      name: "Side Project",
-      price: "$0",
-      detail: "50k events/mo, one project",
-      featured: false,
-    },
-    {
-      name: "Team",
-      price: "$79/mo",
-      detail: "1M events, replay, alerts, SSO",
-      featured: true,
-    },
-    {
-      name: "Scale",
-      price: "$249/mo",
-      detail: "10M events, warehouse sync, SLA",
-      featured: false,
-    },
-  ],
-  stats: [
-    { value: "4 min", label: "Median time to first answer" },
-    { value: "2,100+", label: "Product teams onboard" },
-    { value: "99.98%", label: "Ingest uptime, last 12 mo" },
-  ],
-};
-
-// ---------------------------------------------------------------------------
-// 9. Photography studio
+// Photography studio
 // ---------------------------------------------------------------------------
 
 export interface Shot {
   title: string;
   kind: string;
   note: string;
+  /** Path under /public — the frame's photograph. */
+  image?: string;
 }
 
-export const lumen: { shots: Shot[]; plans: Plan[]; stats: Stat[] } = {
+export interface Session {
+  kind: string;
+  frames: string;
+  copy: string;
+  cta: string;
+  prefill: string;
+}
+
+export const lumen: { shots: Shot[]; sessions: Session[]; plans: Plan[]; stats: Stat[] } = {
+  sessions: [
+    {
+      kind: "People",
+      frames: "Frames 01A · 05A",
+      copy:
+        "Headshots, team series and portraits. The light is set once and held for the whole session, so a team set reads as one wall — and the keeper usually lands around the fifteenth minute, once the lens stops being interesting.",
+      cta: "Portrait Hour · $340",
+      prefill: "package=Portrait Hour — $340;shoot=People",
+    },
+    {
+      kind: "Product",
+      frames: "Frames 02A · 06A",
+      copy:
+        "Ranges, single pieces and e-commerce sets. North glass for even light, white card for fill, and every frame colour-checked against your samples before anything leaves the room.",
+      cta: "Product Day · $1,150",
+      prefill: "package=Product Day — $1,150;shoot=Product",
+    },
+    {
+      kind: "Interiors",
+      frames: "Frame 04A",
+      copy:
+        "Rooms, atriums and shopfronts, shot early before the space fills. Tilt-shift keeps the columns straight and the north glass keeps gloss free of hotspots.",
+      cta: "Check a date",
+      prefill: "shoot=Interiors",
+    },
+    {
+      kind: "Editorial",
+      frames: "Frame 03A",
+      copy:
+        "Magazine and campaign commissions. Simple styling is included; for larger jobs we book one of our usual three stylists at day rate, quoted before you confirm.",
+      cta: "Editorial · POA",
+      prefill: "package=Editorial — POA;shoot=Editorial",
+    },
+  ],
   shots: [
     {
       title: "Harbour Portrait",
       kind: "People",
       note: "Fifteen minutes before the ferry came in, one 85mm lens and no reflector.",
+      image: "/assets/img/lumen/harbour-portrait.jpg",
     },
     {
       title: "Stoneware No. 4",
       kind: "Product",
       note: "Single north window, white card for fill, twelve plates shot in ninety minutes.",
+      image: "/assets/img/lumen/stoneware.jpg",
     },
     {
       title: "Winter Kitchen",
       kind: "Editorial",
       note: "A magazine commission — cook, hands and steam, all natural light.",
+      image: "/assets/img/lumen/winter-kitchen.jpg",
     },
     {
       title: "Atrium Chairs",
       kind: "Interiors",
       note: "Shot at 07:10 before the atrium filled, tilt-shift to keep the columns straight.",
+      image: "/assets/img/lumen/atrium.jpg",
     },
     {
       title: "Two Sisters",
       kind: "People",
       note: "Studio against seamless paper, one bounce, forty frames and this one.",
+      image: "/assets/img/lumen/two-sisters.jpg",
     },
     {
       title: "Ceramic Range",
       kind: "Product",
       note: "Nine pieces, one lighting setup, colour-checked against the glaze samples.",
+      image: "/assets/img/lumen/ceramic-range.jpg",
     },
   ],
   plans: [
@@ -529,7 +250,7 @@ export const lumen: { shots: Shot[]; plans: Plan[]; stats: Stat[] } = {
 };
 
 // ---------------------------------------------------------------------------
-// 10. Fashion boutique
+// Fashion boutique
 // ---------------------------------------------------------------------------
 
 export interface Product {

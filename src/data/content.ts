@@ -27,173 +27,13 @@ export function contentForSlug(slug: string): Content | undefined {
   switch (slug) {
     case 'index':
       return {
-        title: "Ten Landings — ten business landing pages, one next button",
-        description: "A portfolio of ten hand-built landing pages for ten business categories, rendered with Million and React. Press next and the whole page wipes into the following one.",
+        title: "Four Landings — four business landing pages, one next button",
+        description: "A portfolio of four hand-built landing pages for four business categories, rendered with Million and React. Press next and the whole page wipes into the following one.",
         faqTitle: "About this collection",
         faqNote: "What these pages are, how they are built and what to do with them.",
         faqs: indexFaqs(),
         schemaKind: "Organization",
         schemaExtras: "\"founder\":{\"@type\":\"Person\",\"name\":\"Hossein\"},\"knowsAbout\":[\"Landing page design\",\"React\",\"Million compiler\",\"Technical SEO\"]",
-      };
-
-    case 'roastery':
-      return {
-        title: "Ember & Oak — small-batch coffee roasted every Thursday",
-        description: "Single-origin coffee roasted on a 12kg drum each Thursday and shipped Friday. Subscriptions from $16/month, brewing guides and published prices.",
-        faqTitle: "Coffee questions, answered",
-        faqNote: "Roast dates, grinds, shipping and how the subscription actually works.",
-        faqs: [
-          {
-            q: "How fresh is the coffee when it arrives?",
-            a: "We roast on Thursday and bags leave the roastery Friday morning, so most orders land within 48 hours of the roast. Every bag is stamped with its roast date — if yours is older than ten days when it arrives, tell us and we replace it free.",
-          },
-          {
-            q: "Can you grind the beans for me?",
-            a: "Yes, at no extra cost. Pick espresso, filter, plunger or moka when you subscribe and we grind that bag to order on dispatch day. Buying a single bag? Note your brew method in the form and we will match it. Whole bean stays freshest, so that is the default.",
-          },
-          {
-            q: "Which subscription suits one person?",
-            a: "The Drifter — one 250g bag a month lasts a daily drinker about three weeks. A household of two, or anyone who hosts, should take The Regular. The Counter is for offices and anyone getting through more than a kilo a month.",
-          },
-          {
-            q: "Do you ship outside the country?",
-            a: "We ship worldwide with the rate calculated before you pay, and orders over $60 ship free within the country. International orders leave with the Friday dispatch, so delivery usually takes three to six working days depending on customs.",
-          },
-          {
-            q: "How should I store the beans?",
-            a: "Keep them in the bag, sealed, in a cupboard away from the oven and any sunlight. Do not freeze opened beans and do not refrigerate them — coffee absorbs whatever else is in the fridge. A valve bag open for two weeks beats airtight canisters opened every morning.",
-          },
-        ],
-        schemaKind: "CafeOrCoffeeShop",
-        schemaExtras: "\"priceRange\":\"$$\",\"currenciesAccepted\":\"USD\",\"paymentAccepted\":\"Cash, Credit Card, Apple Pay\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"16:00\"}",
-      };
-
-    case 'forge':
-      return {
-        title: "Ironclad Strength — barbell gym with real coaching",
-        description: "A barbell gym open 05:00–23:00 with small coached classes, three permanent coaches, no contract and a free trial week. Memberships from $49/month.",
-        faqTitle: "Before your first session",
-        faqNote: "Contracts, coaching, parking and what the free week actually includes.",
-        faqs: [
-          {
-            q: "Is there a contract or a joining fee?",
-            a: "Neither. Open Floor and Coached are both month to month, and you can cancel from your account page without speaking to anyone. The free week needs no card details, and if you join afterwards we backdate it so you never pay for days you already trained.",
-          },
-          {
-            q: "I have never lifted. Is this gym for me?",
-            a: "Yes. Every coached session starts with a movement screen and the loads are scaled to you on day one. Beginners usually run two coached sessions a week for a month, then settle into one class plus open floor time — no one is thrown onto a bar cold.",
-          },
-          {
-            q: "What happens in the free week?",
-            a: "A tour, a coach-led session to set your squat, bench and deadlift, and full access to the board and open floor for seven days. You also get a locker, showers and a written starting programme to take away whether or not you join.",
-          },
-          {
-            q: "Where do I park, and is there storage?",
-            a: "Free parking behind the building after 18:00 and on the street all day Sunday. Inside there are lockers — take a padlock from the desk or buy one for a couple of dollars — plus showers with towels. Bikes go in the cage next to the loading bay.",
-          },
-          {
-            q: "Can I train around an injury?",
-            a: "Yes. Ruth Callahan runs return-to-lift sessions and will work from your physio's plan. Bring the report if you have one; we modify the board for you rather than waving you through the same session as everyone else.",
-          },
-        ],
-        schemaKind: "ExerciseGym",
-        schemaExtras: "\"priceRange\":\"$$\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\"],\"opens\":\"05:00\",\"closes\":\"23:00\"},\"amenityFeature\":[{\"@type\":\"LocationFeatureSpecification\",\"name\":\"Free parking\",\"value\":true},{\"@type\":\"LocationFeatureSpecification\",\"name\":\"Showers\",\"value\":true}]",
-      };
-
-    case 'haven':
-      return {
-        title: "Haven & Vale — boutique real estate for homes with a point of view",
-        description: "Boutique agency for lofts, townhouses and coastal builds. Flat 1.2% fee, median 21 days to an accepted offer, free written valuation within the week.",
-        faqTitle: "Selling and buying, explained",
-        faqNote: "Fees, timings, viewings and what happens the moment an offer arrives.",
-        faqs: [
-          {
-            q: "What do you charge to sell a house?",
-            a: "A flat 1.2% of the agreed sale price with no upfront marketing fee and no tie-in beyond ninety days. That covers photography, floor plans, portal listings, accompanied viewings and negotiation all the way to exchange.",
-          },
-          {
-            q: "How long does it usually take to sell?",
-            a: "Our median time to an accepted offer last year was 21 days, and agreed sales took another six to eight weeks to exchange. Homes priced within 2% of our valuation moved fastest — overpricing is the single biggest cause of a listing going stale.",
-          },
-          {
-            q: "Do I need a valuation before listing?",
-            a: "You do not, but we will not list without one. The valuation takes about forty minutes at your home and you get a written figure the same week, with the comparable sales behind it. It is free and there is no obligation to instruct us afterwards.",
-          },
-          {
-            q: "How do viewings work?",
-            a: "We accompany every viewing unless you ask us not to. Weekday evenings and Saturday mornings book out first, and you get a written summary of each visit within 24 hours — what they liked, what they flinched at, and whether they are coming back.",
-          },
-          {
-            q: "What happens once an offer arrives?",
-            a: "We present every offer in writing, verify the buyer's position with their solicitor or broker, and advise on price, chain and timing. You are never pushed to accept — we will tell you what we would do if it were our own house.",
-          },
-        ],
-        schemaKind: "RealEstateAgent",
-        schemaExtras: "\"priceRange\":\"1.2% flat fee\",\"areaServed\":[\"Old Dock\",\"Warehouse District\",\"North Point\",\"Ashgrove\"],\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"09:00\",\"closes\":\"18:00\"}",
-      };
-
-    case 'brightside':
-      return {
-        title: "Brightside Dental — gentle family & cosmetic dentistry",
-        description: "Calm, modern dental practice with published prices: check-ups $95, whitening $260, clear aligners $2,900. New patients welcome, most Saturdays open.",
-        faqTitle: "Dental questions, answered",
-        faqNote: "Prices, nerves, emergencies and how often you really need to come in.",
-        faqs: [
-          {
-            q: "Are you taking new patients this month?",
-            a: "Yes — most weeks hold Saturday slots for new patients. Book through the form or call the desk. The first visit is thirty-five minutes and covers the exam, a scale and polish, X-rays only if you need them, and a written plan with prices.",
-          },
-          {
-            q: "Are there any costs I will not see coming?",
-            a: "No. Every treatment is quoted in writing before it starts and the price does not move unless you ask for something extra. If a treatment can wait, we say so and put you on a recall instead of booking it today.",
-          },
-          {
-            q: "I am nervous about dentists. What is different here?",
-            a: "Longer appointments, no lectures, and we agree a stop signal before anything begins. We are happy to run a meet-and-greet visit with no instruments at all, and sedation is available for longer treatments if you would rather not be present for them.",
-          },
-          {
-            q: "How often should I come for a check-up?",
-            a: "Most people every six months; if you have gum disease or a high decay rate we may suggest three or four. We set the interval from your actual risk rather than a default diary slot, and we will tell you when stretching it to twelve months is fine.",
-          },
-          {
-            q: "Do you offer payment plans for aligners and crowns?",
-            a: "Yes. Treatments over $600 can be split over six or twelve months at no interest, and clear aligners include retainers and review appointments in the quoted price. We run the numbers with you before you commit to anything.",
-          },
-        ],
-        schemaKind: "Dentist",
-        schemaExtras: "\"medicalSpecialty\":\"Dentistry\",\"priceRange\":\"$95–$2,900\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"08:00\",\"closes\":\"17:00\"}",
-      };
-
-    case 'verity':
-      return {
-        title: "Verity & Hale LLP — commercial lawyers in London & Dublin",
-        description: "Disputes, shareholder, employment and private wealth counsel. Fixed-fee phases, 87% of matters resolved pre-trial, first response within two working hours.",
-        faqTitle: "How we work with you",
-        faqNote: "Fees, conflicts, jurisdictions and what happens in the first two hours.",
-        faqs: [
-          {
-            q: "What happens after I send an enquiry?",
-            a: "A partner reviews it and replies within two working hours, guaranteed during office hours. That first reply tells you whether we can act, who would lead the matter and the likely shape of the cost — before you book any meeting.",
-          },
-          {
-            q: "How are you billed — hourly or fixed?",
-            a: "Both, depending on the work. Straightforward matters such as an employment exit or a shareholders' agreement are fixed from a written scope. Disputes are scoped by phase with a cap per phase, so you always know what the next stage costs.",
-          },
-          {
-            q: "Do you act against your own clients?",
-            a: "We run a conflicts check on every enquiry before replying. If a party on the other side is a current or recent client we say so immediately and, where the rules allow it, refer you to someone we trust instead.",
-          },
-          {
-            q: "Which jurisdictions do you cover?",
-            a: "England & Wales and Ireland, from offices in London and Dublin, with counsel we instruct regularly in New York and Singapore for cross-border work. If a matter needs local law we say so rather than stretch into it.",
-          },
-          {
-            q: "Will I work with the partner I first speak to?",
-            a: "Yes. Partners lead their own matters here — the person who takes your call drafts the advice and stands up in court for it. Associates support with research and documents, but they never replace your point of contact.",
-          },
-        ],
-        schemaKind: "LegalService",
-        schemaExtras: "\"areaServed\":[{\"@type\":\"City\",\"name\":\"London\"},{\"@type\":\"City\",\"name\":\"Dublin\"}],\"priceRange\":\"Fixed fees and capped phases\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:30\",\"closes\":\"18:30\"}",
       };
 
     case 'saffron':
@@ -260,42 +100,10 @@ export function contentForSlug(slug: string): Content | undefined {
         schemaExtras: "\"areaServed\":\"Worldwide\",\"priceRange\":\"$$$\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"09:00\",\"closes\":\"17:30\"}",
       };
 
-    case 'loop':
-      return {
-        title: "Loopmetric — product analytics that answers back",
-        description: "Ask questions in plain English, get the chart, the cohort and the SQL. Free for 50k events a month, EU hosting, SOC 2, warehouse-native from day one.",
-        faqTitle: "Technical questions, plain answers",
-        faqNote: "Event counts, data residency, migration, SSO and what happens when a trial ends.",
-        faqs: [
-          {
-            q: "What counts as an event?",
-            a: "One tracked action with properties — a page view, a signup, a purchase. Identify calls and property updates are free. The free tier allows 50,000 events a month, and if you go over we ask you to upgrade rather than silently dropping data.",
-          },
-          {
-            q: "Where does my data live?",
-            a: "In the EU (Frankfurt) by default, with US and Australian regions available per project. In warehouse-native mode the raw events stay in your Snowflake or BigQuery and we only store derived models — revoke our access and your data is untouched.",
-          },
-          {
-            q: "How long does migration take?",
-            a: "Most teams instrument the first event in under ten minutes using our JS, iOS, Android and server SDKs, or a sync from Segment and RudderStack. Historical funnels can be back-filled twelve months from your warehouse on day one.",
-          },
-          {
-            q: "Do you support SSO and audit logs?",
-            a: "SAML and Google SSO on the Team plan, SCIM provisioning on Scale. Audit logs cover every query, export and member change, retained for twelve months and exportable to your SIEM whenever you need them.",
-          },
-          {
-            q: "What happens when the trial ends?",
-            a: "Nothing dramatic — the project drops to the free tier and keeps collecting data. Alerts pause, replay and warehouse sync stop, and you have thirty days to upgrade before older recordings start being pruned.",
-          },
-        ],
-        schemaKind: "SoftwareApplication",
-        schemaExtras: "\"applicationCategory\":\"BusinessApplication\",\"operatingSystem\":\"Web\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\",\"description\":\"Free tier: 50,000 events per month\"},\"featureList\":\"Plain-English questions, funnels, session replay, warehouse sync, anomaly alerts\",\"availableLanguage\":\"en\"",
-      };
-
     case 'lumen':
       return {
-        title: "Lumen Studio — daylight photography for people and products",
-        description: "North-facing daylight studio for portraits, products and interiors. Previews in 48 hours, packages from $340, twelve years shooting for brands and people.",
+        title: "Lumen Studio — Daylight Portraits & Product Photography from $340",
+        description: "North-facing daylight studio for portraits, products and interiors. Previews in 48 hours, unlimited usage, packages from $340. Book a date or get a same-day fixed quote.",
         faqTitle: "Shooting questions",
         faqNote: "Turnaround, usage rights, locations and how rescheduling works.",
         faqs: [
@@ -321,13 +129,13 @@ export function contentForSlug(slug: string): Content | undefined {
           },
         ],
         schemaKind: "PhotographyBusiness",
-        schemaExtras: "\"priceRange\":\"$340–$1,150\",\"areaServed\":\"Studio and on location\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"09:00\",\"closes\":\"18:00\"}",
+        schemaExtras: "\"priceRange\":\"$340–$1,150\",\"areaServed\":\"Studio and on location\",\"image\":\"/assets/img/lumen/harbour-portrait.jpg\",\"slogan\":\"Light, arranged — north-facing daylight portraits, products and interiors\",\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"09:00\",\"closes\":\"18:00\"},\"hasOfferCatalog\":{\"@type\":\"OfferCatalog\",\"name\":\"Shoot packages\",\"itemListElement\":[{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"Portrait Hour\"},\"price\":\"340\",\"priceCurrency\":\"USD\",\"description\":\"60 minutes, 12 delivered frames, one look\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"Product Day\"},\"price\":\"1150\",\"priceCurrency\":\"USD\",\"description\":\"Full studio day, 40 delivered frames\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"Editorial\"},\"description\":\"Half day and up, styling on request, price on application\"}]}",
       };
 
     case 'atelier':
       return {
-        title: "Atelier Noir — a ten-piece capsule, twice a year",
-        description: "Deadstock cotton and traceable wool cut into a ten-piece capsule twice a year, in limited runs. Free repairs for two years, thirty-day returns.",
+        title: "Atelier Noir — Deadstock Capsule Clothing from $145",
+        description: "Ten pieces, twice a year. Deadstock cotton and traceable wool in limited runs. Free repairs for two years, 30-day returns. Reserve Capsule 07 from $145.",
         faqTitle: "Fit, fabric and returns",
         faqNote: "Sizing, restocks, shipping and what happens when a piece sells out.",
         faqs: [
@@ -353,7 +161,7 @@ export function contentForSlug(slug: string): Content | undefined {
           },
         ],
         schemaKind: "ClothingStore",
-        schemaExtras: "\"priceRange\":\"$$\",\"currenciesAccepted\":\"USD\",\"paymentAccepted\":\"Credit Card, Apple Pay\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"merchantReturnDays\":30,\"applicableCountry\":\"US\"},\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"11:00\",\"closes\":\"18:00\"}",
+        schemaExtras: "\"priceRange\":\"$145–$480\",\"currenciesAccepted\":\"USD\",\"paymentAccepted\":\"Credit Card, Apple Pay\",\"image\":\"/assets/img/atelier/field-coat.jpg\",\"slogan\":\"Ten pieces. Twice a year. No waste.\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"merchantReturnDays\":30,\"applicableCountry\":\"US\"},\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"11:00\",\"closes\":\"18:00\"},\"hasOfferCatalog\":{\"@type\":\"OfferCatalog\",\"name\":\"Capsule 07\",\"itemListElement\":[{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"The Field Coat\"},\"price\":\"480\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Wool Overshirt\"},\"price\":\"260\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Poplin Shirt\"},\"price\":\"145\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Pleated Trouser\"},\"price\":\"220\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Merino Rollneck\"},\"price\":\"185\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"The Tote\"},\"price\":\"160\",\"priceCurrency\":\"USD\"}]}",
       };
 
     default:
@@ -365,7 +173,7 @@ function indexFaqs(): Faq[] {
   return [
     {
       q: "What exactly is this site?",
-      a: "Ten complete landing pages for ten different businesses — a coffee roastery, a gym, an estate agency, a dental practice, a law firm, a restaurant, a travel agency, a SaaS product, a photography studio and a fashion label — plus a portfolio index that jumps between them with a circle wipe.",
+      a: "Four complete landing pages for four different businesses — a restaurant, a travel agency, a photography studio and a fashion label — plus a portfolio index that jumps between them with a circle wipe.",
     },
     {
       q: "How were the pages built?",
@@ -377,7 +185,7 @@ function indexFaqs(): Faq[] {
     },
     {
       q: "Why does the next button exist?",
-      a: "It is the fastest way to compare ten very different designs: one click grows a circle over the page from where you clicked, and the next brand in the tour fades in underneath, without a full reload. Prev and next wrap around the collection in order.",
+      a: "It is the fastest way to compare four very different designs: one click grows a circle over the page from where you clicked, and the next brand in the tour fades in underneath, without a full reload. Prev and next wrap around the collection in order.",
     },
   ];
 }

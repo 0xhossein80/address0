@@ -73,7 +73,7 @@ function breadcrumb(url: string, brand: string): JsonValue {
     '@type': 'BreadcrumbList',
     '@id': `${url}#breadcrumb`,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Ten Landings', item: `${siteBase()}/` },
+      { '@type': 'ListItem', position: 1, name: 'Four Landings', item: `${siteBase()}/` },
       { '@type': 'ListItem', position: 2, name: brand, item: url },
     ],
   };
@@ -120,8 +120,8 @@ export function jsonLd(input: SchemaInput): string {
       '@type': 'WebSite',
       '@id': `${base}/#website`,
       url: `${base}/`,
-      name: 'Ten Landings',
-      description: 'Ten hand-built landing pages for ten businesses, each with its own design.',
+      name: 'Four Landings',
+      description: 'Four hand-built landing pages for four businesses, each with its own design.',
       inLanguage: 'en',
     },
     {
@@ -153,7 +153,7 @@ export function jsonLd(input: SchemaInput): string {
 export function jsonLdFor(slug: string, title: string, description: string): string {
   const content = contentForSlug(slug);
   if (!content) return '';
-  const brand = slug === 'index' ? 'Ten Landings' : (bySlug(slug)?.name ?? 'Ten Landings');
+  const brand = slug === 'index' ? 'Four Landings' : (bySlug(slug)?.name ?? 'Four Landings');
   return jsonLd({
     slug,
     title,
@@ -201,7 +201,7 @@ export function jsonLdSub(
       '@type': 'WebSite',
       '@id': `${base}/#website`,
       url: `${base}/`,
-      name: 'Ten Landings',
+      name: 'Four Landings',
       inLanguage: 'en',
     },
     {
@@ -219,7 +219,7 @@ export function jsonLdSub(
       '@type': 'BreadcrumbList',
       '@id': `${url}#breadcrumb`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Ten Landings', item: `${base}/` },
+        { '@type': 'ListItem', position: 1, name: 'Four Landings', item: `${base}/` },
         { '@type': 'ListItem', position: 2, name: brand, item: parentUrl },
         { '@type': 'ListItem', position: 3, name: title, item: url },
       ],
@@ -237,7 +237,7 @@ export function jsonLdSub(
   return renderGraph(graph);
 }
 
-/** `/sitemap.xml` body covering the index, all ten landings and every sub page. */
+/** `/sitemap.xml` body covering the index, all four landings and every sub page. */
 export function sitemapXml(): string {
   const base = siteBase();
   let out =

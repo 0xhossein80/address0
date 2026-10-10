@@ -461,97 +461,6 @@ body[data-slug] .pager--fab .random--fab {
   white-space: nowrap;
 }
 
-/* roastery — warm rule, round bean mark, accent tag pill */
-.nav--roastery {
-  border-bottom-color: color-mix(in srgb, var(--accent) 34%, var(--line));
-}
-.nav--roastery .nav__mark {
-  border-radius: 50%;
-}
-.nav--roastery .nav__tag {
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
-  color: var(--accent);
-  border-radius: 999px;
-  padding: 0.28rem 0.75rem;
-}
-
-/* forge — inverted slab, last link as a solid CTA */
-.nav--forge {
-  background: var(--fg);
-  border-bottom: 3px solid var(--accent);
-  backdrop-filter: none;
-}
-.nav--forge .nav__brand,
-.nav--forge .nav__sub {
-  color: var(--bg);
-}
-.nav--forge .nav__link {
-  color: color-mix(in srgb, var(--bg) 74%, var(--fg));
-}
-.nav--forge .nav__link:hover {
-  color: var(--accent);
-}
-.nav--forge .nav__link:last-child {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-radius: 999px;
-  padding: 0.42rem 1rem;
-  font-weight: 750;
-}
-
-/* haven — double rule, sub-line, middot separators */
-.nav--haven {
-  border-bottom: 3px double var(--line);
-}
-.nav--haven .nav__link {
-  position: relative;
-}
-.nav--haven .nav__link + .nav__link::before {
-  content: "\00b7";
-  position: absolute;
-  left: -0.72rem;
-  color: var(--muted);
-}
-
-/* brightside — floating pill bar, ring mark */
-.nav--brightside {
-  background: color-mix(in srgb, var(--accent) 7%, var(--bg));
-  border-bottom: none;
-}
-.nav--brightside .nav__inner {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  min-height: 54px;
-  margin-top: 0.6rem;
-  padding-inline: 1.2rem;
-}
-.nav--brightside .nav__mark {
-  background: transparent;
-  border: 2.5px solid var(--accent);
-  border-radius: 50%;
-}
-
-/* verity — serif, letterspaced caps, double rule */
-.nav--verity {
-  border-bottom: 1px solid color-mix(in srgb, var(--fg) 55%, var(--line));
-  box-shadow: 0 3px 0 -1px var(--line);
-}
-.nav--verity .nav__brand {
-  font-family: var(--font-display);
-}
-.nav--verity .nav__link {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-}
-.nav--verity .nav__tag {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing: 0.08em;
-  text-transform: none;
-}
-
 /* saffron — reversed: links first, brand on the right */
 .nav--saffron .nav__links {
   margin-left: 0;
@@ -582,26 +491,6 @@ body[data-slug] .pager--fab .random--fab {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   text-transform: none;
   letter-spacing: 0.04em;
-}
-
-/* loop — split nav around a centred brand, mono, status dot */
-.nav--loop .nav__links--l {
-  margin-left: 0;
-}
-.nav--loop .nav__brand {
-  flex: 1;
-  justify-items: center;
-  justify-content: center;
-}
-.nav--loop .nav__link {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.nav--loop .nav__mark {
-  border-radius: 50%;
-  animation: nav-pulse 2.6s ease-out infinite;
 }
 
 /* lumen — airy, wide-spaced caps */
@@ -637,8 +526,7 @@ body[data-slug] .pager--fab .random--fab {
 
 /* footer utilities ---------------------------------------------------------- */
 
-.footer__cols,
-.footer__cols3 {
+.footer__cols {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1.4rem, 4vw, 3rem);
@@ -748,124 +636,6 @@ body[data-slug] .pager--fab .random--fab {
   padding-top: 1.6rem;
 }
 
-/* roastery — mega wordmark, three columns */
-.footer--roastery {
-  padding-top: 3.5rem;
-}
-
-/* forge — inverted slab with link tiles */
-.footer--forge {
-  background: var(--fg);
-  border-top: 3px solid var(--accent);
-}
-.footer--forge .footer__top {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.8rem 2rem;
-  margin-bottom: 1.8rem;
-}
-.footer--forge .footer__brandline {
-  margin: 0;
-  font-weight: 850;
-  font-size: 1.35rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--bg);
-}
-.footer--forge .footer__hours {
-  margin: 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.82rem;
-  color: color-mix(in srgb, var(--bg) 66%, var(--fg));
-}
-.footer__tiles {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-.footer__tile {
-  text-align: center;
-  padding: 1rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--bg) 32%, var(--fg));
-  border-radius: 14px;
-  color: color-mix(in srgb, var(--bg) 85%, var(--fg));
-  text-decoration: none;
-  font-weight: 750;
-  font-size: 0.86rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-.footer__tile:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
-}
-.footer--forge .footer__bar {
-  border-top-color: color-mix(in srgb, var(--bg) 24%, var(--fg));
-  color: color-mix(in srgb, var(--bg) 66%, var(--fg));
-}
-.footer--forge .footer__inline a {
-  color: color-mix(in srgb, var(--bg) 66%, var(--fg));
-}
-.footer--forge .footer__inline a:hover {
-  color: var(--accent);
-}
-
-/* haven — contact block with accent rail */
-.footer__split {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr 1fr;
-  gap: clamp(1.4rem, 4vw, 3rem);
-  margin-bottom: 2.4rem;
-}
-.footer__contact {
-  border-left: 3px solid var(--accent);
-  padding-left: 1.3rem;
-}
-.footer__dl {
-  display: grid;
-  gap: 0.55rem;
-  margin: 0.6rem 0 0;
-}
-.footer__dl div {
-  display: grid;
-  grid-template-columns: 6.5rem 1fr;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-}
-.footer__dl dt {
-  color: var(--muted);
-  text-transform: uppercase;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  font-weight: 750;
-  padding-top: 0.15rem;
-}
-.footer__dl dd {
-  margin: 0;
-}
-
-/* brightside — everything inside one soft card */
-.footer__card {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: clamp(1.4rem, 4vw, 2.5rem);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: clamp(1.5rem, 4vw, 2.4rem);
-  margin-bottom: 1.6rem;
-}
-
-/* verity — formal three columns, CTA link */
-.footer--verity .footer__brand {
-  font-family: var(--font-display);
-}
-
 /* saffron — centred, menu-card styling */
 .footer__center {
   display: grid;
@@ -941,37 +711,6 @@ body[data-slug] .pager--fab .random--fab {
   font-size: 0.95rem !important;
 }
 
-/* loop — mono status line and four-column grid */
-.footer--loop {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
-.footer__status {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0 0 1.6rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.footer--loop .footer__dot {
-  animation: nav-pulse 2.6s ease-out infinite;
-}
-.footer__grid4 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.4rem;
-  margin-bottom: 2.2rem;
-}
-.footer__grid4 .footer__col a {
-  font-family: inherit;
-  font-size: 0.84rem;
-}
-.footer--loop .footer__bar {
-  font-size: 0.72rem;
-}
-
 /* lumen — one thin row, credits right */
 .footer--lumen {
   padding-top: 2.2rem;
@@ -989,16 +728,8 @@ body[data-slug] .pager--fab .random--fab {
 }
 
 @media (max-width: 860px) {
-  .footer__cols,
-  .footer__cols3,
-  .footer__split,
-  .footer__card {
+  .footer__cols {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .footer__tiles,
-  .footer__grid4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1014,22 +745,7 @@ body[data-slug] .pager--fab .random--fab {
     margin-right: auto;
   }
 
-  .nav--loop .nav__brand {
-    flex: none;
-    justify-items: start;
-    justify-content: start;
-    margin-right: auto;
-  }
-
-  .nav--brightside .nav__inner {
-    border-radius: 18px;
-    padding-inline: 0.9rem;
-  }
-
   .footer__cols,
-  .footer__cols3,
-  .footer__split,
-  .footer__card,
   .footer__ticket {
     grid-template-columns: 1fr;
   }
@@ -1042,16 +758,6 @@ body[data-slug] .pager--fab .random--fab {
   .footer__mega {
     font-size: clamp(2.2rem, 11vw, 3.4rem);
   }
-
-  .footer--forge .footer__brandline {
-    font-size: 1.1rem;
-  }
-}
-
-@keyframes nav-pulse {
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
-  70% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 0%, transparent); }
-  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
 }
 
 

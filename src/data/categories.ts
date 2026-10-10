@@ -14,46 +14,6 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
   {
-    slug: 'roastery',
-    name: 'Ember & Oak',
-    label: 'Coffee Roastery',
-    tagline: 'Small-batch coffee, roasted every Thursday.',
-    accent: '#b4551f',
-    onAccent: '#fff7ef',
-  },
-  {
-    slug: 'forge',
-    name: 'Ironclad Strength',
-    label: 'Gym & Coaching',
-    tagline: 'Barbells, coaching and zero attitude.',
-    accent: '#c6f24e',
-    onAccent: '#101208',
-  },
-  {
-    slug: 'haven',
-    name: 'Haven & Vale',
-    label: 'Real Estate',
-    tagline: 'Homes with a point of view.',
-    accent: '#1f5c46',
-    onAccent: '#f2fbf6',
-  },
-  {
-    slug: 'brightside',
-    name: 'Brightside Dental',
-    label: 'Dental Clinic',
-    tagline: 'Gentle care, honest plans, bright smiles.',
-    accent: '#0e8f96',
-    onAccent: '#f0feff',
-  },
-  {
-    slug: 'verity',
-    name: 'Verity & Hale',
-    label: 'Law Firm',
-    tagline: 'Counsel for the consequential.',
-    accent: '#c9a227',
-    onAccent: '#14130c',
-  },
-  {
     slug: 'saffron',
     name: 'Saffron & Stone',
     label: 'Restaurant',
@@ -68,14 +28,6 @@ export const CATEGORIES: Category[] = [
     tagline: 'Trips you will talk about for years.',
     accent: '#1667d8',
     onAccent: '#eef5ff',
-  },
-  {
-    slug: 'loop',
-    name: 'Loopmetric',
-    label: 'SaaS Product',
-    tagline: 'Product analytics that answer back.',
-    accent: '#6d4df6',
-    onAccent: '#f4f0ff',
   },
   {
     slug: 'lumen',

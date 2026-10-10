@@ -36,7 +36,26 @@
     overlay.querySelector(".lightbox__text").textContent = text;
 
     const art = overlay.querySelector(".lightbox__art");
-    art.textContent = tag;
+    const image = trigger.getAttribute("data-lightbox-image") || "";
+    if (image) {
+      art.textContent = "";
+      art.classList.add("lightbox__art--photo");
+      if (!art.querySelector("img")) {
+        const img = document.createElement("img");
+        img.className = "lightbox__img";
+        img.alt = "";
+        img.decoding = "async";
+        art.appendChild(img);
+      }
+      const img = art.querySelector("img");
+      img.src = image;
+      img.alt = title;
+    } else {
+      const stale = art.querySelector("img");
+      if (stale) stale.remove();
+      art.classList.remove("lightbox__art--photo");
+      art.textContent = tag;
+    }
     art.style.setProperty("--tone", trigger.getAttribute("data-lightbox-tone") || "");
 
     // The CTA only makes sense when the page actually has a form.

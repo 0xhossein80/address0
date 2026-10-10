@@ -34,18 +34,18 @@ const TEAM = [
 ];
 
 const TEMPLATE_INDEX_1 = `
-  <p class="modal__kicker">Ten Landings · the mechanics</p>
+  <p class="modal__kicker">Four Landings · the mechanics</p>
   <h2>How this page works</h2>
-  <p>One React app, one shared layout, ten voices. The portfolio index is itself a landing page so the parts you are buying are the parts you are looking at.</p>
+  <p>One React app, one shared layout, four voices. The portfolio index is itself a landing page so the parts you are buying are the parts you are looking at.</p>
   <ul>
-    <li>Ten pages share a nav, footer, FAQ, enquiry form and SEO head — each swaps its own hero, palette and sections</li>
+    <li>Four pages share a nav, footer, FAQ, enquiry form and SEO head — each swaps its own hero, palette and sections</li>
     <li>Every page ships canonical URLs, structured data and a real sitemap, not a plugin afterthought</li>
     <li>Sub pages sit one level under each landing so the crawl depth is intentional</li>
     <li>Forms validate in the browser against the spec that rendered them, with a honeypot that bots always find first</li>
     <li>Curtain page transitions, dialogs and toasts all happen without a full page reload</li>
   </ul>
   <div class="modal__actions">
-    <a class="btn btn--accent" href="#work">See all ten</a>
+    <a class="btn btn--accent" href="#work">See all four</a>
     <button type="button" class="btn btn--ghost" data-modal-close>Close</button>
   </div>
 `;
@@ -57,7 +57,7 @@ export default function Index() {
   return (
     <Page
       slug="index"
-      brand="Ten Landings"
+      brand="Four Landings"
       title={content.title}
       description={content.description}
       seoPath="/"
@@ -65,9 +65,9 @@ export default function Index() {
     >
       <main className="page-index">
         <section className="wrap hero">
-          <p className="hero__kicker">Portfolio · 10 business categories · 10 templates</p>
+          <p className="hero__kicker">Portfolio · 4 business categories · 4 templates</p>
           <h1 className="hero__title">
-            Ten landing pages.
+            Four landing pages.
             <br />
             <em>One next button.</em>
           </h1>
@@ -77,11 +77,11 @@ export default function Index() {
             circle wipes on this page and lifts on the next.
           </p>
           <div className="hero__actions">
-            <a className="btn btn--accent" href="/p/roastery">
+            <a className="btn btn--accent" href="/p/saffron">
               Start the tour <span aria-hidden="true">&#8594;</span>
             </a>
             <a className="btn btn--ghost" href="#work">
-              See all ten
+              See all four
             </a>
             <button type="button" className="btn btn--ghost" data-modal-open="tpl-index-1">
               How this works
@@ -96,7 +96,7 @@ export default function Index() {
         <section className="wrap work" id="work">
           <div className="section-head">
             <h2 className="section-title">The collection</h2>
-            <p className="section-note">Ten industries, ten visual identities.</p>
+            <p className="section-note">Four industries, four visual identities.</p>
           </div>
           <div className="grid">
             {CATEGORIES.map((card) => (
@@ -131,19 +131,19 @@ export default function Index() {
           <div className="studio__cols">
             <article className="step">
               <span className="step__num">01</span>
-              <h3>One app, ten voices</h3>
+              <h3>One app, four voices</h3>
               <p>
                 Each landing is its own React component, hoisted into Million blocks at build
                 time so updates stay close to plain JavaScript. Shared head, nav, footer and
-                call-to-action are components used by all ten.
+                call-to-action are components used by all four.
               </p>
             </article>
             <article className="step">
               <span className="step__num">02</span>
               <h3>One route, one page</h3>
               <p>
-                The router maps <code>/p/{'{slug}'}</code> to a page component. Ten routes, ten
-                schemas, ten distinct designs — all checked by TypeScript before anything
+                The router maps <code>/p/{'{slug}'}</code> to a page component. Four routes, four
+                schemas, four distinct designs — all checked by TypeScript before anything
                 ships.
               </p>
             </article>
@@ -162,7 +162,7 @@ export default function Index() {
         <section className="wrap team" id="team">
           <div className="section-head">
             <div>
-              <p className="team__kicker">Lebino Studio · 2026 · 07 / 10</p>
+              <p className="team__kicker">Lebino Studio · 2026 · 04 / 04</p>
               <h2 className="section-title">The team</h2>
             </div>
             <p className="section-note">
@@ -214,7 +214,7 @@ export default function Index() {
         aria-labelledby="popup-index-title"
       >
         <div className="lp-modal__bar">
-          <span className="lp-modal__brand">Ten Landings · quick note</span>
+          <span className="lp-modal__brand">Four Landings · quick note</span>
           <form method="dialog">
             <button className="lp-modal__close" type="submit" value="close" aria-label="Dismiss">
               &#10005;
@@ -222,20 +222,20 @@ export default function Index() {
           </form>
         </div>
         <div className="lp-modal__body">
-          <p className="modal__kicker">Ten Landings · behind the curtain</p>
+          <p className="modal__kicker">Four Landings · behind the curtain</p>
           <h2 id="popup-index-title">Everything here actually runs</h2>
           <p>
             These are not screenshots. Every button, form, dialog and sub page on this site is
             wired to something real — try one before you close this box.
           </p>
           <ul>
-            <li>Each landing has two sub pages you can crawl like a visitor would</li>
+            <li>Each landing has four sub pages you can crawl like a visitor would</li>
             <li>The forms validate for real, with honeypots and ticket receipts</li>
             <li>Modals, popups and toasts are keyboard-accessible — Escape closes them</li>
           </ul>
           <div className="modal__actions">
-            <a className="btn btn--accent" href="/p/roastery">
-              Start with the roastery
+            <a className="btn btn--accent" href="/p/saffron">
+              Start with the restaurant
             </a>
             <button type="button" className="btn btn--ghost" data-modal-close>
               Maybe later

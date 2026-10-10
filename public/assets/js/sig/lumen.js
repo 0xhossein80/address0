@@ -10,19 +10,19 @@
   const TLAB = ["1/2000", "1/1000", "1/500", "1/250", "1/125", "1/60", "1/30", "1/8", "1/2"];
 
   function sceneFor(ev) {
-    if (ev <= 3) {
+    if (ev <= 2) {
       return ["Deep night", "Tripod, wide open, low ISO — let the shutter drag."];
     }
-    if (ev < 7) {
+    if (ev < 6) {
       return ["Blue hour / neon street", "Handheld works down to about 1/30 — lean on something."];
     }
-    if (ev < 10) {
+    if (ev < 9) {
       return ["Dim interior", "Open the aperture a stop or push ISO to 1600 before you slow down."];
     }
-    if (ev < 13) {
+    if (ev < 12) {
       return ["Bright room, open shade", "This is portrait weather — f/4, ISO 100, watch the window light."];
     }
-    if (ev < 15) {
+    if (ev < 14.5) {
       return ["Overcast daylight", "Stop down to f/8, everything is sharp and nothing is harsh."];
     }
     return ["Hard midday sun", "f/11 or f/16, 1/500 — find shade or embrace the contrast."];

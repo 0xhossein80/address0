@@ -366,8 +366,55 @@ body[data-slug="lumen"] .mini-actions {
   color: var(--lu-lede);
   font-size: clamp(1.02rem, 1.5vw, 1.14rem);
   line-height: 1.55;
-  max-width: 44ch;
+  max-width: 46ch;
   margin: 0;
+}
+
+/* proof next to the claim: tracked-caps facts under the lede */
+.lu-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0;
+  list-style: none;
+  margin: clamp(1.1rem, 2.2vw, 1.5rem) 0 0;
+  padding: 0;
+}
+
+.lu-hero__facts li {
+  padding: 0 1.05rem;
+  border-left: 1px solid var(--lu-rule);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+
+.lu-hero__facts li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+/* the third action demotes itself: text that inverts like everything else */
+.lu-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem 0.75rem 1.35rem;
+  font-size: 0.78rem;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lu-hero__link:hover,
+.lu-hero__link:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
 }
 
 /* the rule under the lede is a rebate strip: carbon, notched, edge-printed */
@@ -479,16 +526,68 @@ body[data-slug="lumen"] .mini-actions {
   }
 }
 
+/* the meter rides in a carbon housing — the hero's one dark object */
+.lu-hero__meter {
+  align-self: stretch;
+  display: grid;
+  align-content: space-between;
+  width: clamp(11.5rem, 17vw, 14rem);
+  background: var(--fg);
+  color: var(--bg);
+  padding: 1.15rem 1.15rem 1.25rem;
+}
+
+.lu-hero__meter .lu-ev {
+  width: 100%;
+  grid-template-rows: auto minmax(9rem, 1fr);
+}
+
+.lu-hero__meter .lu-ev__cap {
+  color: color-mix(in srgb, var(--bg) 66%, transparent);
+}
+
+.lu-hero__meter .lu-ev__rail {
+  border-left-color: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+
+.lu-hero__meter .lu-ev__t::before {
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+
+.lu-hero__meter .lu-ev__t--major::before {
+  background: var(--bg);
+}
+
+.lu-hero__meter .lu-ev__val {
+  color: var(--bg);
+}
+
+.lu-hero__meter .lu-ev__t--zero .lu-ev__val {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.lu-ev__note {
+  margin: 1rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid color-mix(in srgb, var(--bg) 28%, transparent);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--bg) 78%, transparent);
+}
+
 /* --- section rhythm: the contact sheet ----------------------------------- */
 
 .page-lumen {
   font-weight: 400;
 }
 
+/* a contact sheet is uniform: one frame shape, all six in two rows.
+   each frame is an authored light study — north light, no photographs */
 .lu-wall {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.85rem, 1.6vw, 1.3rem);
+  gap: clamp(0.7rem, 1.4vw, 1.05rem);
 }
 
 .lu-shot {
@@ -501,37 +600,87 @@ body[data-slug="lumen"] .mini-actions {
   display: grid;
   place-items: center;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   padding: 0 0 1.95rem;
   font: inherit;
   color: inherit;
   cursor: zoom-in;
   border: 1px solid var(--lu-hair);
   border-radius: 0;
-  background: linear-gradient(155deg, #f1f1f2, #dcdce0);
+  background: linear-gradient(160deg, #f0f0f2, #d7d7dc);
   overflow: hidden;
   transition: border-color 0.15s ease;
 }
 
+/* 01 harbour — one raking sheet of window light across the wall */
+.lu-shot--0 .lu-shot__frame {
+  background:
+    linear-gradient(
+      114deg,
+      transparent 0 44%,
+      rgba(255, 255, 255, 0.9) 44% 57%,
+      transparent 57% 100%
+    ),
+    radial-gradient(130% 100% at 12% 100%, #c9c9cf 0%, transparent 62%),
+    linear-gradient(200deg, #e6e6ea, #c7c7cd);
+}
+
+/* 02 stoneware — a pool of light on the sweep */
 .lu-shot--1 .lu-shot__frame {
-  aspect-ratio: 4 / 3;
-  background: linear-gradient(155deg, #f2f1ee, #dedbd4);
+  background:
+    radial-gradient(62% 54% at 50% 58%, #fbfbfc 0%, #e7e7eb 56%, #cbcbd1 100%),
+    linear-gradient(#dcdcdf, #dcdcdf);
 }
 
+/* 03 winter kitchen — soft bands of steam and window */
 .lu-shot--2 .lu-shot__frame {
-  aspect-ratio: 1;
-  background: linear-gradient(155deg, #eceef0, #d3d7dc);
+  background: linear-gradient(
+    180deg,
+    #e2e2e7 0%,
+    #f4f4f6 21%,
+    #d9d9df 43%,
+    #efeff2 65%,
+    #d2d2d8 100%
+  );
 }
 
-.lu-shot__num {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg) 34%, transparent);
-  transition: -webkit-text-stroke-color 0.15s ease, color 0.15s ease;
+/* 04 atrium — three columns of daylight, shot before the room filled */
+.lu-shot--3 .lu-shot__frame {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 17%,
+      rgba(255, 255, 255, 0.55) 17% 29%,
+      transparent 29% 42%,
+      rgba(255, 255, 255, 0.75) 42% 55%,
+      transparent 55% 67%,
+      rgba(255, 255, 255, 0.5) 67% 79%,
+      transparent 79% 100%
+    ),
+    linear-gradient(180deg, #e5e5e9, #cbcbd2);
+}
+
+/* 05 two sisters — two pools on seamless paper */
+.lu-shot--4 .lu-shot__frame {
+  background:
+    radial-gradient(36% 50% at 33% 57%, #fbfbfd 0%, rgba(251, 251, 253, 0) 72%),
+    radial-gradient(36% 50% at 65% 49%, #f0f0f4 0%, rgba(240, 240, 244, 0) 72%),
+    linear-gradient(180deg, #dcdce1, #c6c6cd);
+}
+
+/* 06 ceramic range — nine pieces, one setup */
+.lu-shot--5 .lu-shot__frame {
+  background:
+    radial-gradient(ellipse 9% 12% at 17% 20%, #f2f2f5 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 50% 20%, #eeeef2 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 83% 20%, #f2f2f5 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 17% 50%, #eeeef2 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 50% 50%, #eaeaef 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 83% 50%, #eeeef2 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 17% 80%, #f2f2f5 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 50% 80%, #eeeef2 0 70%, transparent 100%),
+    radial-gradient(ellipse 9% 12% at 83% 80%, #f2f2f5 0 70%, transparent 100%),
+    linear-gradient(180deg, #dddde2, #c4c4cb);
 }
 
 /* the grease-pencil select: hairline thickens, the frame id inverts */
@@ -539,12 +688,6 @@ body[data-slug="lumen"] .mini-actions {
 .lu-shot__frame:focus-visible {
   border-color: var(--fg);
   border-width: 2px;
-}
-
-.lu-shot:hover .lu-shot__num,
-.lu-shot__frame:focus-visible .lu-shot__num {
-  color: color-mix(in srgb, var(--fg) 82%, transparent);
-  -webkit-text-stroke-color: transparent;
 }
 
 .lu-shot__rebate {
@@ -642,6 +785,70 @@ body[data-slug="lumen"] .mini-actions {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* --- sessions: the booking index ---------------------------------------- */
+
+.lu-sessions {
+  margin-top: -0.35rem;
+}
+
+.lu-session {
+  display: grid;
+  grid-template-columns: 11.5rem minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(1rem, 2.6vw, 2.25rem);
+  padding: clamp(1.35rem, 2.6vw, 1.8rem) clamp(0.9rem, 2vw, 1.35rem);
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--lu-hair);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* hover physics on this page is one thing only: the fill inverts */
+.lu-session:hover,
+.lu-session:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.lu-session__id {
+  display: block;
+  min-width: 0;
+}
+
+.lu-session__kind {
+  display: block;
+  font-size: 1.24rem;
+  font-weight: 820;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.lu-session__frames {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+}
+
+.lu-session__copy {
+  min-width: 0;
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, currentColor 76%, transparent);
+}
+
+.lu-session__cta {
+  align-self: center;
+  white-space: nowrap;
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* --- band: the strip of packages ------------------------------------------ */
@@ -768,6 +975,56 @@ body[data-slug="lumen"] .mini-actions {
   background: var(--fg);
   color: var(--bg);
   border-color: var(--fg);
+}
+
+/* --- process: the run of a shoot ---------------------------------------- */
+
+.lu-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--lu-hair);
+}
+
+.lu-step {
+  padding: clamp(1.4rem, 2.6vw, 1.9rem) clamp(1rem, 2vw, 1.5rem)
+    clamp(1.5rem, 3vw, 2.1rem);
+  border-right: 1px solid var(--lu-hair);
+}
+
+.lu-step:first-child {
+  padding-left: 0;
+}
+
+.lu-step:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.lu-step__n {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.lu-step__t {
+  margin: 0.7rem 0 0.5rem;
+  font-size: 1.06rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.lu-step__c {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--lu-lede);
 }
 
 /* --- studio: the exposure notes -------------------------------------------- */
@@ -1912,6 +2169,23 @@ body[data-slug="lumen"] .lightbox__art {
   text-transform: uppercase;
   font-size: 0.86rem;
   background: linear-gradient(150deg, #1c1c20, var(--fg));
+  overflow: hidden;
+}
+
+body[data-slug="lumen"] .lightbox__art--photo {
+  height: min(52vh, 28rem);
+  background: var(--fg);
+  color: transparent;
+}
+
+body[data-slug="lumen"] .lightbox__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
 }
 
 body[data-slug="lumen"] .lightbox__art::before {
@@ -1921,6 +2195,7 @@ body[data-slug="lumen"] .lightbox__art::before {
   right: 0;
   top: 0;
   height: 5px;
+  z-index: 1;
   background-image: repeating-linear-gradient(
     90deg,
     var(--bg) 0 3px,
@@ -2321,14 +2596,51 @@ body[data-slug="lumen"] .sub-cta__inner .btn--ghost:hover {
     gap: clamp(1.75rem, 5vw, 2.5rem);
   }
 
-  .lu-ev {
+  .lu-hero__meter {
     justify-self: start;
-    width: min(100%, 20rem);
-    grid-template-rows: auto minmax(8.5rem, 1fr);
+    width: min(100%, 22rem);
+  }
+
+  .lu-hero__meter .lu-ev {
+    grid-template-rows: auto minmax(7.5rem, 1fr);
   }
 
   .lu-about {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-session {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .lu-session__copy {
+    grid-column: 1 / -1;
+  }
+
+  .lu-session__cta {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .lu-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lu-step {
+    padding: 1.4rem 1.25rem 1.6rem;
+  }
+
+  .lu-step:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .lu-step:nth-child(even) {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .lu-step:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--lu-hair);
   }
 }
 
@@ -2351,8 +2663,36 @@ body[data-slug="lumen"] .sub-cta__inner .btn--ghost:hover {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .lu-ev {
-    width: min(100%, 16rem);
+  .lu-session {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .lu-session__cta {
+    grid-row: auto;
+    grid-column: auto;
+    align-self: start;
+  }
+
+  .lu-steps {
+    grid-template-columns: minmax(0, 1fr);
+    border-bottom: 0;
+  }
+
+  .lu-step,
+  .lu-step:nth-child(odd),
+  .lu-step:nth-child(even) {
+    padding: 1.25rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--lu-hair);
+  }
+
+  .lu-step:last-child {
+    border-bottom: 0;
+  }
+
+  .lu-exposure__body {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   body[data-slug="lumen"] .faq__q {
@@ -2400,4 +2740,1357 @@ body[data-slug="lumen"] .sub--story .sub-hero__lede::first-letter {
   margin: 0;
   color: inherit;
   font-family: inherit;
+}
+
+/* --- booking console: the three-step call sheet ------------------------------- */
+
+.lu-book {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+.lu-book::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 15px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lu-book__bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem 1.2rem;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 1.05rem 1.35rem 0.95rem;
+}
+
+.lu-book__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bg) 0 3px,
+    transparent 3px 15px
+  );
+  pointer-events: none;
+}
+
+.lu-book__close-wrap {
+  display: inline-flex;
+  margin: 0;
+}
+
+.lu-book__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--bg) 55%, transparent);
+  background: transparent;
+  color: var(--bg);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.lu-book__close:hover {
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--fg);
+}
+
+.lu-book__close:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 2px;
+}
+
+.lu-book__brand {
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lu-oncarbon);
+}
+
+.lu-book__steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lu-book__step-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: color-mix(in srgb, var(--bg) 48%, transparent);
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.42rem 0.85rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lu-book__step-btn:disabled {
+  cursor: default;
+}
+
+.lu-book__step-btn:not(:disabled) {
+  cursor: pointer;
+}
+
+.lu-book__step-btn[data-state="current"] {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.lu-book__step-btn[data-state="done"] {
+  color: var(--lu-oncarbon);
+}
+
+.lu-book__step-btn[data-state="done"]:hover {
+  background: color-mix(in srgb, var(--bg) 14%, transparent);
+  color: var(--bg);
+}
+
+.lu-book__step-btn:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: -2px;
+}
+
+.lu-book__step-n {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.lu-book__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18.5rem;
+}
+
+.lu-book__main {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.1rem) clamp(1.35rem, 3vw, 2.1rem);
+  border-right: 1px solid var(--lu-hair);
+}
+
+.lu-book__main:focus {
+  outline: none;
+}
+
+.lu-book__panel {
+  animation: lu-book-in 0.22s ease both;
+}
+
+@keyframes lu-book-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lu-book__group {
+  border: 0;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  min-width: 0;
+}
+
+.lu-book__group:last-child {
+  margin-bottom: 0;
+}
+
+.lu-book__legend {
+  padding: 0;
+  margin-bottom: 0.7rem;
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+/* package cards — one shared frame, hairline dividers */
+
+.lu-book__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--lu-rule);
+}
+
+.lu-book__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  text-align: left;
+  font: inherit;
+  color: var(--fg);
+  background: var(--surface);
+  border: 0;
+  border-left: 1px solid var(--lu-rule);
+  border-radius: 0;
+  padding: 1rem 1.1rem 1.05rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lu-book__card:first-child {
+  border-left: 0;
+}
+
+.lu-book__card:hover,
+.lu-book__card[aria-pressed="true"] {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__card[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+}
+
+.lu-book__card:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.lu-book__card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.lu-book__card-name {
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.lu-book__card-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lu-book__card-meta {
+  display: grid;
+  gap: 0.12rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  opacity: 0.72;
+}
+
+.lu-book__card-dep {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* chips — shoot types and start times, invert on hover like everything here */
+
+.lu-book__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lu-book__chip {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--lu-rule);
+  border-radius: 0;
+  padding: 0.5rem 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.lu-book__chip:hover:not(:disabled),
+.lu-book__chip[aria-pressed="true"] {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__chip[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+}
+
+.lu-book__chip:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.lu-book__chip:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.lu-book__chip-label {
+  font-weight: 650;
+}
+
+.lu-book__chip-note {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.lu-book__chip--slot {
+  min-width: 7.5rem;
+}
+
+/* calendar */
+
+.lu-book__cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.lu-book__cal-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.lu-book__cal-nav {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.lu-book__nav {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--lu-rule);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lu-book__nav:hover:not(:disabled) {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.lu-book__nav:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.lu-book__dows {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-bottom: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+.lu-book__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--lu-hair);
+  border-left: 1px solid var(--lu-hair);
+}
+
+.lu-book__day {
+  aspect-ratio: 1;
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  font: inherit;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+  background: var(--surface);
+  border: 0;
+  border-right: 1px solid var(--lu-hair);
+  border-bottom: 1px solid var(--lu-hair);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.lu-book__day-n {
+  font-weight: 650;
+}
+
+.lu-book__day-note {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.lu-book__day:hover:not(:disabled),
+.lu-book__day[aria-pressed="true"] {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__day:disabled {
+  color: var(--muted);
+  opacity: 0.45;
+  cursor: default;
+  background: color-mix(in srgb, var(--fg) 2.5%, var(--surface));
+}
+
+.lu-book__day:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
+
+.lu-book__day--pad {
+  visibility: hidden;
+  pointer-events: none;
+  cursor: default;
+}
+
+.lu-book__cal-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.lu-book__group--slots {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.lu-book__wait {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.1rem;
+  border: 1px dashed var(--lu-rule);
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+/* step-three fields reuse the .field / .field__input language from the form */
+
+.lu-book__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem 1.6rem;
+}
+
+.lu-book__fields .field--wide {
+  grid-column: 1 / -1;
+}
+
+.lu-book__err {
+  margin: 0.35rem 0 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--fg);
+}
+
+.lu-book__err::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 0.45rem;
+  background: var(--fg);
+  vertical-align: 0.08em;
+}
+
+/* the call-sheet rail */
+
+.lu-book__rail {
+  padding: 1.5rem 1.35rem;
+  background: color-mix(in srgb, var(--fg) 2.5%, var(--surface));
+  align-self: start;
+  position: sticky;
+  top: 1rem;
+}
+
+.lu-book__sheet-k {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lu-book__rows {
+  margin: 0;
+}
+
+.lu-book__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--lu-hair);
+  font-size: 0.88rem;
+}
+
+.lu-book__row dt {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lu-book__row dd {
+  margin: 0;
+  font-weight: 650;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.lu-book__row-sub {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.lu-book__row--total dd {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.lu-book__row--deposit dd {
+  font-weight: 750;
+}
+
+.lu-book__sheet-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* footer nav */
+
+.lu-book__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 1.1rem clamp(1.35rem, 3vw, 2.1rem);
+  border-top: 1px solid var(--lu-hair);
+}
+
+.lu-book__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 0;
+  padding: 0.72rem 1.35rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.lu-book__btn--primary {
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__btn--primary:hover:not(:disabled) {
+  background: var(--surface);
+  color: var(--fg);
+}
+
+.lu-book__btn--ghost {
+  background: var(--surface);
+  border: 1px solid var(--lu-rule);
+  color: var(--fg);
+}
+
+.lu-book__btn--ghost:hover:not(:disabled) {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.lu-book__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.lu-book__btn:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.lu-book__hint {
+  margin: 0 0 0 auto;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* confirmation */
+
+.lu-book__done {
+  padding: clamp(2rem, 4.5vw, 3.2rem) clamp(1.35rem, 3vw, 2.1rem);
+  animation: lu-book-in 0.28s ease both;
+}
+
+.lu-book__done-bar {
+  display: inline-block;
+  margin: 0 0 1.35rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.lu-book__done-t {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.lu-book__done-t:focus {
+  outline: none;
+}
+
+.lu-book__done-lede {
+  margin: 0 0 1.6rem;
+  max-width: 52ch;
+  color: var(--lu-lede);
+}
+
+.lu-book__rows--done {
+  max-width: 26rem;
+  margin-bottom: 1.75rem;
+  border-top: 1px solid var(--lu-hair);
+}
+
+.lu-book__done-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+}
+
+.lu-book__done-note {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+/* responsive */
+
+@media (max-width: 980px) {
+  .lu-book__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-book__main {
+    border-right: 0;
+    border-bottom: 1px solid var(--lu-hair);
+  }
+
+  .lu-book__rail {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .lu-book__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-book__card {
+    border-left: 0;
+    border-top: 1px solid var(--lu-rule);
+  }
+
+  .lu-book__card:first-child {
+    border-top: 0;
+  }
+
+  .lu-book__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-book__hint {
+    flex-basis: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .lu-book__day {
+    min-height: 2.6rem;
+    font-size: 0.85rem;
+  }
+
+  .lu-book__bar {
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lu-book__step-btn {
+    padding: 0.4rem 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .lu-book__chip--slot {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lu-book__panel,
+  .lu-book__done {
+    animation: none;
+  }
+}
+
+/* --- booking popup: the call sheet as a dialog ------------------------------- */
+
+.lu-book--modal {
+  border: 0;
+  margin: 0;
+}
+
+.lu-book--modal::before {
+  display: none;
+}
+
+.lu-book-modal {
+  width: min(100% - 1.5rem, 64rem);
+  max-height: min(90vh, 54rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.lu-book-modal[open] {
+  display: flex;
+  flex-direction: column;
+  animation: lu-book-modal-in 0.24s ease;
+}
+
+.lu-book-modal::backdrop {
+  background: color-mix(in srgb, var(--fg) 78%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+@keyframes lu-book-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lu-book-modal__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* the slim invite that replaces the old in-page form */
+
+.lu-invite {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  border-radius: 0;
+  padding: clamp(1.9rem, 3.8vw, 2.8rem) clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.lu-invite::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fg) 0 3px,
+    transparent 3px 15px
+  );
+  pointer-events: none;
+}
+
+.lu-invite__copy {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.lu-invite__copy .section-title {
+  margin: 0 0 0.45rem;
+}
+
+.lu-invite__lede {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--lu-lede);
+}
+
+.lu-invite__act {
+  display: grid;
+  gap: 0.7rem;
+  justify-items: start;
+}
+
+.lu-book__btn--lg {
+  padding: 0.95rem 1.9rem;
+  font-size: 0.84rem;
+}
+
+.lu-invite__note {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 34ch;
+}
+
+/* popup responsive */
+
+@media (max-width: 720px) {
+  .lu-book__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .lu-book__steps {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    order: 3;
+  }
+
+  .lu-book-modal {
+    width: calc(100% - 0.75rem);
+    max-height: calc(100vh - 0.75rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .lu-invite__act {
+    width: 100%;
+  }
+
+  .lu-book__btn--lg {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lu-book-modal[open] {
+    animation: none;
+  }
+}
+
+/* --- real frames: photographs inside the contact-sheet chrome ---------------- */
+
+.lu-shot__frame {
+  position: relative;
+}
+
+.lu-shot__img {
+  position: absolute;
+  inset: 0 0 1.95rem 0;
+  width: 100%;
+  height: calc(100% - 1.95rem);
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(0.12) contrast(1.04) saturate(0.92);
+  transition: filter 0.25s ease, transform 0.35s ease;
+}
+
+.lu-shot__frame:hover .lu-shot__img,
+.lu-shot__frame:focus-visible .lu-shot__img {
+  filter: grayscale(0) contrast(1.06) saturate(1);
+  transform: scale(1.02);
+}
+
+.lu-shot__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 1.95rem 0;
+  background: linear-gradient(
+    to top,
+    rgba(17, 17, 19, 0.28) 0%,
+    transparent 38%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lu-shot__hint {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  z-index: 2;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  padding: 0.28rem 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.lu-shot__frame:hover .lu-shot__hint,
+.lu-shot__frame:focus-visible .lu-shot__hint {
+  opacity: 1;
+}
+
+.lu-shot__rebate {
+  z-index: 2;
+}
+
+/* --- lead magnet: shot prep sheet -------------------------------------------- */
+
+.lu-guide {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  border: 1px solid var(--fg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.lu-guide__media {
+  position: relative;
+  min-height: 18rem;
+  background: var(--fg);
+}
+
+.lu-guide__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.35) contrast(1.05) brightness(0.92);
+}
+
+.lu-guide__media-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: color-mix(in srgb, var(--fg) 88%, transparent);
+  padding: 0.55rem 0.9rem;
+}
+
+.lu-guide__body {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem) clamp(1.35rem, 3vw, 2.4rem);
+  border-left: 1px solid var(--fg);
+  min-width: 0;
+}
+
+.lu-guide__kicker {
+  margin: 0 0 0.65rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lu-guide .section-title {
+  margin: 0 0 0.55rem;
+}
+
+.lu-guide__lede {
+  margin: 0 0 1.4rem;
+  max-width: 48ch;
+  color: var(--lu-lede);
+  line-height: 1.55;
+}
+
+.lu-guide__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1rem;
+  margin: 0;
+}
+
+.lu-guide__form .field--wide,
+.lu-guide__actions {
+  grid-column: 1 / -1;
+}
+
+.lu-guide__opt {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--muted);
+  margin-left: 0.35rem;
+  font-weight: 400;
+}
+
+.lu-guide__err {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  color: var(--fg);
+}
+
+.lu-guide__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.1rem;
+  margin-top: 0.25rem;
+}
+
+.lu-guide__note {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  max-width: 36ch;
+  line-height: 1.45;
+}
+
+.lu-guide__done {
+  outline: none;
+}
+
+.lu-guide__after {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--lu-hair);
+}
+
+/* the unlocked sheet */
+
+.lu-sheet {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 0.4rem;
+}
+
+.lu-sheet__block {
+  border: 1px solid var(--lu-hair);
+  padding: 0.95rem 1.05rem 1rem;
+  background: var(--bg);
+}
+
+.lu-sheet__h {
+  margin: 0 0 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.lu-sheet__list {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.lu-sheet__list li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--lu-lede);
+}
+
+/* guide responsive */
+
+@media (max-width: 820px) {
+  .lu-guide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-guide__media {
+    min-height: 14rem;
+  }
+
+  .lu-guide__body {
+    border-left: 0;
+    border-top: 1px solid var(--fg);
+  }
+}
+
+@media (max-width: 520px) {
+  .lu-guide__form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lu-guide__actions .lu-book__btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lu-shot__img {
+    transition: none;
+  }
+
+  .lu-shot__frame:hover .lu-shot__img,
+  .lu-shot__frame:focus-visible .lu-shot__img {
+    transform: none;
+  }
+}
+
+/* --- hold the date: editorial booking band -------------------------------- */
+
+.lu-hold {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 0.75fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: end;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  padding-top: clamp(2.4rem, 5vw, 3.8rem);
+  padding-bottom: clamp(2.4rem, 5vw, 3.8rem);
+}
+
+.lu-hold__kicker {
+  margin: 0 0 1rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lu-hold__title {
+  margin: 0 0 1.15rem;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  max-width: 12ch;
+}
+
+.lu-hold__lede {
+  margin: 0 0 0.85rem;
+  max-width: 38ch;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--lu-lede);
+}
+
+.lu-hold__body {
+  margin: 0 0 1.6rem;
+  max-width: 46ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.lu-hold__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.lu-hold__link {
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.lu-hold__link:hover,
+.lu-hold__link:focus-visible {
+  color: var(--fg);
+}
+
+.lu-hold__stub {
+  position: relative;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 1.15rem 1.2rem 1rem;
+  min-width: 0;
+}
+
+.lu-hold__stub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0.55rem;
+  background:
+    radial-gradient(circle at center, var(--bg) 0 2px, transparent 2.2px) center / 10px 100% repeat-x;
+  opacity: 0.85;
+}
+
+.lu-hold__stub-cap {
+  margin: 0.35rem 0 1rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lu-oncarbon);
+}
+
+.lu-hold__terms {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.lu-hold__row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+}
+
+.lu-hold__row:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+}
+
+.lu-hold__term {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lu-oncarbon);
+  align-self: center;
+}
+
+.lu-hold__detail {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.lu-hold__stub-foot {
+  margin: 1rem 0 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lu-oncarbon);
+}
+
+@media (max-width: 820px) {
+  .lu-hold {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .lu-hold__title {
+    max-width: none;
+  }
 }

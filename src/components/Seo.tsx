@@ -8,6 +8,8 @@ interface SeoProps {
   description: string;
   /** Public path for canonical/OG/JSON-LD: `/`, `/p/{slug}`, `/p/{slug}/{sub}`. */
   seoPath: string;
+  /** Optional social share image (site-relative path or absolute URL). */
+  image?: string;
 }
 
 function setMeta(name: string, content: string): void {
@@ -36,7 +38,7 @@ function setNameMeta(name: string, content: string): void {
 
 /** Keeps the document head truthful for the current route — title, meta,
  *  canonical, Open Graph, JSON-LD and the per-page stylesheet. */
-export function Seo({ slug, title, description, seoPath }: SeoProps) {
+export function Seo({ slug, title, description, seoPath, image }: SeoProps) {
   useEffect(() => {
     const noindex = slug === '404';
 
@@ -67,15 +69,25 @@ export function Seo({ slug, title, description, seoPath }: SeoProps) {
       .forEach((node) => node.remove());
 
     if (!noindex) {
+      const shareImage = image
+        ? image.startsWith('http')
+          ? image
+          : `${siteBase()}${image.startsWith('/') ? image : `/${image}`}`
+        : '';
       setProperty('og:type', 'website');
-      setProperty('og:site_name', 'Ten Landings');
+      setProperty('og:site_name', 'Four Landings');
       setProperty('og:locale', 'en_US');
       setProperty('og:title', title);
       setProperty('og:description', description);
       setProperty('og:url', `${siteBase()}${seoPath}`);
-      setNameMeta('twitter:card', 'summary');
+      if (shareImage) {
+        setProperty('og:image', shareImage);
+        setProperty('og:image:alt', title);
+      }
+      setNameMeta('twitter:card', shareImage ? 'summary_large_image' : 'summary');
       setNameMeta('twitter:title', title);
       setNameMeta('twitter:description', description);
+      if (shareImage) setNameMeta('twitter:image', shareImage);
       setNameMeta('theme-color', themeColor(slug));
     }
 
@@ -103,7 +115,7 @@ export function Seo({ slug, title, description, seoPath }: SeoProps) {
     if (pageCss.getAttribute('href') !== href) {
       pageCss.setAttribute('href', href);
     }
-  }, [slug, title, description, seoPath]);
+  }, [slug, title, description, seoPath, image]);
 
   return null;
 }

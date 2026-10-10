@@ -1,29 +1,12 @@
 import type { SubPage } from './types';
-import { PAGES as roastery } from './roastery';
-import { PAGES as forge } from './forge';
-import { PAGES as haven } from './haven';
-import { PAGES as brightside } from './brightside';
-import { PAGES as verity } from './verity';
 import { PAGES as saffron } from './saffron';
 import { PAGES as wanderly } from './wanderly';
-import { PAGES as loop } from './loop';
 import { PAGES as lumen } from './lumen';
 import { PAGES as atelier } from './atelier';
 
 export type { Block, SubHead, SubSection, SubPage } from './types';
 
-const GROUPS: SubPage[][] = [
-  roastery,
-  forge,
-  haven,
-  brightside,
-  verity,
-  saffron,
-  wanderly,
-  loop,
-  lumen,
-  atelier,
-];
+const GROUPS: SubPage[][] = [saffron, wanderly, lumen, atelier];
 
 /** Every sub page, in declaration order. */
 export function all(): SubPage[] {
