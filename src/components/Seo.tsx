@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { siteBase, jsonLdAt, themeColor } from '../data/seo';
+import { asset } from '../lib/asset';
 
 interface SeoProps {
   /** Body marker + CSS page key: `index`, `404`, or a landing/sub slug. */
@@ -104,7 +105,7 @@ export function Seo({ slug, title, description, seoPath, image }: SeoProps) {
 
     document.body.setAttribute('data-slug', slug);
 
-    const href = `/assets/css/pages/${slug}.css`;
+    const href = asset(`/assets/css/pages/${slug}.css`);
     let pageCss = document.head.querySelector<HTMLLinkElement>('link[data-page-css]');
     if (!pageCss) {
       pageCss = document.createElement('link');

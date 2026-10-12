@@ -7,6 +7,7 @@ import { LumenGuide } from './LumenGuide';
 import { lumen } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
 import { useReveal } from '../../lib/reveal';
+import { asset } from '../../lib/asset';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'lumen';
@@ -268,12 +269,12 @@ export default function Lumen() {
                       data-lightbox-title={shot.title}
                       data-lightbox-tag={shot.kind}
                       data-lightbox-text={shot.note}
-                      {...(shot.image ? { 'data-lightbox-image': shot.image } : {})}
+                      {...(shot.image ? { 'data-lightbox-image': asset(shot.image) } : {})}
                     >
                       {shot.image ? (
                         <img
                           className="lu-shot__img"
-                          src={shot.image}
+                          src={shot.image ? asset(shot.image) : ''}
                           alt=""
                           width={1400}
                           height={1050}

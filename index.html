@@ -13,6 +13,20 @@
     <script>
       window.__TEN_AV__ = "1.0.0";
     </script>
+    <script>
+      // Restores SPA routes forwarded by 404.html on static hosting.
+      (function () {
+        var l = window.location;
+        if (l.search.slice(0, 2) === '?/') {
+          var parts = l.search.slice(2).split('&');
+          var path = parts
+            .join('?')
+            .replace(/~and~/g, '&');
+          var base = l.pathname.replace(/\/$/, '');
+          window.history.replaceState(null, '', base + '/' + path + l.hash);
+        }
+      })();
+    </script>
     <script src="/assets/js/transition.js" defer></script>
     <script src="/assets/js/enquiry.js" defer></script>
     <script src="/assets/js/gallery.js" defer></script>

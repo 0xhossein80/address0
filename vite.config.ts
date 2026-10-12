@@ -30,7 +30,10 @@ function seoPlugin(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // Project site on GitHub Pages: https://hosseinmobarakian.github.io/Portfolio/
+  // Local dev stays at root for convenience.
+  base: command === 'serve' ? '/' : '/Portfolio/',
   plugins: [
     million.vite({
       // Million's Text/block optimizer steals product-button text nodes;
@@ -67,4 +70,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

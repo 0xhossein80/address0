@@ -8,6 +8,7 @@ import { contentForSlug } from '../../data/content';
 import { LANDING_NAV } from './meta';
 import { AtelierCart } from './AtelierCart';
 import * as cart from '../../lib/cart';
+import { asset } from '../../lib/asset';
 import { useReveal } from '../../lib/reveal';
 
 const SLUG = 'atelier';
@@ -121,19 +122,19 @@ const TEMPLATE_4 = `
 
 const HERO_SLIDES = [
   {
-    img: '/assets/img/atelier/rail.jpg',
+    img: asset('/assets/img/atelier/rail.jpg'),
     pos: '50% 40%',
     alt: 'The winter rail: sweaters and knits hanging in a row',
     caption: 'The winter rail — eight woollens deep',
   },
   {
-    img: '/assets/img/atelier/field-coat.jpg',
+    img: asset('/assets/img/atelier/field-coat.jpg'),
     pos: '50% 25%',
     alt: 'Camel wool coat worn on stone steps',
     caption: 'Heavy wool, cut to be worn for a decade',
   },
   {
-    img: '/assets/img/atelier/wool-cloth.jpg',
+    img: asset('/assets/img/atelier/wool-cloth.jpg'),
     pos: '50% 50%',
     alt: 'Close weave of the mill-end wool cloth',
     caption: 'Mill ends, bought once, never re-ordered',
@@ -159,7 +160,7 @@ const COLLECTIONS: {
     shop: 'women',
     name: 'Women — knits & wraps',
     cat: 'Women',
-    img: '/assets/img/atelier/field-coat.jpg',
+    img: asset('/assets/img/atelier/field-coat.jpg'),
     alt: 'Camel wool coat from the women’s collection',
     pos: '50% 20%',
     swatch: '#8a6a45',
@@ -170,7 +171,7 @@ const COLLECTIONS: {
     shop: 'men',
     name: 'Men — sets & rollnecks',
     cat: 'Men',
-    img: '/assets/img/atelier/rail.jpg',
+    img: asset('/assets/img/atelier/rail.jpg'),
     alt: 'Folded knitwear from the men’s collection on the rail',
     pos: '50% 50%',
     swatch: '#47503f',
@@ -180,7 +181,7 @@ const COLLECTIONS: {
     shop: 'home',
     name: 'Home — throws & cushions',
     cat: 'Home Goods',
-    img: '/assets/img/atelier/wool-cloth.jpg',
+    img: asset('/assets/img/atelier/wool-cloth.jpg'),
     alt: 'Woven wool cloth in camel, from the home collection',
     pos: '50% 50%',
     swatch: '#b98d55',
@@ -191,7 +192,7 @@ const COLLECTIONS: {
     shop: 'seasonal',
     name: 'Seasonal — socks & gifts',
     cat: 'Seasonal',
-    img: '/assets/img/atelier/rail.jpg',
+    img: asset('/assets/img/atelier/rail.jpg'),
     alt: 'Bed socks and small gifts from the seasonal collection',
     pos: '82% 50%',
     swatch: '#2e2a26',
@@ -302,7 +303,7 @@ function ProductCard({ product }: { product: Product }) {
     <article className={`kn-card${qty > 0 ? ' kn-card--inbag' : ''}`}>
       <div className="kn-card__thumb" style={{ background: product.swatch }}>
         <img
-          src={product.img}
+          src={asset(product.img)}
           alt=""
           loading="lazy"
           decoding="async"
@@ -652,7 +653,7 @@ export default function Atelier() {
               {BUNDLE.map((p) => (
                 <img
                   key={p.name}
-                  src={p.img}
+                  src={asset(p.img)}
                   alt=""
                   loading="lazy"
                   decoding="async"

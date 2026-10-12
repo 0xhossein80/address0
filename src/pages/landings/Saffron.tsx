@@ -6,6 +6,7 @@ import { SaffronBooking } from './SaffronBooking';
 import { saffron } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
 import { useReveal } from '../../lib/reveal';
+import { asset } from '../../lib/asset';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'saffron';
@@ -173,7 +174,7 @@ function CardThumb({ art }: { art: string }) {
   return (
     <span className="sa-card__art">
       <img
-        src={`/assets/img/saffron/card-${art}.jpg`}
+        src={asset(`/assets/img/saffron/card-${art}.jpg`)}
         alt=""
         width={700}
         height={700}
@@ -348,7 +349,7 @@ export default function Saffron() {
               <div className="sa-plate">
                 <img
                   className="sa-plate__img"
-                  src="/assets/img/saffron/hero-biryani.jpg"
+                  src={asset("/assets/img/saffron/hero-biryani.jpg")}
                   alt="A plate of saffron biryani with lamb, herbs and burnt onion"
                   width={1400}
                   height={1400}

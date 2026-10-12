@@ -65,6 +65,11 @@ function mergeExtras(
       /* schema extras must be a JSON object body; ignore malformed input */
     }
   }
+  // Site-relative image paths (e.g. "/assets/img/...") need the full origin
+  // to be valid schema.org URLs.
+  if (typeof entity.image === 'string' && entity.image.startsWith('/')) {
+    entity.image = `${siteBase()}${entity.image}`;
+  }
   return entity;
 }
 

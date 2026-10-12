@@ -9,6 +9,18 @@
 
   const loading = new Map();
 
+  // Deploy base derived once from this file's own URL, so per-page modules
+  // load under a subpath (e.g. GitHub Pages project sites) as well as root.
+  const base = (() => {
+    try {
+      const src = document.currentScript && document.currentScript.src;
+      const i = src ? src.indexOf('/assets/js/signature.js') : -1;
+      return i === -1 ? '' : src.slice(0, i);
+    } catch (err) {
+      return '';
+    }
+  })();
+
   function version() {
     return window.__TEN_AV__ || "0";
   }
@@ -20,7 +32,7 @@
         slug,
         new Promise((resolve) => {
           const script = document.createElement("script");
-          script.src = "/assets/js/sig/" + slug + ".js?v=" + version();
+          script.src = base + "/assets/js/sig/" + slug + ".js?v=" + version();
           script.async = true;
           script.onload = resolve;
           script.onerror = resolve;

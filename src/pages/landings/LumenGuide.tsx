@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { EnquiryResult } from '../../lib/enquiry';
+import { asset } from '../../lib/asset';
 
 declare global {
   interface Window {
@@ -115,7 +116,7 @@ export function LumenGuide() {
       <div className="lu-guide">
         <div className="lu-guide__media" aria-hidden="true">
           <img
-            src="/assets/img/lumen/studio-light.jpg"
+            src={asset("/assets/img/lumen/studio-light.jpg")}
             alt=""
             width={1600}
             height={1200}

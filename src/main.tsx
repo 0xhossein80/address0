@@ -10,7 +10,7 @@ const el = document.getElementById('root');
 if (el) {
   createRoot(el).render(
     <StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
         <App />
       </BrowserRouter>
     </StrictMode>,
