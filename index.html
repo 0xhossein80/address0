@@ -27,6 +27,46 @@
         }
       })();
     </script>
+    <script>
+      // First-paint styles: the per-page stylesheet used to load only after
+      // React rendered, flashing unstyled content. Load this route's sheet
+      // synchronously now (render-blocking, before <body> parses) and
+      // preload the rest so client-side navigation is instant. Only one
+      // sheet is ever applied — each sets :root tokens, so they must not
+      // all apply at once. Runs after the restore script above, so the
+      // real route is visible even on 404-forwarded loads.
+      (function () {
+        var FILES = ['404', 'atelier', 'index', 'lumen', 'saffron', 'wanderly'];
+        var probe = document.querySelector('link[rel="stylesheet"]');
+        var probeHref = probe ? probe.getAttribute('href') || '' : '';
+        var base = probeHref.split('/assets/')[0] + '/';
+        var baseSegs = base.split('/').filter(Boolean);
+        var segs = window.location.pathname.split('/').filter(Boolean);
+        if (baseSegs.length && segs.slice(0, baseSegs.length).join('/') === baseSegs.join('/')) {
+          segs = segs.slice(baseSegs.length);
+        }
+        var at = segs.indexOf('p');
+        var slug = at !== -1 && segs[at + 1] ? segs[at + 1] : segs.length ? '404' : 'index';
+        if (FILES.indexOf(slug) === -1) slug = slug === 'index' ? 'index' : '404';
+        function addLink(rel, name) {
+          var link = document.createElement('link');
+          link.setAttribute('rel', rel);
+          if (rel === 'preload') {
+            link.setAttribute('as', 'style');
+          } else {
+            // Seo.tsx reuses this exact node instead of appending a second
+            // stylesheet for the same file.
+            link.setAttribute('data-page-css', '');
+          }
+          link.setAttribute('href', base + 'assets/css/pages/' + name + '.css');
+          document.head.appendChild(link);
+        }
+        addLink('stylesheet', slug);
+        for (var i = 0; i < FILES.length; i += 1) {
+          if (FILES[i] !== slug) addLink('preload', FILES[i]);
+        }
+      })();
+    </script>
     <script src="/assets/js/transition.js" defer></script>
     <script src="/assets/js/enquiry.js" defer></script>
     <script src="/assets/js/gallery.js" defer></script>
