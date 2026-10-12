@@ -11,7 +11,9 @@ export function siteBase(): string {
   const g = globalThis as { process?: { env?: Record<string, string | undefined> } };
   const raw =
     meta.env?.VITE_SITE_URL ??
-    (typeof g.process === 'object' ? g.process?.env?.SITE_URL : undefined) ??
+    (typeof g.process === 'object'
+      ? (g.process?.env?.SITE_URL ?? g.process?.env?.CF_PAGES_URL)
+      : undefined) ??
     '';
   const trimmed = raw.trim().replace(/\/+$/, '');
   if (trimmed) return trimmed;
