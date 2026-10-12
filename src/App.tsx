@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import type { ComponentType } from 'react';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CATEGORIES, pathOf } from './data/categories';
+import { Loader } from './components/Loader';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 
@@ -80,7 +81,7 @@ export default function App() {
   }, [location]);
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Index />} />
         {CATEGORIES.map((card) => (

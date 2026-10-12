@@ -10,6 +10,62 @@
     />
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="/assets/css/app.css" />
+    <style>
+      /* First-paint loader: shown before React boots (static splash below)
+         and during lazy page chunks (same markup, rendered by React). */
+      .ten-loader {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 0.85rem;
+        margin: 0;
+        padding: 2rem;
+        background: #fbfaf8;
+        color: #17171a;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        text-align: center;
+      }
+      .ten-loader__brand {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .ten-loader__hint {
+        margin: 0;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #6b6b74;
+      }
+      .ten-loader__bar {
+        width: min(11rem, 52vw);
+        height: 3px;
+        margin: 0.35rem auto 0;
+        overflow: hidden;
+        background: rgba(23, 23, 26, 0.14);
+      }
+      .ten-loader__bar > span {
+        display: block;
+        width: 38%;
+        height: 100%;
+        background: linear-gradient(90deg, #17171a 0 82%, #c6f24e 82% 100%);
+        animation: ten-load-slide 1.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      }
+      @keyframes ten-load-slide {
+        from { transform: translateX(-110%); }
+        to { transform: translateX(290%); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .ten-loader__bar > span {
+          animation: none;
+          transform: translateX(80%);
+        }
+      }
+    </style>
     <script>
       window.__TEN_AV__ = "1.0.0";
     </script>
@@ -75,7 +131,13 @@
     <script src="/assets/js/signature.js" defer></script>
   </head>
   <body data-slug="">
-    <div id="root"></div>
+    <div id="root">
+      <div class="ten-loader" aria-hidden="true">
+        <p class="ten-loader__brand">Address(0)</p>
+        <p class="ten-loader__hint">Loading</p>
+        <p class="ten-loader__bar" aria-hidden="true"><span></span></p>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
