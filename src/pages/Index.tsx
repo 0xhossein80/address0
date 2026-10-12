@@ -498,45 +498,6 @@ export default function Index() {
       </main>
 
       <template id="tpl-index-1" dangerouslySetInnerHTML={{ __html: TEMPLATE_INDEX_1 }} />
-
-      <dialog
-        className="lp-modal"
-        id="popup-index"
-        data-popup
-        data-popup-key="lp-popup-index"
-        data-popup-delay="5000"
-        aria-labelledby="popup-index-title"
-      >
-        <div className="lp-modal__bar">
-          <span className="lp-modal__brand">Address(0) · quick note</span>
-          <form method="dialog">
-            <button className="lp-modal__close" type="submit" value="close" aria-label="Dismiss">
-              &#10005;
-            </button>
-          </form>
-        </div>
-        <div className="lp-modal__body">
-          <p className="modal__kicker">Address(0) · behind the curtain</p>
-          <h2 id="popup-index-title">Everything here actually runs</h2>
-          <p>
-            These are not screenshots. Every button, form, dialog and sub page on this site is
-            wired to something real — try one before you close this box.
-          </p>
-          <ul>
-            <li>Each landing has four sub pages you can crawl like a visitor would</li>
-            <li>The forms validate for real, with honeypots and ticket receipts</li>
-            <li>Modals, popups and toasts are keyboard-accessible — Escape closes them</li>
-          </ul>
-          <div className="modal__actions">
-            <a className="btn btn--accent" href="/p/saffron">
-              Start with the restaurant
-            </a>
-            <button type="button" className="btn btn--ghost" data-modal-close>
-              Maybe later
-            </button>
-          </div>
-        </div>
-      </dialog>
     </Page>
   );
 }
