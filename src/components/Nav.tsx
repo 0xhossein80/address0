@@ -145,9 +145,6 @@ export function Nav({ slug, brand, items }: NavProps) {
               {links}
             </nav>
             {tag ? <span className="nav__tag">{tag}</span> : null}
-            <a className="nav__cta nav__cta--compact" href="/#contact" aria-label="Get a sales page like this for your business">
-              Want one?
-            </a>
           </>
         )}
       </div>

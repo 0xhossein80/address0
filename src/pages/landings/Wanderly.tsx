@@ -4,10 +4,68 @@ import { Subs } from '../../components/Subs';
 import { EnquiryForm } from '../../components/EnquiryForm';
 import { wanderly } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
+import { useReveal } from '../../lib/reveal';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'wanderly';
 const BRAND = 'Wanderly Travel Co.';
+
+/* Dossier references for the departure board — codes and base coordinates
+   for the four scouted routes. */
+const TRIP_META: { code: string; coords: string }[] = [
+  { code: 'WLY–JPN–09', coords: '35.01° N, 135.76° E — Kyoto' },
+  { code: 'WLY–MAR–11', coords: '31.62° N, 7.98° W — Marrakech' },
+  { code: 'WLY–FAR–06', coords: '62.00° N, 6.77° W — Tórshavn' },
+  { code: 'WLY–PAT–12', coords: '50.94° S, 72.95° W — Paine' },
+];
+
+/* One day on the ground, from the field notes behind modal tpl-wanderly-2. */
+const DAY_BEATS: { mark: string; title: string; text: string }[] = [
+  {
+    mark: '07:30',
+    title: 'Breakfast',
+    text: 'On the table from half past seven, and the day’s plan written up before you come down.',
+  },
+  {
+    mark: '09:00',
+    title: 'On the road',
+    text: 'Driving days roll at nine — bags in, windows down, the route already re-checked.',
+  },
+  {
+    mark: 'AM',
+    title: 'The guided stretch',
+    text: 'A walk, a market, a workshop — two to three hours with your leader.',
+  },
+  {
+    mark: 'PM',
+    title: 'Your afternoon',
+    text: 'Entirely yours. Six to eight kilometres on foot is a normal day, and nobody is left behind.',
+  },
+  {
+    mark: 'EVE',
+    title: 'Supper',
+    text: 'One dinner a trip is a single booked table, paid by us — other nights your leader hands you three addresses.',
+  },
+];
+
+/* Who is actually leading you, from the notes behind modal tpl-wanderly-3. */
+const CREW: { role: string; title: string; text: string }[] = [
+  {
+    role: 'Whole route',
+    title: 'Your Wanderly leader',
+    text: 'Travels with you from the first airport coffee to the last transfer — and walked the route on the scouting trip too, so the detours are theirs.',
+  },
+  {
+    role: 'By stretch',
+    title: 'Local specialists',
+    text: 'Join for their own ground only: the Atlas guide, the Mykines boat. Met over dinner first — never a line in a spreadsheet.',
+  },
+  {
+    role: 'Before & after',
+    title: 'The office planner',
+    text: 'The person who wrote your itinerary answers on weekdays, a group chat opens thirty days out, and your leader carries the backup plan.',
+  },
+];
 
 const TEMPLATE_1 = `
   <h2>How a trip gets on the list</h2>
@@ -59,6 +117,7 @@ const TEMPLATE_3 = `
 
 export default function Wanderly() {
   const content = contentForSlug(SLUG);
+  useReveal();
   if (!content) return null;
 
   return (
@@ -73,6 +132,7 @@ export default function Wanderly() {
       <main className="page-wanderly">
         <section className="wrap lp-hero wa-hero">
           <div className="wa-hero__copy">
+            <p className="wa-dossier">Expedition Nº 09 · this season · four routes open</p>
             <h1 className="wa-hero__title">Trips you will talk about for years.</h1>
             <p className="wa-hero__lede">
               Planned by people who have actually stood in the square, eaten at the counter and got
@@ -135,72 +195,147 @@ export default function Wanderly() {
                   <dd>6–8 km a day</dd>
                 </div>
               </dl>
+              <p className="wa-stamp__coords">35.01° N, 135.76° E — scouted in season</p>
             </div>
+            <a className="wa-next" href="#trips" aria-label="Next departure: Kyoto in Autumn, Japan">
+              <span className="wa-next__main">
+                <span className="wa-next__kicker">Next departure</span>
+                <span className="wa-next__name">Kyoto in Autumn · Japan</span>
+                <span className="wa-next__meta">9 days · from $4,200 · max 12</span>
+              </span>
+              <span className="wa-next__go" aria-hidden="true">
+                →
+              </span>
+            </a>
           </div>
         </section>
 
+        <div className="wa-tick" aria-hidden="true">
+          <div className="wa-tick__track">
+            {[0, 1].map((run) => (
+              <div className="wa-tick__run" key={run}>
+                {wanderly.trips.map((trip) => (
+                  <span key={trip.name} className="wa-tick__item">
+                    <span className="wa-tick__sep">→</span>
+                    {trip.name} · {trip.region}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <section className="wrap wa-section" id="trips">
           <div className="section-head">
+            <p className="wa-eyebrow">01 — departures</p>
             <h2 className="section-title">Leaving soon</h2>
-            <p className="section-note">Four trips with space left this season.</p>
+            <p className="section-note">
+              Four trips with space left this season — every one walked before it was sold.
+            </p>
           </div>
           <div className="wa-trips">
-            {wanderly.trips.map((trip) => (
-              <article key={trip.name} className="wa-trip">
+            {wanderly.trips.map((trip, i) => (
+              <article
+                key={trip.name}
+                className="wa-trip rv"
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
                 <div className="wa-trip__top">
                   <span className="wa-trip__region">{trip.region}</span>
                   <span className="wa-trip__days">{trip.days}</span>
                 </div>
                 <h3 className="wa-trip__name">{trip.name}</h3>
+                <p className="wa-trip__code">{TRIP_META[i]?.code ?? `WLY–${String(i + 1).padStart(2, '0')}`}</p>
                 <p className="wa-trip__blurb">{trip.blurb}</p>
+                <p className="wa-trip__coords">{TRIP_META[i]?.coords}</p>
                 <div className="wa-trip__foot">
                   <span className="wa-trip__price">{trip.price}</span>
-                  <span className="wa-trip__hint">Space left this season</span>
+                  <span className="wa-trip__hint">Max 12 travellers</span>
                 </div>
                 <details className="wa-trip__more">
                   <summary className="wa-trip__link">
-                    Details <span aria-hidden="true">↓</span>
+                    Route <span aria-hidden="true">↓</span>
                   </summary>
                   <ul className="wa-trip__route">
                     {trip.itinerary.map((stop) => (
                       <li key={stop}>{stop}</li>
                     ))}
                   </ul>
-                  <a
-                    className="wa-trip__cta"
-                    href="#enquire"
-                    data-prefill={`trip=${trip.name} — ${trip.region}`}
-                  >
-                    Ask about this trip <span aria-hidden="true">→</span>
-                  </a>
                 </details>
+                <a
+                  className="wa-trip__cta"
+                  href="#enquire"
+                  data-prefill={`trip=${trip.name} — ${trip.region}`}
+                >
+                  Ask about this trip <span aria-hidden="true">→</span>
+                </a>
               </article>
             ))}
           </div>
           <div className="mini-actions">
-            <button type="button" className="btn btn--ghost" data-modal-open="tpl-wanderly-2">
-              A day on the ground
-            </button>
+            <a className="btn btn--ghost" href="#day">
+              See a day on the ground <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </section>
+
+        <section className="wrap wa-section" id="day" aria-label="A normal day on a Wanderly trip">
+          <div className="section-head">
+            <p className="wa-eyebrow">02 — a day on the ground</p>
+            <h2 className="section-title">What a normal day looks like</h2>
+            <p className="section-note">
+              The itinerary gives you the bones; this is the flesh — first coffee to last transfer.
+            </p>
+          </div>
+          <div className="wa-day__grid">
+            <ol className="wa-day">
+              {DAY_BEATS.map((beat, i) => (
+                <li key={beat.title} className="wa-day__row rv" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="wa-day__mark">{beat.mark}</span>
+                  <span className="wa-day__node" aria-hidden="true" />
+                  <div className="wa-day__body">
+                    <h3 className="wa-day__title">{beat.title}</h3>
+                    <p className="wa-day__text">{beat.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <aside className="wa-day__side rv" style={{ transitionDelay: '120ms' }}>
+              <p className="wa-day__side-kicker">Good to know</p>
+              <p className="wa-day__side-text">
+                No optional excursions sold at the hotel desk, and no upcharge activities waiting
+                at the door. One dinner a trip is ours — the rest of the table is yours to choose.
+              </p>
+              <div className="wa-day__side-acts">
+                <a className="btn btn--accent" href="#enquire">
+                  Start planning
+                </a>
+                <button type="button" className="btn btn--ghost" data-modal-open="tpl-wanderly-2">
+                  The day, in detail
+                </button>
+              </div>
+            </aside>
           </div>
         </section>
 
         <section className="wa-band" id="how">
           <div className="wrap wa-section">
             <div className="section-head section-head--light">
+              <p className="wa-eyebrow wa-eyebrow--light">03 — how it works</p>
               <h2 className="section-title">How it works</h2>
               <p className="section-note">Three steps and one long email back from us.</p>
             </div>
             <ol className="wa-steps">
-              <li>
+              <li className="rv">
                 <span>01</span>
                 <strong>Tell us the itch</strong> — dates, budget, who is coming, what you hate.
               </li>
-              <li>
+              <li className="rv" style={{ transitionDelay: '120ms' }}>
                 <span>02</span>
                 <strong>Get a route</strong> — a real itinerary within 48 hours, revised until it
                 fits.
               </li>
-              <li>
+              <li className="rv" style={{ transitionDelay: '240ms' }}>
                 <span>03</span>
                 <strong>Go</strong> — flights, stays and the awkward calls handled. You pack.
               </li>
@@ -217,7 +352,7 @@ export default function Wanderly() {
         </section>
 
         <section className="wrap wa-section" id="stories">
-          <blockquote className="wa-quote">
+          <blockquote className="wa-quote rv">
             <p>
               “They moved our whole Morocco route by two days because of a sandstorm we had not
               heard of. That is the trip.”
@@ -225,6 +360,34 @@ export default function Wanderly() {
             <cite>— Nadia & Tom, Atlas & Sahara</cite>
           </blockquote>
           <div className="mini-actions">
+            <a className="btn btn--ghost" href="#crew">
+              Meet the crew <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </section>
+
+        <section className="wrap wa-section" id="crew" aria-label="Who runs your trip">
+          <div className="section-head">
+            <p className="wa-eyebrow">04 — who leads you</p>
+            <h2 className="section-title">Not a flag and a timetable</h2>
+            <p className="section-note">
+              One Wanderly leader all the way through, backed by the people who live where you
+              are going.
+            </p>
+          </div>
+          <div className="wa-crew">
+            {CREW.map((member, i) => (
+              <article key={member.title} className="wa-crew__card rv" style={{ transitionDelay: `${i * 90}ms` }}>
+                <p className="wa-crew__role">{member.role}</p>
+                <h3 className="wa-crew__name">{member.title}</h3>
+                <p className="wa-crew__text">{member.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mini-actions">
+            <a className="btn btn--accent" href="#enquire">
+              Ask about a departure
+            </a>
             <button type="button" className="btn btn--ghost" data-modal-open="tpl-wanderly-3">
               Who runs your trip
             </button>
@@ -237,7 +400,7 @@ export default function Wanderly() {
           data-sig="wanderly"
           aria-label="Travel checklist"
         >
-          <div className="wa-check">
+          <div className="wa-check rv">
             <header className="wa-check__head">
               <div className="wa-check__titles">
                 <p className="wa-check__code">Pre-departure · card 09</p>

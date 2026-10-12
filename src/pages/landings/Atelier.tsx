@@ -8,6 +8,7 @@ import { contentForSlug } from '../../data/content';
 import { LANDING_NAV } from './meta';
 import { AtelierCart } from './AtelierCart';
 import * as cart from '../../lib/cart';
+import { useReveal } from '../../lib/reveal';
 
 const SLUG = 'atelier';
 const BRAND = 'Atelier Noir';
@@ -141,6 +142,82 @@ const HERO_SLIDES = [
 
 const BUNDLE_NAMES = ['Heirloom Throw', 'Hearth Cushion Cover', 'Après Sock Trio'];
 
+const COLLECTIONS: {
+  key: string;
+  shop: string;
+  name: string;
+  cat: AtelierCat;
+  img: string;
+  alt: string;
+  pos: string;
+  swatch: string;
+  tone?: string;
+  badge?: string;
+}[] = [
+  {
+    key: 'women',
+    shop: 'women',
+    name: 'Women — knits & wraps',
+    cat: 'Women',
+    img: '/assets/img/atelier/field-coat.jpg',
+    alt: 'Camel wool coat from the women’s collection',
+    pos: '50% 20%',
+    swatch: '#8a6a45',
+    badge: 'New',
+  },
+  {
+    key: 'men',
+    shop: 'men',
+    name: 'Men — sets & rollnecks',
+    cat: 'Men',
+    img: '/assets/img/atelier/rail.jpg',
+    alt: 'Folded knitwear from the men’s collection on the rail',
+    pos: '50% 50%',
+    swatch: '#47503f',
+  },
+  {
+    key: 'home',
+    shop: 'home',
+    name: 'Home — throws & cushions',
+    cat: 'Home Goods',
+    img: '/assets/img/atelier/wool-cloth.jpg',
+    alt: 'Woven wool cloth in camel, from the home collection',
+    pos: '50% 50%',
+    swatch: '#b98d55',
+    tone: 'sepia(0.65) saturate(1.5) brightness(1.25)',
+  },
+  {
+    key: 'seasonal',
+    shop: 'seasonal',
+    name: 'Seasonal — socks & gifts',
+    cat: 'Seasonal',
+    img: '/assets/img/atelier/rail.jpg',
+    alt: 'Bed socks and small gifts from the seasonal collection',
+    pos: '82% 50%',
+    swatch: '#2e2a26',
+  },
+];
+
+/* The mill-ticket story behind modal tpl-atelier-3, told on the page. */
+const CLOTH_NOTES: { title: string; text: string }[] = [
+  {
+    title: 'Bought once',
+    text: 'Deadstock cloth in the length a rail needs, at the price the mill asked that week.',
+  },
+  {
+    title: 'Tickets stay put',
+    text: 'Set the week the cloth lands — never marked up for scarcity, never marked down for theatre.',
+  },
+  {
+    title: 'Repairs inside',
+    text: 'Two years of buttons, seams and elbows are already in the price. Nothing invoiced.',
+  },
+  {
+    title: 'Retires with the rail',
+    text: 'Pieces that do not sell through retire instead of being cut cheaper to clear.',
+  },
+];
+
 const BUNDLE: Product[] = BUNDLE_NAMES.map(
   (name) => atelier.products.find((p) => p.name === name)!,
 );
@@ -183,20 +260,6 @@ function SearchIcon() {
   );
 }
 
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        d="M12 21s-6.5-5.4-6.5-10.4A6.5 6.5 0 0 1 12 4a6.5 6.5 0 0 1 6.5 6.6C18.5 15.6 12 21 12 21Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <circle cx="12" cy="10.5" r="2.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
-  );
-}
-
 function HeartIcon({ filled }: { filled: boolean }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -226,9 +289,15 @@ function TickIcon() {
   );
 }
 
+function priceNum(value: string): number {
+  const n = Number(value.replace(/[^0-9.]/g, ''));
+  return Number.isFinite(n) ? n : 0;
+}
+
 function ProductCard({ product }: { product: Product }) {
   const id = slugify(product.name);
   const qty = cart.qtyOf(id);
+  const saved = Math.round(priceNum(product.compareAt) - priceNum(product.price));
   return (
     <article className={`kn-card${qty > 0 ? ' kn-card--inbag' : ''}`}>
       <div className="kn-card__thumb" style={{ background: product.swatch }}>
@@ -239,9 +308,13 @@ function ProductCard({ product }: { product: Product }) {
           decoding="async"
           style={{ objectPosition: product.pos, ...(product.tone ? { filter: product.tone } : {}) }}
         />
+        {saved > 0 ? (
+          <span className="kn-card__save">Save ${saved}</span>
+        ) : null}
       </div>
       <p className="kn-card__kind">{product.kind}</p>
       <h3 className="kn-card__name">{product.name}</h3>
+      <p className="kn-card__blurb">{product.blurb}</p>
       <p className="kn-card__price">
         <span>{product.price}</span> <s>{product.compareAt}</s>
       </p>
@@ -267,6 +340,7 @@ function ProductCard({ product }: { product: Product }) {
 export default function Atelier() {
   const content = contentForSlug(SLUG);
   const lines = useSyncExternalStore(cart.subscribe, cart.getLines, cart.getLines);
+  useReveal();
   const bagCount = lines.reduce((n, l) => n + l.qty, 0);
   const [cat, setCat] = useState<CatFilter>('All');
   const [query, setQuery] = useState('');
@@ -328,57 +402,30 @@ export default function Atelier() {
       navItems={LANDING_NAV[SLUG]}
     >
       <main className="page-atelier">
-        <div className="wrap kn-store">
-          <div className="kn-store__top">
-            <button
-              type="button"
-              className="kn-store__find"
-              data-modal-open="tpl-atelier-store"
-            >
-              <PinIcon />
-              Find a store
-            </button>
-            <div className="kn-store__tools">
-              <label className="kn-search">
-                <span className="kn-search__icon">
-                  <SearchIcon />
-                </span>
-                <input
-                  type="search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search the rail"
-                  aria-label="Search the rail"
-                />
-              </label>
-              <button
-                type="button"
-                className="kn-store__bag"
-                data-at-bag
-                aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}
-              >
-                Bag{bagCount > 0 ? ` · ${bagCount}` : ''}
-              </button>
-            </div>
-          </div>
-          <div className="kn-store__cats" role="group" aria-label="Filter the rail by collection">
-            {CATS.map((c) => (
-              <button
-                key={c}
-                type="button"
-                className={`kn-cat${cat === c ? ' kn-cat--on' : ''}`}
-                aria-pressed={cat === c}
-                onClick={() => setCat(c)}
-              >
-                {c}
-              </button>
+        <div className="kn-tick" aria-hidden="true">
+          <div className="kn-tick__track">
+            {[0, 1].map((run) => (
+              <div className="kn-tick__run" key={run}>
+                {[
+                  'Free shipping over $120',
+                  'Two years of repairs included',
+                  '30-day returns',
+                  'Mill ends, bought once',
+                  'No plastic parcels',
+                ].map((line) => (
+                  <span key={line} className="kn-tick__item">
+                    <span className="kn-tick__sep">✦</span>
+                    {line}
+                  </span>
+                ))}
+              </div>
             ))}
           </div>
         </div>
 
-        <section className="wrap kn-hero">
-          <div className="kn-hero__media">
-            <div className="kn-hero__slides">
+        <section className="wrap kn-look">
+          <div className="kn-look__media">
+            <div className="kn-look__slides">
               {HERO_SLIDES.map((s, i) => (
                 <img
                   key={s.img + i}
@@ -387,43 +434,36 @@ export default function Atelier() {
                   aria-hidden={i === slide ? undefined : true}
                   loading={i === 0 ? 'eager' : 'lazy'}
                   decoding="async"
-                  className={`kn-hero__slide${i === slide ? ' kn-hero__slide--on' : ''}`}
+                  className={`kn-look__slide${i === slide ? ' kn-look__slide--on' : ''}`}
                   style={{ objectPosition: s.pos }}
                 />
               ))}
             </div>
             <button
               type="button"
-              className="kn-hero__edge kn-hero__edge--prev"
+              className="kn-look__edge kn-look__edge--prev"
               onClick={() => setSlide((slide + HERO_SLIDES.length - 1) % HERO_SLIDES.length)}
-              aria-label="Previous hero image"
+              aria-label="Previous look"
             >
               ‹
             </button>
             <button
               type="button"
-              className="kn-hero__edge kn-hero__edge--next"
+              className="kn-look__edge kn-look__edge--next"
               onClick={() => setSlide((slide + 1) % HERO_SLIDES.length)}
-              aria-label="Next hero image"
+              aria-label="Next look"
             >
               ›
             </button>
-            <div className="kn-hero__card">
-              <p className="kn-hero__lede">Made with Love, Wrapped in Warmth.</p>
-              <a className="kn-hero__cta" href="#capsule">
-                Explore Our Latest Winter Collection
-                <span className="kn-hero__go" aria-hidden="true">
-                  →
-                </span>
-              </a>
-              <p className="kn-hero__cap">{active.caption}</p>
-            </div>
-            <div className="kn-hero__dots" role="group" aria-label="Choose hero image">
+            <p className="kn-look__count" aria-hidden="true">
+              {String(slide + 1).padStart(2, '0')} / {String(HERO_SLIDES.length).padStart(2, '0')}
+            </p>
+            <div className="kn-look__dots" role="group" aria-label="Choose look">
               {HERO_SLIDES.map((s, i) => (
                 <button
                   key={s.caption}
                   type="button"
-                  className={`kn-hero__dot${i === slide ? ' kn-hero__dot--on' : ''}`}
+                  className={`kn-look__dot${i === slide ? ' kn-look__dot--on' : ''}`}
                   aria-label={`Show: ${s.caption}`}
                   aria-current={i === slide ? true : undefined}
                   onClick={() => setSlide(i)}
@@ -432,50 +472,28 @@ export default function Atelier() {
             </div>
           </div>
 
-          <div className="kn-hero__side">
-            <h1 className="kn-hero__title">
+          <div className="kn-look__card rv">
+            <p className="kn-kicker">The winter rail — 8 woollens, one mill run</p>
+            <h1 className="kn-look__title">
               From cozy <span className="kn-nowrap">sweaters <YarnMark /></span> to elegant{' '}
               <span className="kn-nowrap">shawls <YarnMark /></span> find your perfect{' '}
               <strong>Woollen Essentials.</strong>
             </h1>
-
-            <div className="kn-railhead" id="capsule">
-              <p className="kn-railhead__note">
-                A few of our best sellers…{' '}
-                <span aria-live="polite">
-                  {rail.length} of {atelier.products.length} on the rail
-                </span>
-              </p>
-              <div className="kn-railhead__row">
-                <div className="kn-rail" role="list" aria-label="Best sellers">
-                  {rail.length === 0 ? (
-                    <div className="kn-rail__empty">
-                      <p>Nothing on the rail matches “{query.trim()}”.</p>
-                      <button
-                        type="button"
-                        className="btn btn--ghost"
-                        onClick={() => {
-                          setQuery('');
-                          setCat('All');
-                        }}
-                      >
-                        Clear search
-                      </button>
-                    </div>
-                  ) : (
-                    rail.map((product) => (
-                      <div key={product.name} role="listitem" className="kn-rail__cell">
-                        <ProductCard product={product} />
-                      </div>
-                    ))
-                  )}
-                </div>
-                <a className="kn-round" href="#collections">
-                  Shop Now
-                </a>
-              </div>
+            <p className="kn-look__lede">
+              Small runs of knitwear and weave in deadstock cloth — ticketed once, repaired for
+              two years, and shipped plastic-free.
+            </p>
+            <div className="kn-look__acts">
+              <a className="btn btn--accent" href="#capsule">
+                Shop the rail
+              </a>
+              <a className="btn btn--ghost" href="#cloth">
+                Our cloth, our ticket
+              </a>
             </div>
-
+            <p className="kn-look__cap" key={slide} aria-live="polite">
+              {active.caption}
+            </p>
             <ul className="kn-proof" aria-label="Why shop the rail">
               <li>
                 <TickIcon /> Free shipping over $120
@@ -487,81 +505,150 @@ export default function Atelier() {
                 <TickIcon /> 30-day returns
               </li>
             </ul>
+            <div className="kn-hero__fine">
+              <button type="button" className="kn-fine__link" data-modal-open="tpl-atelier-1">
+                How the bag works
+              </button>
+              <span className="kn-fine__sep" aria-hidden="true">
+                ·
+              </span>
+              <button
+                type="button"
+                className="kn-fine__link"
+                data-modal-open="tpl-atelier-store"
+              >
+                Find a store
+              </button>
+            </div>
           </div>
         </section>
 
-        <section className="wrap kn-collections" id="collections" aria-labelledby="kn-collections-title">
-          <div className="kn-collections__main">
-            <h2 className="kn-collections__title" id="kn-collections-title">
-              Explore Collections
+        <section className="wrap kn-shop" id="capsule" aria-labelledby="kn-shop-title">
+          <div className="section-head">
+            <p className="kn-eyebrow">Cut in short runs</p>
+            <h2 className="section-title" id="kn-shop-title">
+              Shop the rail
             </h2>
+            <p className="section-note">
+              Every piece on the rail, with its mill ticket beside the rail price.{' '}
+              <span aria-live="polite">
+                {rail.length} of {atelier.products.length} showing
+              </span>
+            </p>
+          </div>
+          <div className="kn-shopbar rv">
+            <label className="kn-search kn-shopbar__search">
+              <span className="kn-search__icon">
+                <SearchIcon />
+              </span>
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search the rail"
+                aria-label="Search the rail"
+              />
+            </label>
+            <div className="kn-shopbar__cats" role="group" aria-label="Filter the rail by collection">
+              {CATS.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  className={`kn-chip${cat === c ? ' kn-chip--on' : ''}`}
+                  aria-pressed={cat === c}
+                  onClick={() => setCat(c)}
+                >
+                  {c}
+                  <span className="kn-chip__n" aria-hidden="true">
+                    {c === 'All' ? atelier.products.length : countFor(c as AtelierCat)}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="kn-store__bag kn-shopbar__bag"
+              data-at-bag
+              aria-label={`Open bag, ${bagCount} ${bagCount === 1 ? 'item' : 'items'}`}
+            >
+              Bag{bagCount > 0 ? ` · ${bagCount}` : ''}
+            </button>
+          </div>
+          {rail.length === 0 ? (
+            <div className="kn-rail__empty">
+              <p>Nothing on the rail matches “{query.trim()}”.</p>
+              <button
+                type="button"
+                className="btn btn--ghost"
+                onClick={() => {
+                  setQuery('');
+                  setCat('All');
+                }}
+              >
+                Clear search
+              </button>
+            </div>
+          ) : (
+            <div className="kn-shopgrid" role="list" aria-label="Pieces on the rail">
+              {rail.map((product) => (
+                <div key={product.name} role="listitem" className="kn-shopgrid__cell">
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="wrap kn-collections" id="collections" aria-labelledby="kn-collections-title">
+          <div className="kn-collections__main rv">
+            <div className="section-head">
+              <p className="kn-eyebrow">Four capsules, one rail</p>
+              <h2 className="kn-collections__title" id="kn-collections-title">
+                Explore Collections
+              </h2>
+            </div>
             <div className="kn-collections__grid">
-              <article className="kn-col">
-                <span className="kn-col__img" style={{ background: '#8a6a45' }}>
-                  <img
-                    src="/assets/img/atelier/field-coat.jpg"
-                    alt="Camel wool coat from the women's collection"
-                    loading="lazy"
-                    decoding="async"
-                    style={{ objectPosition: '50% 20%' }}
-                  />
-                  <span className="kn-col__badge">New</span>
-                  <button
-                    type="button"
-                    className={`kn-col__heart${loved.includes('women') ? ' kn-col__heart--on' : ''}`}
-                    aria-pressed={loved.includes('women')}
-                    aria-label="Save the women's collection to wishlist"
-                    onClick={() => toggleLoved('women')}
-                  >
-                    <HeartIcon filled={loved.includes('women')} />
-                  </button>
-                </span>
-                <span className="kn-col__body">
-                  <span className="kn-col__name">Women — knits &amp; wraps</span>
-                  <span className="kn-col__meta">{countFor('Women')} pieces on the rail</span>
-                  <a className="kn-col__go" href="#capsule" onClick={(e) => { e.preventDefault(); shopCat('Women'); }}>
-                    Shop women <span aria-hidden="true">→</span>
-                  </a>
-                </span>
-              </article>
-              <article className="kn-col">
-                <span className="kn-col__img" style={{ background: '#b98d55' }}>
-                  <img
-                    src="/assets/img/atelier/wool-cloth.jpg"
-                    alt="Woven wool cloth in camel, from the home collection"
-                    loading="lazy"
-                    decoding="async"
-                    style={{ objectPosition: '50% 50%', filter: 'sepia(0.65) saturate(1.5) brightness(1.25)' }}
-                  />
-                  <button
-                    type="button"
-                    className={`kn-col__heart${loved.includes('home') ? ' kn-col__heart--on' : ''}`}
-                    aria-pressed={loved.includes('home')}
-                    aria-label="Save the home collection to wishlist"
-                    onClick={() => toggleLoved('home')}
-                  >
-                    <HeartIcon filled={loved.includes('home')} />
-                  </button>
-                </span>
-                <span className="kn-col__body">
-                  <span className="kn-col__name">Home — throws &amp; cushions</span>
-                  <span className="kn-col__meta">{countFor('Home Goods')} pieces on the rail</span>
-                  <a
-                    className="kn-col__go"
-                    href="#capsule"
-                    onClick={(e) => { e.preventDefault(); shopCat('Home Goods'); }}
-                  >
-                    Shop home <span aria-hidden="true">→</span>
-                  </a>
-                </span>
-              </article>
+              {COLLECTIONS.map((col) => (
+                <article className="kn-col" key={col.key}>
+                  <span className="kn-col__img" style={{ background: col.swatch }}>
+                    <img
+                      src={col.img}
+                      alt={col.alt}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ objectPosition: col.pos, ...(col.tone ? { filter: col.tone } : {}) }}
+                    />
+                    {col.badge ? <span className="kn-col__badge">{col.badge}</span> : null}
+                    <button
+                      type="button"
+                      className={`kn-col__heart${loved.includes(col.key) ? ' kn-col__heart--on' : ''}`}
+                      aria-pressed={loved.includes(col.key)}
+                      aria-label={`Save the ${col.cat} collection to wishlist`}
+                      onClick={() => toggleLoved(col.key)}
+                    >
+                      <HeartIcon filled={loved.includes(col.key)} />
+                    </button>
+                  </span>
+                  <span className="kn-col__body">
+                    <span className="kn-col__name">{col.name}</span>
+                    <span className="kn-col__meta">{countFor(col.cat)} pieces on the rail</span>
+                    <a
+                      className="kn-col__go"
+                      href="#capsule"
+                      onClick={(e) => { e.preventDefault(); shopCat(col.cat); }}
+                    >
+                      Shop {col.shop} <span aria-hidden="true">→</span>
+                    </a>
+                  </span>
+                </article>
+              ))}
             </div>
           </div>
-          <aside className="kn-offers" id="offers" aria-labelledby="kn-offers-title">
-            <h2 className="kn-offers__title" id="kn-offers-title">
-              Special Offers
-            </h2>
-            <div className="kn-offers__stack" aria-hidden="true">
+        </section>
+
+        <section className="wrap" id="offers" aria-labelledby="kn-offerband-title">
+          <div className="kn-offerband rv">
+            <div className="kn-offerband__media" aria-hidden="true">
               {BUNDLE.map((p) => (
                 <img
                   key={p.name}
@@ -577,27 +664,147 @@ export default function Atelier() {
                 />
               ))}
             </div>
-            <h3 className="kn-offers__name">The Fireside Set</h3>
-            <p className="kn-offers__lines">Heirloom Throw · Hearth Cushion · Après Sock Trio</p>
-            <p className="kn-offers__price">
-              <span>$360</span> <s>$618</s>
+            <div className="kn-offerband__body">
+              <p className="kn-offerband__eyebrow">Special offer — one parcel</p>
+              <h2 className="kn-offerband__title" id="kn-offerband-title">
+                The Fireside Set
+              </h2>
+              <p className="kn-offerband__lines">Heirloom Throw · Hearth Cushion · Après Sock Trio</p>
+              <p className="kn-offerband__price">
+                <span>$360</span> <s>$618</s>
+                <span className="kn-offerband__save">Save $258</span>
+              </p>
+              <p className="kn-offerband__copy">
+                Mill ends, one run. The three warmest things on the rail, ticketed as one —
+                free shipping either way, repairs included either way.
+              </p>
+              <div className="kn-offerband__acts">
+                <button
+                  type="button"
+                  className="btn btn--accent"
+                  onClick={() => {
+                    BUNDLE.forEach((p) => cart.add(p));
+                    window.dispatchEvent(new CustomEvent('atelier:open-bag'));
+                  }}
+                >
+                  Add the set to bag
+                </button>
+                <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-2">
+                  Shipping and delivery
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="wrap kn-visit" id="visit" aria-labelledby="kn-visit-title">
+          <div className="section-head">
+            <p className="kn-eyebrow">Touch the wool first</p>
+            <h2 className="section-title" id="kn-visit-title">
+              Visit the shop
+            </h2>
+            <p className="section-note">
+              Three places to touch the wool before you buy. The workshop holds the full rail —
+              the other two carry the season.
             </p>
-            <p className="kn-offers__copy">
-              Mill ends, one run. The three warmest things on the rail, ticketed as one.
+          </div>
+          <div className="kn-visit__grid">
+            <article className="kn-visit__card rv">
+              <span className="kn-visit__n" aria-hidden="true">
+                01
+              </span>
+              <h3 className="kn-visit__name">The Workshop</h3>
+              <p className="kn-visit__area">Shoreditch, London · Tue–Sat, 11:00–18:00</p>
+              <p className="kn-visit__note">The full rail, the fitting room and the repairs counter.</p>
+              <a className="kn-visit__go" href="/p/atelier/appointments">
+                Book a fitting <span aria-hidden="true">→</span>
+              </a>
+            </article>
+            <article className="kn-visit__card rv" style={{ transitionDelay: '90ms' }}>
+              <span className="kn-visit__n" aria-hidden="true">
+                02
+              </span>
+              <h3 className="kn-visit__name">The Mill Shop</h3>
+              <p className="kn-visit__area">Greenwich, London · Sat, 10:00–16:00</p>
+              <p className="kn-visit__note">Mill ends, bundles and the Fireside Set to take home.</p>
+              <a className="kn-visit__go" href="#capsule">
+                Shop the rail <span aria-hidden="true">→</span>
+              </a>
+            </article>
+            <article className="kn-visit__card rv" style={{ transitionDelay: '180ms' }}>
+              <span className="kn-visit__n" aria-hidden="true">
+                03
+              </span>
+              <h3 className="kn-visit__name">Winter Market Stall</h3>
+              <p className="kn-visit__area">Covent Garden, London · December weekends</p>
+              <p className="kn-visit__note">Socks, gift wrap and a steamer for your old coat.</p>
+              <a className="kn-visit__go" href="#offers">
+                See the offer <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </div>
+          <div className="kn-visit__acts">
+            <a className="btn btn--accent" href="/p/atelier/appointments">
+              Book a fitting
+            </a>
+            <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-store">
+              Find a store
+            </button>
+          </div>
+        </section>
+
+        <section className="wrap kn-cloth" id="cloth" aria-labelledby="kn-cloth-title">
+          <div className="kn-cloth__main rv">
+            <div className="section-head">
+              <p className="kn-eyebrow">Deadstock, bought once</p>
+              <h2 className="section-title" id="kn-cloth-title">
+                Our cloth, our ticket
+              </h2>
+              <p className="section-note">
+                The compare-at price on every card is the mill ticket — what the mill asked the
+                week the cloth was bought. The rail price is what is left once the lot is cut.
+              </p>
+            </div>
+            <ol className="kn-cloth__notes">
+              {CLOTH_NOTES.map((note, i) => (
+                <li key={note.title} className="kn-cloth__note">
+                  <span className="kn-cloth__n" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 className="kn-cloth__t">{note.title}</h3>
+                    <p className="kn-cloth__c">{note.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="kn-cloth__acts">
+              <a className="btn btn--accent" href="#capsule">
+                Shop the rail
+              </a>
+              <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-3">
+                Our ticket, in detail
+              </button>
+            </div>
+          </div>
+          <aside className="kn-ticket rv" style={{ transitionDelay: '120ms' }} aria-label="Mill ticket versus rail price for the Fireside Set">
+            <p className="kn-ticket__cap">
+              <YarnMark /> Mill ticket — lot 09
             </p>
-            <button
-              type="button"
-              className="btn btn--accent kn-offers__add"
-              onClick={() => {
-                BUNDLE.forEach((p) => cart.add(p));
-                window.dispatchEvent(new CustomEvent('atelier:open-bag'));
-              }}
-            >
-              Add the set to bag
-            </button>
-            <button type="button" className="btn btn--ghost" data-modal-open="tpl-atelier-2">
-              Shipping and delivery
-            </button>
+            <p className="kn-ticket__name">The Fireside Set</p>
+            <p className="kn-ticket__lines">Throw · Cushion · Socks</p>
+            <div className="kn-ticket__rows">
+              <p className="kn-ticket__row">
+                <span>Mill ticket</span>
+                <s>$618</s>
+              </p>
+              <p className="kn-ticket__row kn-ticket__row--rail">
+                <span>Rail price</span>
+                <strong>$360</strong>
+              </p>
+            </div>
+            <p className="kn-ticket__keep">You keep $258</p>
+            <p className="kn-ticket__foot">2-year repairs inside · retires with the rail</p>
           </aside>
         </section>
 
@@ -607,7 +814,7 @@ export default function Atelier() {
           data-sig="atelier"
           aria-labelledby="kn-fit-title"
         >
-          <div className="kn-fit__card">
+          <div className="kn-fit__card rv">
             <h2 className="sig__title kn-fit__title" id="kn-fit-title">
               Your size, off the tape
             </h2>

@@ -5,6 +5,7 @@ import { Subs } from '../../components/Subs';
 import { SaffronBooking } from './SaffronBooking';
 import { saffron } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
+import { useReveal } from '../../lib/reveal';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'saffron';
@@ -281,6 +282,8 @@ export default function Saffron() {
     el.scrollBy({ left: dir * Math.min(300, el.clientWidth * 0.85), behavior: 'smooth' });
   };
 
+  useReveal();
+
   if (!content) return null;
 
   return (
@@ -297,9 +300,20 @@ export default function Saffron() {
         <section className="sa-hero" id="top" aria-label="Tonight's signature dish">
           <div className="wrap sa-hero__grid">
             <div className="sa-hero__copy">
+              <p className="sa-hero__ledger">
+                <span className="sa-hero__livedot" aria-hidden="true" />
+                <span>Fire lit 15:40 · board written {today}</span>
+                <span className="sa-hero__ledger-sep" aria-hidden="true">·</span>
+                <span>Harbour side</span>
+              </p>
               <p className="sa-hero__pre">{saffron.hero.pre}</p>
               <h1 className="sa-hero__title">{saffron.hero.title}</h1>
               <p className="sa-hero__lede">{saffron.hero.lede}</p>
+              <p className="sa-hero__dish">
+                <span className="sa-hero__dish-name">Tonight&rsquo;s signature</span>
+                <span className="sa-hero__dish-dots" aria-hidden="true" />
+                <span className="sa-hero__price">{saffron.hero.price}</span>
+              </p>
               <div className="sa-hero__buy">
                 <button
                   type="button"
@@ -308,11 +322,26 @@ export default function Saffron() {
                 >
                   {saffron.hero.cta}
                 </button>
-                <span className="sa-hero__price">{saffron.hero.price}</span>
+                <button
+                  type="button"
+                  className="btn btn--ghost sa-hero__ghost"
+                  onClick={() => openMenu()}
+                >
+                  Open full menu
+                </button>
               </div>
+              <dl className="sa-hero__stats">
+                {saffron.stats.map((s) => (
+                  <div key={s.label} className="sa-hero__stat">
+                    <dt>{s.label}</dt>
+                    <dd>{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <div className="sa-hero__art" aria-hidden="false">
+              <span className="sa-ember" aria-hidden="true" />
               <span className="sa-ring sa-ring--one" aria-hidden="true" />
               <span className="sa-ring sa-ring--two" aria-hidden="true" />
               <span className="sa-ring sa-ring--three" aria-hidden="true" />
@@ -327,18 +356,46 @@ export default function Saffron() {
                   decoding="async"
                 />
               </div>
+              <p className="sa-hero__ticket">
+                <span className="sa-hero__ticket-no">No. 12</span>
+                <span className="sa-hero__ticket-sub">off the coals · serves one</span>
+              </p>
+              <p className="sa-hero__firetag">holm oak · no gas</p>
               {FLOATER_LAYOUT.map(({ kind, style }) => (
                 <span key={kind} className={`sa-float sa-float--${kind}`} style={style} aria-hidden="true">
                   {FLOATERS[kind]}
                 </span>
               ))}
+              <span className="sa-steam sa-steam--a" aria-hidden="true" />
+              <span className="sa-steam sa-steam--b" aria-hidden="true" />
             </div>
           </div>
         </section>
 
+        {/* ------------------------------------------- dish ticker */}
+        <div className="sa-tick" aria-hidden="true">
+          <div className="sa-tick__track">
+            {[0, 1].map((run) => (
+              <div className="sa-tick__run" key={run}>
+                {saffron.band.map((card) => (
+                  <span key={card.name} className="sa-tick__item">
+                    <span className="sa-tick__sep">✦</span>
+                    {card.name}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ------------------------------------------- golden band */}
         <section className="sa-bandwrap" id="menu" aria-label="Menu categories">
           <div className="wrap">
+            <div className="section-head">
+              <p className="sa-eyebrow">01 — tonight&rsquo;s board</p>
+              <h2 className="section-title">Six ways in, one fire</h2>
+              <p className="section-note">Tap a card — the board opens on that course.</p>
+            </div>
             <div className="sa-band">
               <button
                 type="button"
@@ -349,13 +406,17 @@ export default function Saffron() {
                 <ChevronIcon dir="left" />
               </button>
               <div className="sa-band__track" ref={trackRef}>
-                {saffron.band.map((card) => (
+                {saffron.band.map((card, i) => (
                   <button
                     key={card.name}
                     type="button"
-                    className="sa-card"
+                    className="sa-card rv"
+                    style={{ transitionDelay: `${Math.min(i, 5) * 70}ms` }}
                     onClick={() => openMenu(card.group)}
                   >
+                    <span className="sa-card__idx" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                     <CardThumb art={card.art} />
                     <span className="sa-card__name">{card.name}</span>
                     <span className="sa-card__from">{card.from}</span>
@@ -384,16 +445,20 @@ export default function Saffron() {
         </section>
 
         {/* ---------------------------------------------------- why */}
-        <section className="sa-section" id="why">
+        <section className="sa-section sa-whysec" id="why">
           <div className="wrap">
             <div className="section-head">
-              <p className="sa-eyebrow">01 — why saffron</p>
+              <p className="sa-eyebrow">02 — why saffron</p>
               <h2 className="section-title">Why people come back</h2>
               <p className="section-note">One fire, one board, one room by the harbour.</p>
             </div>
             <div className="sa-why">
-              {saffron.why.map((card) => (
-                <article key={card.n} className="sa-why__card">
+              {saffron.why.map((card, i) => (
+                <article
+                  key={card.n}
+                  className="sa-why__card rv"
+                  style={{ transitionDelay: `${i * 90}ms` }}
+                >
                   <span className="sa-why__n">{card.n}</span>
                   <h3 className="sa-why__title">{card.title}</h3>
                   <p className="sa-why__text">{card.text}</p>
@@ -403,18 +468,115 @@ export default function Saffron() {
           </div>
         </section>
 
+        {/* ---------------------------------------------------- fire */}
+        <section className="sa-section sa-fire" id="fire" aria-label="How the fire works">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="sa-eyebrow">03 — one fire, no gas</p>
+              <h2 className="section-title">Four beats of one fire</h2>
+              <p className="section-note">Lit once, never twice — it has to last till midnight.</p>
+            </div>
+            <p className="sa-fire__thesis rv">{saffron.fire.thesis}</p>
+            <ol className="sa-fire__grid">
+              {saffron.fire.steps.map((step, i) => (
+                <li
+                  key={step.n}
+                  className="sa-fire__step rv"
+                  style={{ transitionDelay: `${i * 90}ms` }}
+                >
+                  <span className="sa-fire__n" aria-hidden="true">
+                    {step.n}
+                  </span>
+                  <h3 className="sa-fire__title">{step.title}</h3>
+                  <p className="sa-fire__text">{step.text}</p>
+                </li>
+              ))}
+            </ol>
+            <p className="sa-fire__note rv">{saffron.fire.note}</p>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------- evening */}
+        <section className="sa-section sa-eve" id="evening" aria-label="How the evening runs">
+          <div className="wrap sa-eve__grid">
+            <div className="sa-eve__copy">
+              <div className="section-head">
+                <p className="sa-eyebrow">04 — the evening clock</p>
+                <h2 className="section-title">One evening, four hours</h2>
+              </div>
+              <p className="sa-eve__lede rv">
+                The room turns louder and darker as the fire burns down. Pick the hour that
+                suits the night you want — the hearth does its best work at half past eight.
+              </p>
+              <a className="btn btn--accent rv" href="#enquire">
+                Hold a table
+              </a>
+            </div>
+            <ol className="sa-eve__list">
+              {saffron.evening.map((beat, i) => (
+                <li key={beat.time} className="sa-eve__row rv" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="sa-eve__time">{beat.time}</span>
+                  <span className="sa-eve__dots" aria-hidden="true" />
+                  <div className="sa-eve__body">
+                    <h3 className="sa-eve__title">{beat.title}</h3>
+                    <p className="sa-eve__text">{beat.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------- cellar */}
+        <section className="sa-section sa-cellar" id="cellar" aria-label="What to drink">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="sa-eyebrow">05 — the cellar</p>
+              <h2 className="section-title">Poured close to home</h2>
+              <p className="section-note">Three to start — eighteen by the glass on the night.</p>
+            </div>
+            <div className="sa-cellar__grid">
+              <ul className="sa-cellar__pours">
+                {saffron.cellar.pours.map((pour, i) => (
+                  <li key={pour.name} className="sa-cellar__pour rv" style={{ transitionDelay: `${i * 80}ms` }}>
+                    <span className="sa-cellar__pour-name">{pour.name}</span>
+                    <span className="sa-cellar__dots" aria-hidden="true" />
+                    <span className="sa-cellar__price">{pour.price}</span>
+                    <span className="sa-cellar__detail">{pour.detail}</span>
+                  </li>
+                ))}
+              </ul>
+              <aside className="sa-cellar__note rv" style={{ transitionDelay: '120ms' }}>
+                <p className="sa-cellar__note-kicker">The board, monthly</p>
+                <p className="sa-cellar__note-text">{saffron.cellar.note}</p>
+                <button type="button" className="sa-band__open" onClick={() => openMenu('By the glass')}>
+                  Open the by-the-glass list
+                </button>
+              </aside>
+            </div>
+            <ul className="sa-facts" aria-label="Good to know">
+              {saffron.facts.map((fact) => (
+                <li key={fact} className="sa-facts__item rv">
+                  <span className="sa-facts__mark" aria-hidden="true">✦</span>
+                  {fact}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* ------------------------------------------------ location */}
         <section className="sa-section" id="location">
           <div className="wrap">
             <div className="section-head">
-              <p className="sa-eyebrow">02 — location</p>
+              <p className="sa-eyebrow">06 — location</p>
               <h2 className="section-title">Find the ochre lamp</h2>
               <p className="section-note">
                 Harbour side, down the cobbles. Walk-ins take the bar.
               </p>
             </div>
             <div className="sa-loc">
-              <div className="sa-loc__info">
+              <div className="sa-loc__info rv">
                 <p className="sa-loc__address">{saffron.location.address}</p>
                 <p className="sa-loc__note">{saffron.location.note}</p>
                 <ul className="sa-loc__hours">
@@ -435,7 +597,7 @@ export default function Saffron() {
                   </button>
                 </div>
               </div>
-              <div className="sa-loc__map">
+              <div className="sa-loc__map rv" style={{ transitionDelay: '120ms' }}>
                 <iframe
                   className="sa-loc__frame"
                   title="Map of the harbour quarter around Saffron & Stone"

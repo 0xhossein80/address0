@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Page } from '../../components/Page';
 import { Faq } from '../../components/Faq';
 import { Subs } from '../../components/Subs';
@@ -5,6 +6,7 @@ import { LumenBooking } from './LumenBooking';
 import { LumenGuide } from './LumenGuide';
 import { lumen } from '../../data/landings';
 import { contentForSlug } from '../../data/content';
+import { useReveal } from '../../lib/reveal';
 import { LANDING_NAV } from './meta';
 
 const SLUG = 'lumen';
@@ -100,9 +102,42 @@ const STEPS = [
   },
 ];
 
+/* Filter tabs for the contact sheet, plus the first-visit notes behind
+   modal tpl-lumen-3. */
+const KINDS = ['All', 'People', 'Product', 'Interiors', 'Editorial'] as const;
+
+const VISIT_NOTES: { title: string; text: string }[] = [
+  {
+    title: 'Ten minutes early',
+    text: 'Street parking frees up after 09:00, and the kettle needs that long anyway.',
+  },
+  {
+    title: 'North glass, no squinting',
+    text: 'No direct sun: even light from opening to close, no hotspots on gloss.',
+  },
+  {
+    title: 'Changing corner',
+    text: 'Full-length mirror, a steamer, and a table kept clear for props and samples.',
+  },
+  {
+    title: 'Tethered capture',
+    text: 'Every frame appears on the house monitor — or your own laptop — the moment it lands.',
+  },
+  {
+    title: 'Paper, grey to black',
+    text: 'Seamless in white, grey and black. The resident dog can be sent to the office for the hour.',
+  },
+];
+
 export default function Lumen() {
   const content = contentForSlug(SLUG);
+  const [kind, setKind] = useState<(typeof KINDS)[number]>('All');
+  useReveal();
   if (!content) return null;
+
+  const visibleShots = lumen.shots
+    .map((shot, i) => ({ shot, i }))
+    .filter(({ shot }) => kind === 'All' || shot.kind === kind);
 
   return (
     <Page
@@ -117,6 +152,7 @@ export default function Lumen() {
       <main className="page-lumen">
         <section className="wrap lp-hero lu-hero">
           <div className="lu-hero__col">
+            <p className="lu-kicker">Nº 09 — north-facing daylight · Tue–Sat</p>
             <h1 className="lu-hero__title">
               Light,
               <br />
@@ -167,6 +203,7 @@ export default function Lumen() {
                 <span className="lu-ev__t lu-ev__t--major">
                   <span className="lu-ev__val">&#8722;2</span>
                 </span>
+                <span className="lu-ev__needle" />
               </div>
             </div>
             <p className="lu-ev__note">
@@ -175,71 +212,122 @@ export default function Lumen() {
           </div>
         </section>
 
+        <div className="lu-strip" aria-hidden="true">
+          <div className="lu-strip__track">
+            {[0, 1].map((run) => (
+              <div className="lu-strip__run" key={run}>
+                {lumen.shots.map((shot, i) => (
+                  <span key={shot.title} className="lu-strip__item">
+                    <span className="lu-strip__frame">
+                      Frame {String(i + 1).padStart(2, '0')}A
+                    </span>
+                    {shot.kind}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <section className="wrap lu-section" id="work">
           <div className="section-head">
+            <p className="lu-eyebrow">Contact sheet — six frames</p>
             <h2 className="section-title">Portrait, product &amp; interior photography</h2>
             <p className="section-note">
-              Six frames from two seasons of work — people, product, interiors and editorial, all
-              shot in this room.
+              Two seasons of work — people, product, interiors and editorial, all shot in this
+              room.
             </p>
           </div>
-          <div className="lu-wall">
-            {lumen.shots.map((shot, i) => {
-              const frame = String(i + 1).padStart(2, '0');
-              return (
-                <figure key={shot.title} className={`lu-shot lu-shot--${i}`}>
+          <div className="lu-contact rv">
+            <div className="lu-contact__head">
+              <p className="lu-contact__cap">Sheet Nº 09 · daylight only</p>
+              <div className="lu-contact__filters" role="group" aria-label="Filter frames by kind">
+                {KINDS.map((name) => (
                   <button
-                    className="lu-shot__frame"
+                    key={name}
                     type="button"
-                    data-lightbox
-                    aria-label={`View frame ${frame}A — ${shot.title}`}
-                    data-lightbox-title={shot.title}
-                    data-lightbox-tag={shot.kind}
-                    data-lightbox-text={shot.note}
-                    {...(shot.image ? { 'data-lightbox-image': shot.image } : {})}
+                    className={`lu-contact__filter${kind === name ? ' is-on' : ''}`}
+                    aria-pressed={kind === name}
+                    onClick={() => setKind(name)}
                   >
-                    {shot.image ? (
-                      <img
-                        className="lu-shot__img"
-                        src={shot.image}
-                        alt=""
-                        width={1400}
-                        height={1050}
-                        loading="eager"
-                        decoding="async"
-                      />
-                    ) : null}
-                    <span className="lu-shot__hint">View</span>
-                    <span className="lu-shot__rebate" aria-hidden="true">
-                      <span className="lu-shot__id">Frame {frame}A</span>
-                      <span className="lu-shot__edge">Medium format</span>
-                    </span>
+                    {name}
                   </button>
-                  <figcaption>
-                    <span className="lu-shot__title">{shot.title}</span>
-                    <span className="lu-shot__kind">{shot.kind}</span>
-                  </figcaption>
-                </figure>
-              );
-            })}
+                ))}
+              </div>
+            </div>
+            <div className="lu-wall">
+              {visibleShots.map(({ shot, i }) => {
+                const frame = String(i + 1).padStart(2, '0');
+                return (
+                  <figure key={shot.title} className={`lu-shot lu-shot--${i}`}>
+                    <button
+                      className="lu-shot__frame"
+                      type="button"
+                      data-lightbox
+                      aria-label={`View frame ${frame}A — ${shot.title}`}
+                      data-lightbox-title={shot.title}
+                      data-lightbox-tag={shot.kind}
+                      data-lightbox-text={shot.note}
+                      {...(shot.image ? { 'data-lightbox-image': shot.image } : {})}
+                    >
+                      {shot.image ? (
+                        <img
+                          className="lu-shot__img"
+                          src={shot.image}
+                          alt=""
+                          width={1400}
+                          height={1050}
+                          loading="eager"
+                          decoding="async"
+                        />
+                      ) : null}
+                      <span className="lu-shot__hint">View</span>
+                      <span className="lu-shot__rebate" aria-hidden="true">
+                        <span className="lu-shot__id">Frame {frame}A</span>
+                        <span className="lu-shot__edge">Medium format</span>
+                      </span>
+                    </button>
+                    <figcaption>
+                      <span className="lu-shot__title">{shot.title}</span>
+                      <span className="lu-shot__kind">{shot.kind}</span>
+                    </figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+            <p className="lu-contact__foot" aria-live="polite">
+              Showing {visibleShots.length} of {lumen.shots.length} frames — select a frame to
+              enlarge
+            </p>
           </div>
         </section>
 
         <section className="wrap lu-section" id="sessions">
           <div className="section-head">
+            <p className="lu-eyebrow">Booking index — four jobs</p>
             <h2 className="section-title">What you can book</h2>
             <p className="section-note">
               One room, four kinds of job — pick the closest and the brief sets the rest.
             </p>
           </div>
+          <p className="lu-index__head" aria-hidden="true">
+            <span>Nº</span>
+            <span>Session</span>
+            <span>Frames</span>
+            <span>Book</span>
+          </p>
           <div className="lu-sessions">
-            {lumen.sessions.map((session) => (
+            {lumen.sessions.map((session, i) => (
               <a
                 key={session.kind}
-                className="lu-session"
+                className="lu-session rv"
+                style={{ transitionDelay: `${i * 90}ms` }}
                 href="#enquire"
                 data-prefill={session.prefill}
               >
+                <span className="lu-session__n" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <span className="lu-session__id">
                   <span className="lu-session__kind">{session.kind}</span>
                   <span className="lu-session__frames">{session.frames}</span>
@@ -256,14 +344,16 @@ export default function Lumen() {
         <section className="lu-band" id="packages">
           <div className="wrap lu-section">
             <div className="section-head section-head--light">
+              <p className="lu-eyebrow lu-eyebrow--light">Rate card — three ways in</p>
               <h2 className="section-title">Packages from $340</h2>
               <p className="section-note">Half-day rates available on request.</p>
             </div>
             <div className="lu-plans">
-              {lumen.plans.map((plan) => (
+              {lumen.plans.map((plan, i) => (
                 <article
                   key={plan.name}
-                  className={`lu-plan${plan.featured ? ' lu-plan--featured' : ''}`}
+                  className={`lu-plan rv${plan.featured ? ' lu-plan--featured' : ''}`}
+                  style={{ transitionDelay: `${i * 90}ms` }}
                 >
                   <p className="lu-plan__name">{plan.name}</p>
                   <p className="lu-plan__price">{plan.price}</p>
@@ -282,7 +372,7 @@ export default function Lumen() {
         </section>
 
         <section className="wrap lu-section lu-hold" id="hold" aria-labelledby="lu-hold-title">
-          <div className="lu-hold__main">
+          <div className="lu-hold__main rv">
             <p className="lu-hold__kicker">Booking</p>
             <h2 className="lu-hold__title" id="lu-hold-title">
               You are booking
@@ -311,7 +401,7 @@ export default function Lumen() {
             </div>
           </div>
 
-          <aside className="lu-hold__stub" aria-label="Booking terms">
+          <aside className="lu-hold__stub rv" style={{ transitionDelay: '140ms' }} aria-label="Booking terms">
             <p className="lu-hold__stub-cap">Day sheet · terms</p>
             <dl className="lu-hold__terms">
               {HOLD_TERMS.map((row) => (
@@ -327,15 +417,21 @@ export default function Lumen() {
 
         <section className="wrap lu-section" id="process">
           <div className="section-head">
+            <p className="lu-eyebrow">Film leader — four frames</p>
             <h2 className="section-title">How a shoot runs</h2>
             <p className="section-note">
               From first note to final files — most jobs finish inside a week.
             </p>
           </div>
+          <div className="lu-leader" aria-hidden="true" />
           <ol className="lu-steps">
-            {STEPS.map((step) => (
-              <li key={step.n} className="lu-step">
-                <span className="lu-step__n">{step.n}</span>
+            {STEPS.map((step, i) => (
+              <li
+                key={step.n}
+                className="lu-step rv"
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
+                <span className="lu-step__n">F.{step.n}</span>
                 <h3 className="lu-step__t">{step.title}</h3>
                 <p className="lu-step__c">{step.copy}</p>
               </li>
@@ -354,22 +450,50 @@ export default function Lumen() {
         <section className="wrap lu-section" id="studio">
           <div className="lu-about">
             <div>
+              <p className="lu-eyebrow">The room — exposure notes</p>
               <h2 className="section-title">The studio</h2>
               <p className="section-note">
                 Five-metre windows, a paper roll that never ends, and a dog that occasionally walks
                 through frame. Bring your product, your team or yourself — we will find the light.
               </p>
             </div>
-            <div className="lu-stats">
+            <dl className="lu-stats">
               {lumen.stats.map((stat) => (
                 <div key={stat.label} className="lu-stat">
-                  <span className="lu-stat__value">{stat.value}</span>
-                  <span className="lu-stat__label">{stat.label}</span>
+                  <dt className="lu-stat__label">{stat.label}</dt>
+                  <dd className="lu-stat__value">{stat.value}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
+        </section>
+
+        <section className="wrap lu-section" id="visit" aria-label="Before the first frame">
+          <div className="section-head">
+            <p className="lu-eyebrow">First visit — five notes</p>
+            <h2 className="section-title">Before the first frame</h2>
+            <p className="section-note">
+              What happens the moment you arrive — the notes first-time clients usually ask for by
+              email.
+            </p>
+          </div>
+          <ol className="lu-visit">
+            {VISIT_NOTES.map((note, i) => (
+              <li key={note.title} className="lu-visit__row rv" style={{ transitionDelay: `${i * 80}ms` }}>
+                <span className="lu-visit__n" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="lu-visit__body">
+                  <h3 className="lu-visit__title">{note.title}</h3>
+                  <p className="lu-visit__text">{note.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
           <div className="mini-actions">
+            <a className="btn btn--accent" href="#enquire">
+              Check a date
+            </a>
             <button type="button" className="btn btn--ghost" data-modal-open="tpl-lumen-3">
               Inside the studio
             </button>

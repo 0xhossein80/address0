@@ -2719,6 +2719,798 @@ body[data-slug="atelier"] .sub-cta__inner .btn--ghost:hover {
   color: #fff;
 }
 
+/* --- shop tickets: kickers, counts, savings ---------------------------------- */
+
+.kn-kicker {
+  margin: 0 0 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.kn-eyebrow {
+  margin: 0 0 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.kn-hero__count {
+  position: absolute;
+  z-index: 2;
+  left: 1.2rem;
+  bottom: 1.1rem;
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: rgba(255, 248, 236, 0.85);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-hero__fine {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed color-mix(in srgb, var(--fg) 22%, transparent);
+}
+
+.kn-fine__link {
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+a.kn-fine__link {
+  text-decoration-style: dashed;
+}
+
+.kn-fine__link:hover {
+  color: var(--fg);
+}
+
+.kn-fine__sep {
+  color: var(--muted);
+}
+
+.kn-card__thumb {
+  position: relative;
+}
+
+.kn-card__save {
+  position: absolute;
+  left: 0.55rem;
+  bottom: 0.55rem;
+  background: var(--surface);
+  color: var(--accent-deep);
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.65rem;
+  box-shadow: 0 8px 18px -10px rgba(42, 33, 26, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-card__blurb {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* --- cloth: the mill ticket ----------------------------------------------------
+   An editorial split: four ticket notes beside one pinned mill ticket with a
+   perforated stub, punched notches and a yarn-stitched inset. */
+
+.kn-cloth {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(2.2rem, 5vw, 3.6rem);
+  align-items: start;
+  scroll-margin-top: 5rem;
+}
+
+.kn-cloth__notes {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.kn-cloth__note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 1rem 1.05rem;
+  box-shadow: 0 18px 36px -26px rgba(42, 33, 26, 0.5);
+}
+
+.kn-cloth__n {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--surface);
+  background: var(--accent);
+  border-radius: 999px;
+  height: fit-content;
+  padding: 0.28rem 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-cloth__t {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.kn-cloth__c {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.kn-cloth__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.kn-ticket {
+  position: relative;
+  background: var(--surface);
+  border-radius: 18px;
+  box-shadow: 0 28px 50px -30px rgba(42, 33, 26, 0.55);
+  padding: 1.5rem 1.5rem 1.35rem;
+  transform: rotate(1.2deg);
+  transition: transform 0.2s ease;
+}
+
+.kn-ticket:hover {
+  transform: rotate(0deg);
+}
+
+.kn-ticket::before {
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.kn-ticket__cap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.7rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.kn-ticket__cap .kn-yarn {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.kn-ticket__name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.kn-ticket__lines {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.kn-ticket__rows {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 2px dashed color-mix(in srgb, var(--fg) 25%, transparent);
+}
+
+.kn-ticket__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.kn-ticket__row s {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-ticket__row--rail strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-ticket__keep {
+  display: inline-block;
+  margin: 0.8rem 0 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.42rem 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-ticket__foot {
+  margin: 0.9rem 0 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+/* punched notches where the perforation meets the ticket edge */
+.kn-ticket__rows {
+  position: relative;
+}
+
+.kn-ticket__rows::before,
+.kn-ticket__rows::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.kn-ticket__rows::before {
+  left: -2.1rem;
+}
+
+.kn-ticket__rows::after {
+  right: -2.1rem;
+}
+
+/* --- lookbook hero: image with an overlapping headline card ------------------ */
+
+.kn-look {
+  padding-top: 1.2rem;
+  padding-bottom: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.kn-look__media {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--surface-deep);
+  box-shadow: 0 28px 50px -30px rgba(42, 33, 26, 0.55);
+  min-height: clamp(22rem, 40vw, 32rem);
+}
+
+.kn-look__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.kn-look__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.kn-look__slide--on {
+  opacity: 1;
+}
+
+.kn-look__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  background: linear-gradient(to top, rgba(24, 17, 12, 0.55), transparent);
+  pointer-events: none;
+}
+
+.kn-look__edge {
+  position: absolute;
+  top: 38%;
+  z-index: 2;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 0;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--fg);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 22px -12px rgba(42, 33, 26, 0.6);
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.kn-look__edge:hover {
+  background: var(--surface);
+  transform: scale(1.06);
+}
+
+.kn-look__edge--prev {
+  left: 0.8rem;
+}
+
+.kn-look__edge--next {
+  right: 0.8rem;
+}
+
+.kn-look__count {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1.1rem;
+  margin: 0;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--fg);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  padding: 0.34rem 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-look__dots {
+  position: absolute;
+  z-index: 2;
+  left: 1.1rem;
+  top: 1rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.kn-look__dot {
+  width: 1.5rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255, 248, 236, 0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease;
+}
+
+.kn-look__dot--on {
+  background: #fff8ec;
+}
+
+.kn-look__card {
+  position: relative;
+  z-index: 2;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: 0 30px 55px -32px rgba(42, 33, 26, 0.6);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.25rem, 3vw, 2.25rem);
+  margin: -6rem clamp(1rem, 4vw, 3rem) 0;
+}
+
+.kn-look__title {
+  margin: 0;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.kn-look__title strong {
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
+.kn-look__lede {
+  margin: 0.8rem 0 0;
+  max-width: 60ch;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.kn-look__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.kn-look__cap {
+  margin: 1.2rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed color-mix(in srgb, var(--fg) 22%, transparent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- shop the rail: toolbar + grid ------------------------------------------- */
+
+.kn-shop {
+  padding-top: clamp(0.5rem, 2vw, 1.5rem);
+  padding-bottom: clamp(2.2rem, 5vw, 3.6rem);
+  scroll-margin-top: 5rem;
+}
+
+.kn-shopbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 0.9rem;
+  background: var(--surface);
+  border-radius: 18px;
+  box-shadow: 0 18px 36px -26px rgba(42, 33, 26, 0.5);
+  padding: 0.85rem 1rem;
+  margin: 1.4rem 0 1.2rem;
+}
+
+.kn-shopbar__search {
+  flex: 1 1 11rem;
+}
+
+.kn-shopbar__search input {
+  width: 100%;
+}
+
+.kn-shopbar__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.kn-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--fg);
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.kn-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+
+.kn-chip--on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.kn-chip__n {
+  font-size: 0.72em;
+  font-weight: 800;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-shopbar__bag {
+  margin-left: auto;
+}
+
+.kn-shopgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.kn-shopgrid__cell {
+  min-width: 0;
+}
+
+/* --- collections: four capsules across ---------------------------------------- */
+
+.kn-collections {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.kn-collections__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* --- offer band: the Fireside Set on deep pine ---------------------------------- */
+
+#offers {
+  scroll-margin-top: 5rem;
+}
+
+.kn-offerband {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  background: var(--accent-deep);
+  color: var(--accent-ink);
+  border-radius: 24px;
+  padding: clamp(1.6rem, 4vw, 3rem);
+  box-shadow: 0 30px 55px -30px rgba(46, 72, 60, 0.8);
+  margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.kn-offerband__media {
+  display: grid;
+  margin: 0;
+}
+
+.kn-offerband__media img {
+  grid-area: 1 / 1;
+  width: 76%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 4px solid color-mix(in srgb, var(--accent-ink) 90%, transparent);
+  box-shadow: 0 18px 36px -18px rgba(0, 0, 0, 0.55);
+}
+
+.kn-offerband__media img:nth-child(1) {
+  transform: rotate(-2.5deg);
+  justify-self: start;
+}
+
+.kn-offerband__media img:nth-child(2) {
+  transform: rotate(1.5deg) translateY(0.7rem);
+  justify-self: center;
+  z-index: 1;
+}
+
+.kn-offerband__media img:nth-child(3) {
+  transform: rotate(-1deg) translateY(1.3rem);
+  justify-self: end;
+}
+
+.kn-offerband__eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent-ink) 72%, transparent);
+}
+
+.kn-offerband__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+.kn-offerband__lines {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--accent-ink) 75%, transparent);
+}
+
+.kn-offerband__price {
+  margin: 1rem 0 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-offerband__price s {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--accent-ink) 60%, transparent);
+}
+
+.kn-offerband__save {
+  background: var(--accent-ink);
+  color: var(--accent-deep);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.34rem 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-offerband__copy {
+  margin: 0.8rem 0 1.4rem;
+  max-width: 46ch;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--accent-ink) 82%, transparent);
+}
+
+.kn-offerband__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.kn-offerband .btn--accent {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: var(--accent-deep);
+}
+
+.kn-offerband .btn--accent:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.kn-offerband .btn--ghost {
+  border-color: color-mix(in srgb, var(--accent-ink) 55%, transparent);
+  color: var(--accent-ink);
+}
+
+.kn-offerband .btn--ghost:hover {
+  border-color: var(--accent-ink);
+}
+
+/* --- visit: three shops -------------------------------------------------------- */
+
+.kn-visit {
+  padding-bottom: clamp(2.2rem, 5vw, 3.6rem);
+  scroll-margin-top: 4rem;
+}
+
+.kn-visit__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.kn-visit__card {
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 18px 36px -26px rgba(42, 33, 26, 0.5);
+  padding: 1.4rem 1.35rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.kn-visit__card:hover {
+  box-shadow: 0 24px 44px -26px rgba(42, 33, 26, 0.6);
+  transform: translateY(-2px);
+}
+
+.kn-visit__n {
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 0.55rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kn-visit__name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.kn-visit__area {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.kn-visit__note {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.kn-visit__go {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.kn-visit__go:hover {
+  border-bottom-color: var(--accent-deep);
+}
+
+.kn-visit__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 1100px) {
+  .kn-collections__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .kn-offerband {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kn-look__card {
+    margin: -4rem 1rem 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .kn-visit__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kn-shopbar__bag {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 /* --- responsive ------------------------------------------------------------ */
 
 @media (max-width: 960px) {
@@ -2732,6 +3524,14 @@ body[data-slug="atelier"] .sub-cta__inner .btn--ghost:hover {
 
   .kn-collections {
     grid-template-columns: 1fr;
+  }
+
+  .kn-cloth {
+    grid-template-columns: 1fr;
+  }
+
+  .kn-ticket {
+    max-width: 26rem;
   }
 
   .kn-round {
@@ -2788,6 +3588,10 @@ body[data-slug="atelier"] .sub-cta__inner .btn--ghost:hover {
     grid-template-columns: 1fr;
   }
 
+  .kn-cloth__notes {
+    grid-template-columns: 1fr;
+  }
+
   body[data-slug="atelier"] .sub-body--guide {
     grid-template-columns: 1fr;
   }
@@ -2829,4 +3633,137 @@ body[data-slug="atelier"] .sub-cta__inner .btn--ghost:hover {
   .kn-hero__slide {
     transition: none;
   }
+}
+
+/* --- motion layer: ticker, entrance, caption replay, reveal ------------------ */
+
+@keyframes kn-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kn-cap-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kn-cell-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes kn-tick-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes kn-dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+}
+
+.kn-store__top > *,
+.kn-store__cats {
+  opacity: 0;
+  animation: kn-in 0.7s cubic-bezier(0.2, 0.7, 0.25, 1) forwards;
+}
+
+.kn-store__cats {
+  animation-delay: 0.12s;
+}
+
+.kn-hero__media {
+  opacity: 0;
+  animation: kn-in 0.9s cubic-bezier(0.2, 0.7, 0.25, 1) 0.1s forwards;
+}
+
+/* caption replays on every slide change (keyed by slide in TSX) */
+.kn-hero__cap {
+  animation: kn-cap-in 0.5s ease both;
+}
+
+.kn-hero__dot--on {
+  animation: kn-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* policy ticker under the store bar */
+.kn-tick {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding: 0.65rem 0;
+  margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+.kn-tick__track {
+  display: flex;
+  width: max-content;
+  animation: kn-tick-x 34s linear infinite;
+}
+
+.kn-tick:hover .kn-tick__track {
+  animation-play-state: paused;
+}
+
+.kn-tick__run {
+  display: flex;
+}
+
+.kn-tick__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 0.9rem;
+  white-space: nowrap;
+  font-size: 0.74rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+
+.kn-tick__sep {
+  color: var(--accent);
+}
+
+/* scroll reveal */
+.rv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.rv.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* rail cells rise in on mount (and on every filter change) */
+.kn-rail__cell {
+  animation: kn-cell-in 0.5s cubic-bezier(0.2, 0.7, 0.25, 1) backwards;
+}
+
+/* thumb zoom to go with the existing card lift */
+.kn-card__thumb {
+  overflow: hidden;
+}
+
+.kn-card__thumb img {
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.kn-card:hover .kn-card__thumb img {
+  transform: scale(1.06);
+}
+
+/* collection covers lean in on hover */
+.kn-col__img {
+  overflow: hidden;
+}
+
+.kn-col__img > img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.kn-col:hover .kn-col__img > img {
+  transform: scale(1.05);
 }
