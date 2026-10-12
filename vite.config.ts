@@ -5,7 +5,7 @@ import { sitemapXml, robotsTxt } from './src/data/seo';
 
 /** SPA fallback page for static hosts: unknown paths are forwarded to
  *  index.html, which restores the route. `keep` is the number of leading
- *  path segments belonging to the host (1 for a `/ten-landings/` project
+ *  path segments belonging to the host (1 for a `/address0/` project
  *  site, 0 for root hosts). Based on rafgraph/spa-github-pages. */
 function spaFallback(base: string): string {
   const keep = base.split('/').filter(Boolean).length;
@@ -66,10 +66,10 @@ function seoPlugin(): Plugin {
 }
 
 export default defineConfig(({ command }) => ({
-  // Deploy base: `/ten-landings/` for the GitHub Pages project site, `/` for
+  // Deploy base: `/address0/` for the GitHub Pages project site, `/` for
   // root hosts (Cloudflare Pages). Override with VITE_BASE at build time.
   // Local dev always stays at root for convenience.
-  base: command === 'serve' ? '/' : process.env.VITE_BASE || '/ten-landings/',
+  base: command === 'serve' ? '/' : process.env.VITE_BASE || '/address0/',
   plugins: [
     million.vite({
       // Million's Text/block optimizer steals product-button text nodes;
