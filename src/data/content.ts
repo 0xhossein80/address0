@@ -27,25 +27,25 @@ export function contentForSlug(slug: string): Content | undefined {
   switch (slug) {
     case 'index':
       return {
-        title: "Four Landings — four business landing pages, one next button",
-        description: "A portfolio of four hand-built landing pages for four business categories, rendered with Million and React. Press next and the whole page wipes into the following one.",
-        faqTitle: "About this collection",
-        faqNote: "What these pages are, how they are built and what to do with them.",
+        title: "Address(0) — not just developers, we're sales planners",
+        description: "Address(0) plans and builds landing pages that sell: positioning, offer mapping and conversion-first UX, shipped as fast, SEO-ready pages with real forms. Browse 4 working showcase demos.",
+        faqTitle: "Asked before the first email",
+        faqNote: "What prospects want to know before they become customers.",
         faqs: indexFaqs(),
         schemaKind: "Organization",
-        schemaExtras: "\"founder\":{\"@type\":\"Person\",\"name\":\"Hossein\"},\"knowsAbout\":[\"Landing page design\",\"React\",\"Million compiler\",\"Technical SEO\"]",
+        schemaExtras: "\"name\":\"Address(0)\",\"knowsAbout\":[\"Sales strategy\",\"Conversion rate optimization\",\"Landing page design\",\"Positioning\",\"Sales copywriting\",\"Lead generation\"]",
       };
 
     case 'saffron':
       return {
-        title: "Saffron & Stone — seasonal restaurant, wood fire, old quarter",
-        description: "Twelve dishes a night written when the market opens, cooked over embers. Two seatings at 17:30 and 20:15, eighteen wines by the glass, 32 seats.",
+        title: "Saffron & Stone — wood-fired restaurant, full menu online, old quarter",
+        description: "Twelve dishes a night written when the market opens, cooked over holm oak. Browse the full menu online, order from $8, sittings at 18:00 and 20:30, 46 covers.",
         faqTitle: "Before you book",
         faqNote: "Walk-ins, allergies, corkage and what the two seatings actually mean.",
         faqs: [
           {
             q: "Do I need a reservation?",
-            a: "For the 17:30 and 20:15 seatings, yes — they usually fill by Wednesday. The bar keeps six stools for walk-ins every night, and Sunday lunch is entirely walk-in from noon until the kitchen runs out.",
+            a: "For the 18:00 and 20:30 seatings, yes — they usually fill by Wednesday. The bar keeps six stools for walk-ins every night, and Sunday lunch is entirely walk-in from noon until the kitchen runs out.",
           },
           {
             q: "How do you handle allergies?",
@@ -61,7 +61,7 @@ export function contentForSlug(slug: string): Content | undefined {
           },
           {
             q: "Is the restaurant good for children?",
-            a: "Before 19:30, absolutely — two tables are kept for families and we will do a smaller plate of anything on the menu. After 20:15 the room turns louder and darker, so we do not take under-12s for the second seating.",
+            a: "At the 18:00 sitting, absolutely — two tables are kept for families and we will do a smaller plate of anything on the menu. From 20:30 the room turns louder and darker, so we do not take under-12s for the second sitting or the late plates at 22:00.",
           },
         ],
         schemaKind: "Restaurant",
@@ -134,8 +134,8 @@ export function contentForSlug(slug: string): Content | undefined {
 
     case 'atelier':
       return {
-        title: "Atelier Noir — Deadstock Capsule Clothing from $145",
-        description: "Ten pieces, twice a year. Deadstock cotton and traceable wool in limited runs. Free repairs for two years, 30-day returns. Reserve Capsule 07 from $145.",
+        title: "Atelier Noir — Woollen Sweaters, Shawls & Winter Knits from $45",
+        description: "Cozy sweaters, elegant shawls and winter woollens from Atelier Noir. Free shipping over $120, two years of repairs, 30-day returns.",
         faqTitle: "Fit, fabric and returns",
         faqNote: "Sizing, restocks, shipping and what happens when a piece sells out.",
         faqs: [
@@ -153,7 +153,7 @@ export function contentForSlug(slug: string): Content | undefined {
           },
           {
             q: "Where is it made, and how do I wash it?",
-            a: "Cut and sewn in a workshop we name on the label, from cloth milled in Portugal and northern Italy. Everything except the wool overshirt is machine washable cold; the overshirt wants a hand wash or an occasional dry clean.",
+            a: "Cut and sewn in a workshop we name on the label, from cloth milled in Portugal and northern Italy. Cotton pieces are machine washable cold; wool knits want a hand wash or an occasional dry clean — the care guide spells it out piece by piece.",
           },
           {
             q: "Do you offer repairs?",
@@ -161,7 +161,7 @@ export function contentForSlug(slug: string): Content | undefined {
           },
         ],
         schemaKind: "ClothingStore",
-        schemaExtras: "\"priceRange\":\"$145–$480\",\"currenciesAccepted\":\"USD\",\"paymentAccepted\":\"Credit Card, Apple Pay\",\"image\":\"/assets/img/atelier/field-coat.jpg\",\"slogan\":\"Ten pieces. Twice a year. No waste.\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"merchantReturnDays\":30,\"applicableCountry\":\"US\"},\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"11:00\",\"closes\":\"18:00\"},\"hasOfferCatalog\":{\"@type\":\"OfferCatalog\",\"name\":\"Capsule 07\",\"itemListElement\":[{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"The Field Coat\"},\"price\":\"480\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Wool Overshirt\"},\"price\":\"260\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Poplin Shirt\"},\"price\":\"145\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Pleated Trouser\"},\"price\":\"220\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Merino Rollneck\"},\"price\":\"185\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"The Tote\"},\"price\":\"160\",\"priceCurrency\":\"USD\"}]}",
+        schemaExtras: "\"priceRange\":\"$45–$220\",\"currenciesAccepted\":\"USD\",\"paymentAccepted\":\"Credit Card, Apple Pay\",\"image\":\"/assets/img/atelier/field-coat.jpg\",\"slogan\":\"Made with love, wrapped in warmth.\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"merchantReturnDays\":30,\"applicableCountry\":\"US\"},\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],\"opens\":\"11:00\",\"closes\":\"18:00\"},\"hasOfferCatalog\":{\"@type\":\"OfferCatalog\",\"name\":\"Winter Rail\",\"itemListElement\":[{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Highland Cable Sweater\"},\"price\":\"189\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Cloudspun Shawl\"},\"price\":\"145\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Felted Everyday Tote\"},\"price\":\"160\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Fisherman Rollneck\"},\"price\":\"175\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Nordic Beanie & Gloves\"},\"price\":\"85\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Heirloom Throw\"},\"price\":\"220\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Hearth Cushion Cover\"},\"price\":\"95\",\"priceCurrency\":\"USD\"},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Product\",\"name\":\"Après Sock Trio\"},\"price\":\"45\",\"priceCurrency\":\"USD\"}]}",
       };
 
     default:
@@ -172,20 +172,32 @@ export function contentForSlug(slug: string): Content | undefined {
 function indexFaqs(): Faq[] {
   return [
     {
-      q: "What exactly is this site?",
-      a: "Four complete landing pages for four different businesses — a restaurant, a travel agency, a photography studio and a fashion label — plus a portfolio index that jumps between them with a circle wipe.",
+      q: "What does “sales planners, not just developers” actually mean?",
+      a: "Most developers start from the layout. We start from the sale: your offer, your buyer, and the one decision the page must produce. Headline, proof, objection handling and call to action are planned before a single section is drawn — so the page reads like a pitch, not a template.",
     },
     {
-      q: "How were the pages built?",
-      a: "As a Vite + Million + React single-page app. Every page is a React component that the Million compiler hoists into fast DOM blocks at build time, so navigation is client-side and the whole site builds down to static files — no server required.",
+      q: "Are these real businesses?",
+      a: "No — the restaurant, travel agency, photo studio and fashion label are fictional showcase demos. But everything on them genuinely works: four complete pages, sixteen sub-pages you can browse like a visitor, enquiry forms that validate and return ticket receipts, and search-ready pages from day one. Nothing here is a screenshot.",
     },
     {
-      q: "Can I use one of these designs for my business?",
-      a: "Yes — the layouts are starting points rather than a theme store. Send the industry you need and you get a landing page back, rewritten for your own copy, palette, contact details and calls to action.",
+      q: "What do you need from me to start?",
+      a: "Three things: what you sell, who buys it, and the action you want — booking, quote request or checkout. A short call or a few paragraphs by email is enough. We turn that into a conversion map and confirm it with you before anything is designed.",
+    },
+    {
+      q: "Do you write the words too, or just the design?",
+      a: "Both. Headlines, section copy and calls to action are written in your voice and sharpened around your buyer's objections — then you approve every word. A page with beautiful design and weak copy still doesn't sell, so we never ship one without the other.",
+    },
+    {
+      q: "How fast can we launch?",
+      a: "One page, one focused sprint: discovery, conversion map, copy plus design, then launch. Keeping one action per page is what makes it fast — no bloated scopes, no endless revisions. Email us and we reply within one business day with a plan and a timeline.",
+    },
+    {
+      q: "Can I get one of these for my business?",
+      a: "Yes — that is exactly what the four demos above are for. Pick the one closest to your industry, walk its funnel, then tell us what you sell. We rebuild the same machinery around your offer, your palette and your contact details.",
     },
     {
       q: "Why does the next button exist?",
-      a: "It is the fastest way to compare four very different designs: one click grows a circle over the page from where you clicked, and the next brand in the tour fades in underneath, without a full reload. Prev and next wrap around the collection in order.",
+      a: "It is the fastest way to compare four very different sales flows: one click grows a circle over the page from where you clicked, and the next demo fades in underneath, without a full reload. Prev and next wrap around the collection in order.",
     },
   ];
 }

@@ -9,6 +9,7 @@
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --wipe-a: #101014;
   --wipe-b: #c6f24e;
+  color-scheme: dark;
 }
 
 .lost {

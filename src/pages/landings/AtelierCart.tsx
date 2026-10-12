@@ -90,7 +90,7 @@ export function AtelierCart() {
     event.preventDefault();
     event.stopPropagation();
     if (cart.count() === 0) {
-      setFieldError('Your bag is empty — add a piece from Capsule 07 first.');
+      setFieldError('Your bag is empty — add a piece from the Winter Rail first.');
       return;
     }
     const trimmed = email.trim();
@@ -214,7 +214,7 @@ export function AtelierCart() {
                   </p>
                   <div className="at-bag__done-actions">
                     <a className="btn btn--accent" href="#capsule" onClick={closeBag}>
-                      Back to Capsule 07
+                      Back to the rail
                     </a>
                     <button type="button" className="btn btn--ghost" onClick={closeBag}>
                       Close
@@ -228,11 +228,11 @@ export function AtelierCart() {
                     Nothing on the rail yet.
                   </h2>
                   <p className="at-bag__lede">
-                    Capsule 07 is six pieces deep. Add what you want held — nothing is charged
+                    The Winter Rail is eight woollens deep. Add what you want held — nothing is charged
                     until it ships.
                   </p>
                   <a className="btn btn--accent" href="#capsule" onClick={closeBag}>
-                    Shop Capsule 07
+                    Shop the rail
                   </a>
                 </div>
               ) : (

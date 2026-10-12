@@ -75,7 +75,7 @@ export function Seo({ slug, title, description, seoPath, image }: SeoProps) {
           : `${siteBase()}${image.startsWith('/') ? image : `/${image}`}`
         : '';
       setProperty('og:type', 'website');
-      setProperty('og:site_name', 'Four Landings');
+      setProperty('og:site_name', 'Address(0)');
       setProperty('og:locale', 'en_US');
       setProperty('og:title', title);
       setProperty('og:description', description);

@@ -83,9 +83,9 @@
       },
       "atelier-accent": {
         "role": "primary",
-        "displayName": "Atelier Rose",
-        "canonical": "oklch(78% 0.05 10)",
-        "tonalRamp": ["#1c1416", "#4a3438", "#7a6a6e", "#a98f94", "#d8a7b0", "#e4bfc6", "#eed4d8", "#faf6f5"]
+        "displayName": "Atelier Pine",
+        "canonical": "oklch(42% 0.05 160)",
+        "tonalRamp": ["#2a211a", "#2e483c", "#3e6050", "#5c7a6b", "#77685a", "#a89a86", "#ece0c9", "#f5efe2"]
       }
     },
     "typographyMeta": {
@@ -129,7 +129,7 @@
       { "slug": "wanderly", "page": "Wanderly Travel Co.", "material": "Route dossier: dashes, stamps, notched ticket stubs", "radius": "3–6px", "physics": "shift along route + rotate" },
       { "slug": "loop", "page": "Loopmetric", "material": "Calibration sheet: graph paper, tick rulers, arrow buttons", "radius": "6px", "physics": "arrow slide" },
       { "slug": "lumen", "page": "Lumen Studio", "material": "Contact sheet: carbon rebate strips, EV scale, monochrome", "radius": "0px", "physics": "invert, no shadow" },
-      { "slug": "atelier", "page": "Atelier Noir", "material": "Spec sheet: dimension callouts, ruled text buttons", "radius": "0–2px", "physics": "underline/tone only" }
+      { "slug": "atelier", "page": "Atelier Noir", "material": "Woollen storefront: cream ground, pine pills, photo thumbs, compare-at tickets", "radius": "16px cards, pill controls", "physics": "soft offset shadow, deepen on response" }
     ]
   },
   "components": [],

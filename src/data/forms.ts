@@ -161,8 +161,9 @@ const SPECS: Record<string, FormSpec> = {
       tel(),
       date('date', 'Date', true),
       select('seating', 'Sitting', [
-        '17:30 — first seating',
-        '20:15 — second seating',
+        '18:00 — first seating',
+        '20:30 — second seating',
+        '22:00 — late plates',
         'Sunday lunch, 12:00–15:00',
         'No preference',
       ], true),

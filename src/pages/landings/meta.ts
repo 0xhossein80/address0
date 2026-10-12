@@ -10,8 +10,9 @@ export const BRANDS: Record<string, string> = {
 
 export const LANDING_NAV: Record<string, [string, string][]> = {
   saffron: [
+    ['Why Saffron?', '#why'],
     ['Menu', '#menu'],
-    ['Hours', '#hours'],
+    ['Location', '#location'],
     ['FAQ', '#faq'],
     ['Reserve', '#enquire'],
   ],
@@ -30,9 +31,9 @@ export const LANDING_NAV: Record<string, [string, string][]> = {
     ['Book', '#enquire'],
   ],
   atelier: [
-    ['Capsule', '#capsule'],
-    ['Lookbook', '#lookbook'],
-    ['Cloth', '#cloth'],
+    ['Shop', '#capsule'],
+    ['Collections', '#collections'],
+    ['Offers', '#offers'],
     ['Size', '#fit'],
   ],
 };

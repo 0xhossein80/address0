@@ -18,8 +18,8 @@ export const CATEGORIES: Category[] = [
     name: 'Saffron & Stone',
     label: 'Restaurant',
     tagline: 'A seasonal table in the old quarter.',
-    accent: '#d1462b',
-    onAccent: '#fff4ee',
+    accent: '#e8632e',
+    onAccent: '#fff6f0',
   },
   {
     slug: 'wanderly',

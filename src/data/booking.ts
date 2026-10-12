@@ -194,8 +194,9 @@ export function bookingFor(slug: string): Booking | undefined {
               field: 'seating',
               style: 'times',
               choices: [
-                { value: '17:30 — first seating', label: '17:30', note: 'first seating · eight tables' },
-                { value: '20:15 — second seating', label: '20:15', note: 'second seating · the louder room' },
+                { value: '18:00 — first seating', label: '18:00', note: 'first seating · eight tables' },
+                { value: '20:30 — second seating', label: '20:30', note: 'second seating · the louder room' },
+                { value: '22:00 — late plates', label: '22:00', note: 'late plates · bar menu only' },
                 { value: 'Sunday lunch, 12:00–15:00', label: 'Sunday lunch', note: '12:00–15:00 · one table' },
                 { value: 'No preference', label: 'No preference', note: 'we seat the night we have' },
               ],

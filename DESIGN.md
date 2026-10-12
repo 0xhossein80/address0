@@ -27,9 +27,9 @@ colors:
   verity-bg: "#f7f5f0"
   verity-ink: "#131a2b"
   verity-accent: "#c9a227"
-  saffron-bg: "#fbf3ea"
-  saffron-ink: "#2b1410"
-  saffron-accent: "#d1462b"
+  saffron-bg: "#1a1817"
+  saffron-ink: "#f5f1ea"
+  saffron-accent: "#e8632e"
   wanderly-bg: "#f3f8ff"
   wanderly-ink: "#0e2246"
   wanderly-accent: "#1667d8"
@@ -39,10 +39,10 @@ colors:
   lumen-bg: "#fafafa"
   lumen-ink: "#111113"
   lumen-muted: "#77777d"
-  atelier-bg: "#faf6f5"
-  atelier-ink: "#1c1416"
-  atelier-accent: "#d8a7b0"
-  atelier-muted: "#7a6a6e"
+  atelier-bg: "#f5efe2"
+  atelier-ink: "#2a211a"
+  atelier-accent: "#3e6050"
+  atelier-muted: "#77685a"
   notfound-bg: "#101014"
   notfound-ink: "#f2f1ee"
 typography:
@@ -182,11 +182,11 @@ The palette is role-based per world: each page re-inks `--bg`, `--fg`, `--muted`
 | `haven` | Haven & Vale — real estate | `#f6f4ed` | `#1c2b23` | `#1f5c46` | Times New Roman | Hairline frames, corner ticks, outline-fill hover |
 | `brightside` | Brightside Dental | `#f2fbfb` | `#10353a` | `#0e8f96` | Trebuchet MS | Porcelain 10px soft, sweep-up fill |
 | `verity` | Verity & Hale LLP — law | `#f7f5f0` | `#131a2b` | `#c9a227` | Palatino Linotype | Gold hairline double rules, flat fill hover |
-| `saffron` | Saffron & Stone — restaurant | `#fbf3ea` | `#2b1410` | `#d1462b` | Hoefler Text | Menu rows, leader dots, ink-rect invert |
+| `saffron` | Saffron & Stone — restaurant | `#1a1817` | `#f5f1ea` | `#e8632e` | Inter / system sans | Dark menu board, golden category band, leader dots |
 | `wanderly` | Wanderly Travel Co. | `#f3f8ff` | `#0e2246` | `#1667d8` | Verdana | Route dossier: dashes, stamps, notched ticket stubs |
 | `loop` | Loopmetric — SaaS | `#f7f5ff` | `#17141f` | `#6d4df6` | Segoe UI | Calibration sheet: graph paper, tick rulers, arrow buttons |
 | `lumen` | Lumen Studio — photography | `#fafafa` | `#111113` | `#111113` | Helvetica Neue | Contact sheet: monochrome, film rebate, invert physics |
-| `atelier` | Atelier Noir — fashion | `#faf6f5` | `#1c1416` | `#d8a7b0` | Didot / Bodoni MT | Spec sheet: dimension callouts, text/outline buttons |
+| `atelier` | Atelier Noir — knitwear | `#f5efe2` | `#2a211a` | `#3e6050` | Helvetica Neue + Didot wordmark | Woollen storefront: photo thumbs, compare-at tickets, pine pills |
 
 `index` and `404` keep the studio shell (`#f4f2ec`/`#14141a` and `#101014`/`#f2f1ee`, lime spark). Content colors (product swatch hexes in data) are content, not system tokens.
 
@@ -196,7 +196,7 @@ The palette is role-based per world: each page re-inks `--bg`, `--fg`, `--muted`
 
 ## Typography
 
-**Display Font:** per-world via `--font-display` — Georgia, Arial Black, Times New Roman, Trebuchet MS, Palatino Linotype, Hoefler Text, Verdana, Segoe UI, Helvetica Neue, Didot/Bodoni MT. All local/system families — no webfonts, no `@font-face`, no CDN.
+**Display Font:** per-world via `--font-display` — Georgia, Arial Black, Times New Roman, Trebuchet MS, Palatino Linotype, Hoefler Text, Verdana, Segoe UI, Helvetica Neue, Didot/Bodoni MT. All local/system families — no webfonts, no `@font-face`, no CDN. Atelier sets headlines in a warm grotesque (Helvetica Neue stack) and reserves Didot for the centered wordmark and footer mega.
 **Body Font:** one system sans stack for every page; never overridden.
 **Mono:** `ui-monospace` for genuine readings and units only (loop instruments, lumen metadata, wanderly coordinates).
 
@@ -214,14 +214,14 @@ Everything of consequence sits inside `.wrap`: `min(100% - 2.5rem, 1120px)`. Sec
 
 ## Elevation & Depth
 
-The shell is flat-by-default: hairline borders, no resting shadows; deep soft shadows only on response. Worlds replace the physics wholesale where their material demands it: forge snaps (no lift, no shadow), atelier never lifts (underline and tone shifts only), lumen inverts (no shadow at all), wanderly shifts along a route (`translateX` + slight rotate), brightside and haven lift inside their own radius language. The fixed prev/next FAB pair keeps a resting shadow because it floats; every world re-skins it (wanderly's are notched ticket stubs, forge's are lime chips, lumen's are carbon frames).
+The shell is flat-by-default: hairline borders, no resting shadows; deep soft shadows only on response. Worlds replace the physics wholesale where their material demands it: forge snaps (no lift, no shadow), atelier rests on one soft offset shadow per card and deepens it slightly on response, lumen inverts (no shadow at all), wanderly shifts along a route (`translateX` + slight rotate), brightside and haven lift inside their own radius language. The fixed prev/next FAB pair keeps a resting shadow because it floats; every world re-skins it (wanderly's are notched ticket stubs, forge's are lime chips, lumen's are carbon frames, atelier's are pine pills).
 
 ### Named Rules
 **The Flat-By-Default Rule.** Surfaces are flat at rest. Depth appears only as response — in the physics the world has chosen.
 
 ## Shapes
 
-No global radius scale is imposed on worlds. Each world owns its geometry: forge runs 0px everywhere; roastery dockets at 4px with clip-path corner cuts; brightside porcelain at 10px; loop readouts at 6px; wanderly stubs at 3–4px; lumen 0px; atelier 0–2px; verity hairline sheets. The studio shell (index/404) keeps the soft-rectangular 14–22px band and pill buttons. Borders are hairlines unless a world's material says otherwise (wanderly's 2px dashed routes, lumen's 2px hover frames, forge's 2–3px score rules).
+No global radius scale is imposed on worlds. Each world owns its geometry: forge runs 0px everywhere; roastery dockets at 4px with clip-path corner cuts; brightside porcelain at 10px; loop readouts at 6px; wanderly stubs at 3–4px; lumen 0px; atelier 16px storefront cards with pill controls; verity hairline sheets. The studio shell (index/404) keeps the soft-rectangular 14–22px band and pill buttons. Borders are hairlines unless a world's material says otherwise (wanderly's 2px dashed routes, lumen's 2px hover frames, forge's 2–3px score rules).
 
 ### Named Rules
 **The Owned-Geometry Rule.** Radius and border language belong to the world. Do not import another world's silhouette.
@@ -231,16 +231,16 @@ No global radius scale is imposed on worlds. Each world owns its geometry: forge
 Shared markup and JS hooks (`form[data-enquiry]`, `data-bk-*`, `[data-sig]`, `dialog[data-popup]`, `.lightbox__*`, `template#tpl-{slug}-*`) are fixed; each world re-skins the surfaces in its page stylesheet.
 
 ### Buttons
-Per-world anatomy and hover physics — ticket stubs with punched notches (wanderly), arrow-sliding 6px rects (loop), carbon inverts (lumen), ruled text links (atelier), ink-rect inverts (saffron), 0-radius snap fills (forge), sweep-up fills (brightside), outline-fill hovers (haven), gold flat fills (verity), squared letterpress (roastery). Focus-visible is themed per world; reduced-motion is respected.
+Per-world anatomy and hover physics — ticket stubs with punched notches (wanderly), arrow-sliding 6px rects (loop), carbon inverts (lumen), pine pills (atelier), ink-rect inverts (saffron), 0-radius snap fills (forge), sweep-up fills (brightside), outline-fill hovers (haven), gold flat fills (verity), squared letterpress (roastery). Focus-visible is themed per world; reduced-motion is respected.
 
 ### The Prev/Next Pair (signature control)
 Still the site's identity: a small accent-styled previous/next pair as a **fixed floating FAB** (bottom-right), arrows ← → (no spin), activating the 480ms circle wipe (`--wipe-b` → `--wipe-a`, clip-path circle from the click point to 150vmax, then a 220ms reveal). One circle, one play. The pair walks the tour in CATEGORIES order and wraps; each world restyles the buttons themselves; the wipe mechanics never change. At ≤760px it collapses to icon-only chips. It is the only in-page pair control — nav, footers and page bodies carry single links, never a second pair. (2026-10: the nav pair and the wander CTA sections were removed at the user's request; only the floating pair remains.)
 
 ### Navigation
-Sticky, world-styled: roastery's letterpress bar, forge's scoreboard header with cell dividers, haven's survey plate, verity's centered engraved two-tier, saffron's links-left/brand-right menu, wanderly's route bar, loop's instrument header with tick ruler, lumen's darkroom bar with frame counter, atelier's centered Didot wordmark. At ≤760px link lists collapse; the FAB takes over wayfinding.
+Sticky, world-styled: roastery's letterpress bar, forge's scoreboard header with cell dividers, haven's survey plate, verity's centered engraved two-tier, saffron's brand-first bar with search/menu icons, wanderly's route bar, loop's instrument header with tick ruler, lumen's darkroom bar with frame counter, atelier's centered Didot wordmark. At ≤760px link lists collapse; the FAB takes over wayfinding.
 
 ### Cards, FAQ, forms, footer, modal, lightbox, toasts, booking, more-pages
-Each world restyles all of them in its material — dockets, score plates, survey cards, swatch cards, tombstone plates, menu rows, postcards, readout panels, contact frames, spec plates. FAQ rows carry world sequence where it is meaningful (wanderly day chips, lumen frame numbers, verity square bullets, atelier measurement columns). Forms are world documents: dispatch slips, first-session claims, valuation calculators, booking slips, travel dockets, fitting requests. Sub pages inherit the parent world end-to-end.
+Each world restyles all of them in its material — dockets, score plates, survey cards, swatch cards, tombstone plates, menu rows, postcards, readout panels, contact frames, storefront cards. FAQ rows carry world sequence where it is meaningful (wanderly day chips, lumen frame numbers, verity square bullets). Forms are world documents: dispatch slips, first-session claims, valuation calculators, booking slips, travel dockets, fitting requests. Sub pages inherit the parent world end-to-end.
 
 ### Named Rules
 **The One Circle, One Play Rule.** The circle wipe is the page transition. Never add a second spectacle beside it.
@@ -258,7 +258,7 @@ Each world restyles all of them in its material — dockets, score plates, surve
 
 ### Don't:
 - **Don't** edit `app.css`, `src/components/**`, or `public/assets/js/**` to serve a world.
-- **Don't** let one world's motif leak into another unless its contract grants it (dotted leaders→roastery, leader dots→saffron, corner ticks→haven, gold double rules→verity, dashes/stamps/notches→wanderly, tick rulers/graph paper→loop, rebate strips/invert→lumen, dimension lines→atelier, ink-rect invert→saffron, sweep-up→brightside, snap/0-radius→forge).
+- **Don't** let one world's motif leak into another unless its contract grants it (dotted leaders→roastery, leader dots→saffron, corner ticks→haven, gold double rules→verity, dashes/stamps/notches→wanderly, tick rulers/graph paper→loop, rebate strips/invert→lumen, yarn mark + compare-at tickets→atelier, ink-rect invert→saffron, sweep-up→brightside, snap/0-radius→forge).
 - **Don't** add webfonts or a font CDN; the system runs on local/system families only.
 - **Don't** add a second page-transition spectacle — one circle, one play.
 - **Don't** use bounce or elastic easing; real objects decelerate smoothly.
