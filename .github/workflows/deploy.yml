@@ -32,9 +32,9 @@ jobs:
         env:
           # VITE_* reaches the browser bundle; SITE_URL is read by the
           # sitemap/robots plugin at build time in Node.
-          VITE_BASE: /Portfolio/
-          VITE_SITE_URL: https://hosseinmobarakian.github.io/Portfolio
-          SITE_URL: https://hosseinmobarakian.github.io/Portfolio
+          VITE_BASE: /ten-landings/
+          VITE_SITE_URL: https://hosseinmobarakian.github.io/ten-landings
+          SITE_URL: https://hosseinmobarakian.github.io/ten-landings
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
